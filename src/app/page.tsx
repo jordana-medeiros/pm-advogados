@@ -1,8 +1,11 @@
-import Image from "next/image";
+import { preload } from "react-dom";
+
+import { SiteImage } from "@/components/ui/site-image";
 import Link from "next/link";
 
 import { BlogCard } from "@/components/sections/blog-card";
 import { HeroAsidePanel } from "@/components/sections/hero-aside-panel";
+import { InstitutionalPortrait } from "@/components/sections/institutional-portrait";
 import { LawyerPhoto } from "@/components/sections/lawyer-photo";
 import { CopyEmphasis } from "@/components/ui/copy-emphasis";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -43,6 +46,8 @@ const heroHighlights = [
 ] as const;
 
 export default function Home() {
+  preload(images.hero.ladyJustice, { as: "image", fetchPriority: "high" });
+
   return (
     <SiteShell>
       <JsonLd includeFaq />
@@ -50,21 +55,21 @@ export default function Home() {
       {/* ── HERO ─────────────────────────────────────────── */}
       <section className="hero-overlap brand-field text-on-dark overflow-hidden relative">
         {/* Imagem de Fundo (Lady Justice) - lateral direita com colorização verde-marca */}
-        <div className="absolute inset-y-0 right-0 w-full lg:w-[65%] z-0">
-          <Image
+        <div className="absolute inset-x-0 top-0 z-0 h-[min(52%,24rem)] lg:inset-y-0 lg:right-0 lg:left-auto lg:h-auto lg:w-[65%]">
+          <SiteImage
             src={images.hero.ladyJustice}
             alt="Símbolo da Justiça — Pereira e Medeiros Advocacia"
             fill
             sizes="(max-width: 1024px) 100vw, 65vw"
-            className="object-cover object-right select-none pointer-events-none opacity-[0.35] lg:opacity-[0.50] grayscale"
+            className="hero-lady-justice-image object-cover object-[88%_22%] select-none pointer-events-none opacity-[0.55] grayscale lg:object-right lg:opacity-[0.50]"
             priority
           />
-          <div className="absolute inset-0 bg-[#0e2a24] mix-blend-color pointer-events-none" />
-          <div className="absolute inset-0 bg-[#0e2a24]/55 mix-blend-multiply pointer-events-none" />
+          <div className="absolute inset-0 bg-[#0e2a24] mix-blend-color pointer-events-none max-lg:opacity-75" />
+          <div className="absolute inset-0 bg-[#0e2a24]/55 mix-blend-multiply pointer-events-none max-lg:bg-[#0e2a24]/35" />
         </div>
 
         <div className="absolute inset-0 z-0 pointer-events-none">
-          <div className="absolute inset-0 bg-brand-deep/75 lg:hidden" />
+          <div className="hero-lady-justice-overlay-mobile absolute inset-0 lg:hidden" />
           <div
             className="hidden lg:block absolute inset-y-0 left-0 w-full"
             style={{
@@ -77,19 +82,19 @@ export default function Home() {
           <div className="hidden lg:block absolute inset-x-0 top-0 h-1/6 bg-gradient-to-b from-[#061d18] to-transparent" />
         </div>
 
-        <div className="section-shell relative z-10 hero-min-h-home grid gap-12 pb-24 hero-shell sm:pb-28 lg:grid-cols-[1fr_0.78fr] lg:items-end lg:pb-32">
+        <div className="section-shell relative z-10 hero-min-h-home grid gap-8 pb-16 hero-shell sm:gap-12 sm:pb-28 lg:grid-cols-[1fr_0.78fr] lg:items-end lg:pb-32">
           <div className="min-w-0">
             <h1 className="font-display balance hero-title max-w-3xl text-on-dark animate-fade-up">
               Seu problema jurídico{" "}
               <span className="text-brand">não pode esperar.</span>
             </h1>
-            <p className="mt-7 max-w-xl text-base leading-7 text-on-dark-muted sm:text-lg sm:leading-8 animate-fade-up delay-1">
+            <p className="mt-5 max-w-xl text-base leading-7 text-on-dark-muted sm:mt-7 sm:text-lg sm:leading-8 animate-fade-up delay-1">
               Advogados preparados para agir com rapidez quando o momento exige
               decisão. Atendimento direto pelo <CopyEmphasis>WhatsApp</CopyEmphasis>.
               Atuação em <CopyEmphasis>Minas Gerais, Goiás</CopyEmphasis> e em todo o
               Brasil.
             </p>
-            <div className="mt-9 flex flex-col items-start gap-3 sm:flex-row animate-fade-up delay-2">
+            <div className="mt-6 flex flex-col items-start gap-2.5 sm:mt-9 sm:flex-row sm:gap-3 animate-fade-up delay-2">
               <a
                 href={contactHref}
                 target="_blank"
@@ -108,7 +113,7 @@ export default function Home() {
               </Link>
             </div>
 
-            <HeroAsidePanel compact className="mt-8 lg:hidden animate-fade-up delay-3" />
+            <HeroAsidePanel compact className="mt-5 sm:mt-8 lg:hidden animate-fade-up delay-3" />
           </div>
 
           <HeroAsidePanel className="hidden lg:flex self-end animate-fade-up delay-2" />
@@ -153,38 +158,43 @@ export default function Home() {
       </section>
 
       {/* ── QUANDO PROCURAR ──────────────────────── */}
-      <section className="section-shell section-gap grid gap-12 text-on-dark lg:grid-cols-[0.82fr_1.18fr]">
-        <div>
-          <p className="eyebrow text-brand">Quando procurar</p>
-          <div className="gold-accent mt-4 mb-5" />
-          <h2 className="font-display display-title max-w-md text-4xl sm:text-5xl">
-            {whenSeekIntro.title}
-          </h2>
-          <div className="mt-6 max-w-md space-y-4 text-base leading-7 text-on-dark-muted">
-            {whenSeekIntro.paragraphs.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
+      <section className="section-shell section-gap text-on-dark">
+        <div className="grid gap-6 lg:grid-cols-[1.05fr_0.72fr] lg:items-start lg:gap-14">
+          <div className="min-w-0">
+            <p className="eyebrow text-brand">Quando procurar</p>
+            <div className="gold-accent mt-3 mb-4 sm:mt-4 sm:mb-5" />
+            <h2 className="font-display display-title max-w-xl">
+              {whenSeekIntro.title}
+            </h2>
+            <p className="mt-4 max-w-xl text-base leading-7 text-on-dark-muted sm:mt-6">
+              {whenSeekIntro.paragraphs[0]}
+            </p>
+
+            <ul className="mt-6 space-y-4 sm:mt-8 sm:space-y-6">
+              {whenSeekItems.map((item, index) => (
+                <li
+                  key={item.title}
+                  className="grid gap-3 sm:grid-cols-[2.5rem_1fr] sm:items-start"
+                >
+                  <span className="font-display text-2xl leading-none text-brand/60">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <div>
+                    <h3 className="font-display text-xl leading-tight text-on-dark-soft sm:text-2xl">
+                      {item.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-6 text-on-dark-muted">
+                      {item.text}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
-        </div>
-        <div className="flex flex-col gap-8">
-          {whenSeekItems.map((item, index) => (
-            <article
-              key={item.title}
-              className="group grid gap-5 transition-colors hover:bg-white/[0.03] sm:grid-cols-[3.5rem_1fr] sm:px-4 sm:py-1"
-            >
-              <span className="font-display text-4xl leading-none text-brand/60 transition-colors group-hover:text-brand">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <div>
-                <h3 className="font-display text-2xl leading-tight sm:text-3xl">
-                  {item.title}
-                </h3>
-                <p className="mt-3 text-sm leading-7 text-on-dark-muted">
-                  {item.text}
-                </p>
-              </div>
-            </article>
-          ))}
+
+          <aside className="min-w-0 lg:sticky lg:top-28">
+            <InstitutionalPortrait variant="aside" className="max-lg:mt-2" />
+          </aside>
         </div>
       </section>
 
@@ -193,14 +203,14 @@ export default function Home() {
         id={homeAreasSectionId}
         className="brand-field section-pad text-on-dark scroll-anchor"
       >
-        <div className="section-shell grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+        <div className="section-shell grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-12">
           <div>
             <p className="eyebrow text-brand">Áreas de atuação</p>
-            <div className="gold-accent mt-4 mb-5" />
-            <h2 className="font-display display-title max-w-md text-4xl sm:text-5xl">
+            <div className="gold-accent mt-3 mb-4 sm:mt-4 sm:mb-5" />
+            <h2 className="font-display display-title max-w-md">
               {practiceAreasIntro.title}
             </h2>
-            <p className="mt-6 max-w-md text-base leading-7 text-on-dark-muted">
+            <p className="mt-4 max-w-md text-base leading-7 text-on-dark-muted sm:mt-6">
               {practiceAreasIntro.description}
             </p>
           </div>
@@ -208,7 +218,7 @@ export default function Home() {
             {practiceAreas.map((area, index) => (
               <div
                 key={area.name}
-                className="group grid gap-3 border-b border-white/10 py-5 transition-colors hover:bg-white/[0.04] last:border-b-0 sm:grid-cols-[2.5rem_1fr_1.2fr] sm:items-center sm:px-4"
+                className="group grid gap-2 border-b border-white/10 py-4 transition-colors hover:bg-white/[0.04] last:border-b-0 sm:grid-cols-[2.5rem_1fr_1.2fr] sm:items-center sm:gap-3 sm:px-4 sm:py-5"
               >
                 <span className="text-sm font-mono text-brand/50 transition-colors group-hover:text-brand">
                   {String(index + 1).padStart(2, "0")}
@@ -227,14 +237,14 @@ export default function Home() {
 
       {/* ── CRIMINAL DESTAQUE ────────────────────── */}
       <section className="section-pad text-on-dark">
-        <div className="section-shell grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
+        <div className="section-shell grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-12">
           <div>
             <p className="eyebrow text-brand">Direito Criminal</p>
-            <div className="gold-accent mt-4 mb-5" />
-            <h2 className="font-display display-title max-w-lg text-4xl sm:text-5xl">
+            <div className="gold-accent mt-3 mb-4 sm:mt-4 sm:mb-5" />
+            <h2 className="font-display display-title max-w-lg">
               {criminalHighlightIntro.title}
             </h2>
-            <div className="mt-6 max-w-md space-y-4 text-base leading-7 text-on-dark-muted">
+            <div className="mt-4 max-w-md space-y-3 text-base leading-7 text-on-dark-muted sm:mt-6 sm:space-y-4">
               {criminalHighlightIntro.paragraphs.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
@@ -243,7 +253,7 @@ export default function Home() {
               href={contactHref}
               target="_blank"
               rel={externalLinkRel}
-              className="btn-primary mt-8 inline-flex"
+              className="btn-primary mt-6 inline-flex sm:mt-8"
             >
               {criminalHighlightIntro.cta}
             </a>
@@ -267,21 +277,21 @@ export default function Home() {
       {/* ── EQUIPE ───────────────────────────────────────────────── */}
       <section className="brand-field section-pad text-on-dark">
         <div className="section-shell">
-          <div className="mb-10 lg:mb-14">
+          <div className="mb-6 lg:mb-14">
             <p className="eyebrow text-brand">Equipe</p>
-            <div className="gold-accent mt-4 mb-5" />
-            <h2 className="font-display display-title max-w-xl text-4xl sm:text-5xl">
+            <div className="gold-accent mt-3 mb-4 sm:mt-4 sm:mb-5" />
+            <h2 className="font-display display-title max-w-xl">
               {teamIntro.title}
             </h2>
-            <p className="mt-8 max-w-xl text-base leading-7 text-on-dark-muted">
+            <p className="mt-5 max-w-xl text-base leading-7 text-on-dark-muted sm:mt-8">
               {teamIntro.description}
             </p>
-            <Link href="/equipe" className="link-arrow mt-8 inline-flex">
+            <Link href="/equipe" className="link-arrow mt-5 inline-flex sm:mt-8">
               Conhecer a equipe →
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 sm:gap-x-5 lg:grid-cols-5 lg:gap-6">
+          <div className="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2 sm:gap-x-5 sm:gap-y-10 lg:grid-cols-5 lg:gap-6">
             {lawyers.map((lawyer) => (
               <Link
                 key={lawyer.name}
@@ -303,7 +313,7 @@ export default function Home() {
                     <p className="mt-1 font-display text-base leading-tight text-white">{lawyer.name}</p>
                   </div>
                 </div>
-                <p className="mt-4 text-[0.62rem] font-bold tracking-[0.2em] text-brand uppercase">
+                <p className="mt-3 text-[0.62rem] font-bold tracking-[0.2em] text-brand uppercase sm:mt-4">
                   {lawyer.oab}
                 </p>
                 <h3 className="font-display mt-2 text-xl leading-tight sm:text-2xl">
@@ -323,16 +333,16 @@ export default function Home() {
         <div className="section-shell text-on-dark">
           <div className="max-w-2xl">
             <p className="eyebrow text-brand">Blog</p>
-            <div className="gold-accent mt-4 mb-5" />
-            <h2 className="font-display display-title text-4xl sm:text-5xl">
+            <div className="gold-accent mt-3 mb-4 sm:mt-4 sm:mb-5" />
+            <h2 className="font-display display-title">
               {blogIntro.title}
             </h2>
-            <p className="mt-6 max-w-xl text-base leading-7 text-on-dark-muted">
+            <p className="mt-4 max-w-xl text-base leading-7 text-on-dark-muted sm:mt-6">
               {blogIntro.description}
             </p>
           </div>
 
-          <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid gap-6 sm:mt-12 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3">
             {sortArticlesByDate(articles)
               .slice(0, 3)
               .map((article) => (
@@ -340,7 +350,7 @@ export default function Home() {
             ))}
           </div>
 
-          <Link href="/blog" className="mt-10 link-arrow">
+          <Link href="/blog" className="mt-6 link-arrow sm:mt-10">
             Ver todos os posts →
           </Link>
         </div>
@@ -348,14 +358,14 @@ export default function Home() {
 
       {/* ── CTA CONTATO ──────────────────────────── */}
       <section className="brand-field section-pad text-on-dark">
-        <div className="section-shell grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+        <div className="section-shell grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-8">
           <div>
             <p className="eyebrow text-brand">Contato</p>
-            <div className="gold-accent mt-4 mb-5" />
-            <h2 className="font-display display-title max-w-3xl text-4xl sm:text-5xl">
+            <div className="gold-accent mt-3 mb-4 sm:mt-4 sm:mb-5" />
+            <h2 className="font-display display-title max-w-3xl">
               Seu caso <span className="text-brand">não precisa esperar.</span>
             </h2>
-            <p className="mt-6 max-w-lg text-base leading-7 text-on-dark-muted">
+            <p className="mt-4 max-w-lg text-base leading-7 text-on-dark-muted sm:mt-6">
               Fale agora com nossa equipe e receba{" "}
               <CopyEmphasis>orientação jurídica adequada</CopyEmphasis> para sua
               situação.
@@ -374,11 +384,11 @@ export default function Home() {
 
       {/* ── FAQ ─────────────────────────────────────────────────────── */}
       <section className="section-shell section-gap section-pad-end text-on-dark">
-        <div className="grid gap-10 lg:grid-cols-[0.75fr_1.25fr]">
+        <div className="grid gap-6 lg:grid-cols-[0.75fr_1.25fr] lg:gap-10">
           <div>
             <p className="eyebrow text-brand">Perguntas frequentes</p>
-            <div className="gold-accent mt-4 mb-5" />
-            <h2 className="font-display display-title max-w-md text-4xl sm:text-5xl">
+            <div className="gold-accent mt-3 mb-4 sm:mt-4 sm:mb-5" />
+            <h2 className="font-display display-title max-w-md">
               Respostas diretas.
             </h2>
           </div>

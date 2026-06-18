@@ -30,16 +30,16 @@ export function InstitutionalHeroPanel({
 }: InstitutionalHeroPanelProps) {
   return (
     <aside
-      className={`hero-info-panel flex w-full flex-col justify-end p-6 sm:p-8 ${compact ? "min-h-0" : "min-h-[240px] lg:min-h-[280px]"} ${className}`}
+      className={`hero-info-panel flex w-full flex-col justify-end p-4 sm:p-8 ${compact ? "min-h-0" : "min-h-0 lg:min-h-[280px]"} ${className}`}
     >
       <p className="eyebrow text-brand">O escritório</p>
       <p
-        className={`font-display mt-3 leading-tight text-on-dark-soft ${compact ? "text-3xl" : "text-4xl"}`}
+        className={`font-display mt-2 leading-tight text-on-dark-soft sm:mt-3 ${compact ? "text-2xl sm:text-3xl" : "text-3xl sm:text-4xl"}`}
       >
         Atuação multidisciplinar
       </p>
-      <div className="mt-4 gold-rule-left w-16" />
-      <ul className="mt-5 space-y-4">
+      <div className="mt-3 gold-rule-left w-16 sm:mt-4" />
+      <ul className="mt-4 space-y-3 sm:mt-5 sm:space-y-4">
         {highlights.map((item) => (
           <li key={item.label}>
             {"href" in item && item.href ? (

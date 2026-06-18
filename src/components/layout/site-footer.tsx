@@ -20,16 +20,16 @@ export function SiteFooter() {
     <footer className="brand-field text-on-dark">
       <div className="h-[2px] bg-gradient-to-r from-transparent via-brand/70 to-transparent" />
 
-      <div className="section-shell pb-[max(2.5rem,env(safe-area-inset-bottom))] pt-8 sm:pb-24 sm:pt-10">
-        <div className="grid gap-y-10 text-center sm:grid-cols-2 sm:gap-x-12 sm:gap-y-12 lg:grid-cols-[1.2fr_0.78fr_1.12fr_0.95fr] lg:gap-x-14 xl:gap-x-16 lg:text-left">
+      <div className="section-shell pb-[max(2rem,env(safe-area-inset-bottom))] pt-6 sm:pb-24 sm:pt-10">
+        <div className="grid gap-y-6 text-center sm:grid-cols-2 sm:gap-x-12 sm:gap-y-12 lg:grid-cols-[1.2fr_0.78fr_1.12fr_0.95fr] lg:gap-x-14 xl:gap-x-16 lg:text-left">
           {/* Coluna 1 — Logo */}
           <div className="flex flex-col items-center sm:items-start">
-            <SiteLogo variant="gold" className="h-14 w-auto sm:h-16" />
+            <SiteLogo variant="gold" className="h-12 w-auto sm:h-16" />
           </div>
 
           {/* Coluna 2 — Menu */}
           <div className="flex flex-col items-center sm:items-start">
-            <p className="eyebrow mb-4 text-brand/75">Menu</p>
+            <p className="eyebrow mb-3 text-brand/75 sm:mb-4">Menu</p>
             <nav
               aria-label="Rodapé"
               className="flex flex-col items-center gap-2 sm:items-start"
@@ -110,7 +110,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col items-center gap-3 border-t border-white/10 pt-6 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
+        <div className="mt-6 flex flex-col items-center gap-2 border-t border-white/10 pt-4 text-center sm:mt-10 sm:flex-row sm:items-center sm:justify-between sm:gap-3 sm:pt-6 sm:text-left">
           <p className="text-xs text-on-dark-faint">
             © {year} Pereira e Medeiros Advogados Associados. Todos os direitos
             reservados.

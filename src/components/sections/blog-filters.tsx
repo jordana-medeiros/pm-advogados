@@ -42,7 +42,7 @@ export function BlogFilters({ categories, activeCategory }: BlogFiltersProps) {
 
   return (
     <div
-      className="mb-10 flex flex-wrap justify-center gap-2 lg:justify-start"
+      className="mb-6 flex flex-wrap justify-center gap-2 sm:mb-10 lg:justify-start"
       role="group"
       aria-label="Filtrar artigos por categoria"
     >

@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { SiteImage } from "@/components/ui/site-image";
 
 type LawyerPhotoProps = {
   src: string;
@@ -16,7 +16,7 @@ export function LawyerPhoto({
   priority = false,
 }: LawyerPhotoProps) {
   return (
-    <Image
+    <SiteImage
       src={src}
       alt={alt}
       fill

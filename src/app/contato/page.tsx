@@ -36,16 +36,16 @@ export default function ContatoPage() {
         }
       />
 
-      <section className="reading-surface section-pad-compact pb-20 sm:pb-24 lg:pb-28">
+      <section className="reading-surface section-pad-compact pb-12 sm:pb-24 lg:pb-28">
         <div className="section-shell section-after-hero">
-        <div className="contact-split">
+          <div className="contact-split">
           <div className="contact-panel-cta">
-            <div className="gold-accent mb-6" />
+            <div className="gold-accent mb-4 sm:mb-6" />
             <p className="eyebrow text-brand">Atendimento imediato</p>
-            <h2 className="font-display mt-4 max-w-md text-4xl leading-tight text-on-dark-soft sm:text-5xl">
+            <h2 className="font-display mt-3 max-w-md text-3xl leading-tight text-on-dark-soft sm:mt-4 sm:text-4xl lg:text-5xl">
               Inicie a conversa.
             </h2>
-            <p className="mt-5 max-w-md text-base leading-7 text-on-dark-muted">
+            <p className="mt-4 max-w-md text-base leading-7 text-on-dark-muted sm:mt-5">
               O canal principal é a mensagem. Explique a situação em poucas
               linhas — retorno, em regra, no <CopyEmphasis>mesmo dia</CopyEmphasis>.
             </p>
@@ -54,14 +54,14 @@ export default function ContatoPage() {
               target="_blank"
               rel={externalLinkRel}
               id="contato-whatsapp-btn"
-              className="btn-primary mt-8 inline-flex"
+              className="btn-primary mt-6 inline-flex sm:mt-8"
             >
               Iniciar conversa
             </a>
           </div>
 
           <div className="contact-panel-light">
-            <p className="eyebrow text-brand-deep mb-6">Canais e endereços</p>
+            <p className="eyebrow text-brand-deep mb-4 sm:mb-6">Canais e endereços</p>
 
             <div className="content-list">
               <article className="content-list-item content-list-item-stacked">
@@ -150,7 +150,7 @@ export default function ContatoPage() {
               </article>
             </div>
           </div>
-        </div>
+          </div>
         </div>
       </section>
     </SiteShell>

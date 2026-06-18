@@ -62,8 +62,8 @@ function SiteHeaderInner() {
       <header
         className={`relative z-40 overflow-hidden rounded-sm border text-on-dark backdrop-blur-md transition-all duration-300 ${
           scrolled
-            ? "border-white/8 bg-brand-deep/[0.98] shadow-[0_20px_56px_rgba(14,42,36,0.36)] px-5 sm:px-6 lg:px-8"
-            : "border-white/10 bg-brand-deep/96 shadow-[0_16px_48px_rgba(14,42,36,0.28)] px-5 sm:px-6 lg:px-8"
+            ? "border-white/8 bg-brand-deep/[0.98] shadow-[0_20px_56px_rgba(14,42,36,0.36)] px-4 sm:px-6 lg:px-8"
+            : "border-white/10 bg-brand-deep/96 shadow-[0_16px_48px_rgba(14,42,36,0.28)] px-4 sm:px-6 lg:px-8"
         }`}
       >
         {/* Linha dourada no topo — aparece mais ao rolar */}
@@ -75,7 +75,7 @@ function SiteHeaderInner() {
 
         <div
           className={`flex items-center justify-between gap-4 transition-all duration-300 ${
-            scrolled ? "h-16" : "h-[4.5rem]"
+            scrolled ? "h-16" : "h-14 sm:h-[4.5rem]"
           }`}
         >
           <SiteLogo
@@ -129,7 +129,7 @@ function SiteHeaderInner() {
 
         {open ? (
           <div id="mobile-menu" className="relative z-50 md:hidden border-t border-white/10">
-            <nav aria-label="Principal — mobile" className="flex flex-col py-4 gap-1">
+            <nav aria-label="Principal — mobile" className="flex flex-col py-2 gap-0.5 sm:py-4 sm:gap-1">
               {navItems.map((item) => {
                 if (item.cta) {
                   return (

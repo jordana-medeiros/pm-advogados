@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  images: {
+    // Assets in /public are pre-exported (WebP/PNG). Serve originals without re-encoding.
+    unoptimized: true,
+  },
   async redirects() {
     return [
       {

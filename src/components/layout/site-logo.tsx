@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { SiteImage } from "@/components/ui/site-image";
 import Link from "next/link";
 
 import { brandLogos, siteName } from "@/lib/site-data";
@@ -22,7 +22,7 @@ export function SiteLogo({
       onClick={onNavigate}
       className="inline-flex min-w-0 shrink-0 items-center"
     >
-      <Image
+      <SiteImage
         src={brandLogos[variant]}
         alt={siteName}
         width={220}

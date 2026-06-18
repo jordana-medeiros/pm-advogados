@@ -8,7 +8,7 @@ export function FloatingWhatsApp() {
       rel={externalLinkRel}
       aria-label="Falar pelo WhatsApp"
       id="floating-whatsapp"
-      className="fab-whatsapp fixed z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_10px_28px_rgba(0,0,0,0.32)] transition-[transform,box-shadow] duration-200 hover:scale-[1.04] hover:shadow-[0_14px_36px_rgba(37,211,102,0.38)] bottom-[max(1.5rem,env(safe-area-inset-bottom))] right-[max(1.5rem,env(safe-area-inset-right))]"
+      className="fab-whatsapp flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_10px_28px_rgba(0,0,0,0.32)] transition-[transform,box-shadow] duration-200 hover:scale-[1.04] hover:shadow-[0_14px_36px_rgba(37,211,102,0.38)]"
     >
       <svg
         aria-hidden="true"

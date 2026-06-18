@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { SiteImage } from "@/components/ui/site-image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -61,18 +61,18 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       <ArticleJsonLd article={article} />
       <article>
         <div className="hero-overlap page-hero-bg text-on-dark hero-shell pb-0">
-          <div className="section-shell max-w-4xl pb-10 sm:pb-12">
+          <div className="section-shell max-w-4xl pb-8 sm:pb-12">
             <Link
               href="/blog"
               className="text-sm font-semibold text-on-dark-muted transition-colors hover:text-on-dark-soft"
             >
               ← Blog
             </Link>
-            <p className="eyebrow mt-8 text-brand">{article.category}</p>
-            <h1 className="font-display display-title balance mt-5 max-w-3xl text-4xl text-on-dark-soft sm:text-5xl lg:text-6xl">
+            <p className="eyebrow mt-5 text-brand sm:mt-8">{article.category}</p>
+            <h1 className="font-display display-title balance mt-4 max-w-3xl text-on-dark-soft sm:mt-5 sm:text-4xl lg:text-6xl">
               {article.title}
             </h1>
-            <p className="mt-5 text-sm text-on-dark-muted">
+            <p className="mt-4 text-sm text-on-dark-muted sm:mt-5">
               {formatArticleDate(article.publishedAt)} · {article.readingTime}{" "}
               de leitura
             </p>
@@ -80,7 +80,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         </div>
 
         <div className="relative -mt-2 aspect-[21/9] w-full max-h-[28rem] overflow-hidden bg-surface-alt sm:aspect-[2.4/1]">
-          <Image
+          <SiteImage
             src={article.coverImage}
             alt={article.title}
             fill
@@ -91,10 +91,10 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent" />
         </div>
 
-        <section className="reading-surface section-shell max-w-3xl pb-16 pt-10 sm:pb-20 sm:pt-12">
-          <p className="text-lg leading-8 text-foreground">{article.excerpt}</p>
+        <section className="reading-surface section-shell max-w-3xl pb-12 pt-8 sm:pb-20 sm:pt-12">
+          <p className="text-base leading-7 text-foreground sm:text-lg sm:leading-8">{article.excerpt}</p>
 
-          <div className="mt-10 space-y-6 border-t border-line pt-10">
+          <div className="mt-8 space-y-5 border-t border-line pt-8 sm:mt-10 sm:space-y-6 sm:pt-10">
             {article.body.map((paragraph, index) => (
               <p
                 key={index}

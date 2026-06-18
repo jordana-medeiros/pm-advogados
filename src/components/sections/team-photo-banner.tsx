@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { SiteImage } from "@/components/ui/site-image";
 
 import { images, siteName } from "@/lib/site-data";
 
@@ -15,8 +15,8 @@ export function TeamPhotoBanner({
 }: TeamPhotoBannerProps) {
   return (
     <section className="full-bleed relative overflow-hidden bg-brand-deep-darker">
-      <div className="relative aspect-[16/7] min-h-[16rem] sm:aspect-[16/6] sm:min-h-[20rem] lg:aspect-[21/7] lg:min-h-[24rem]">
-        <Image
+      <div className="relative aspect-[16/7] min-h-[11rem] sm:aspect-[16/6] sm:min-h-[20rem] lg:aspect-[21/7] lg:min-h-[24rem]">
+        <SiteImage
           src={image}
           alt={`Foto da equipe — ${siteName}`}
           fill

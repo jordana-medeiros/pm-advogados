@@ -32,7 +32,7 @@ type BlogPageProps = {
 function BlogFiltersFallback() {
   return (
     <div
-      className="mb-10 flex flex-wrap justify-center gap-2 lg:justify-start"
+      className="mb-6 flex flex-wrap justify-center gap-2 sm:mb-10 lg:justify-start"
       aria-hidden="true"
     >
       {Array.from({ length: 4 }).map((_, index) => (
@@ -74,7 +74,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
         }
       />
 
-      <section className="section-shell section-pad-compact pb-20 text-on-dark sm:pb-24 lg:pb-28">
+      <section className="section-shell section-pad-compact pb-12 text-on-dark sm:pb-24 lg:pb-28">
         <Suspense fallback={<BlogFiltersFallback />}>
           <BlogFilters
             categories={categories}
@@ -83,7 +83,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
         </Suspense>
 
         {items.length > 0 ? (
-          <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="grid gap-6 sm:grid-cols-2 sm:gap-8 xl:grid-cols-3">
             {items.map((article) => (
               <BlogCard key={article.slug} article={article} />
             ))}
@@ -109,7 +109,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
         />
 
         {totalItems > 0 ? (
-          <p className="mt-16 max-w-2xl text-sm leading-7 text-muted sm:mt-20">
+          <p className="mt-10 max-w-2xl text-sm leading-7 text-muted sm:mt-16 lg:mt-20">
             Tem dúvida sobre o seu caso?{" "}
             <Link href="/contato" className="link-arrow">
               Veja os canais de contato →

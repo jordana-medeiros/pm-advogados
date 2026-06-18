@@ -38,14 +38,14 @@ export default function EquipePage() {
       />
 
       {/* ── PERFIS */}
-      <section className="section-shell section-pad-compact pb-20 text-on-dark sm:pb-24 lg:pb-28">
-        <div className="section-stack mb-12 lg:mb-16 animate-fade-up">
+      <section className="section-shell section-pad-compact pb-12 text-on-dark sm:pb-24 lg:pb-28">
+        <div className="section-stack mb-8 lg:mb-16 animate-fade-up">
           <p className="eyebrow text-brand">Advogados</p>
-          <div className="gold-accent mt-4 mb-5" />
-          <h2 className="font-display display-title text-4xl sm:text-5xl">
+          <div className="gold-accent mt-3 mb-4 sm:mt-4 sm:mb-5" />
+          <h2 className="font-display display-title">
             Quem responde por cada área.
           </h2>
-          <p className="mt-8 text-lg leading-8 text-on-dark-muted">
+          <p className="mt-5 text-base leading-7 text-on-dark-muted sm:mt-8 sm:text-lg sm:leading-8">
             Formação, OAB e atuação de cada{" "}
             <CopyEmphasis>profissional</CopyEmphasis>.
           </p>
@@ -91,11 +91,11 @@ export default function EquipePage() {
                     </p>
                   </div>
 
-                  <h3 className="font-display mt-3 text-3xl leading-tight text-on-dark-soft sm:text-4xl">
+                  <h3 className="font-display mt-2 text-2xl leading-tight text-on-dark-soft sm:mt-3 sm:text-3xl lg:text-4xl">
                     {lawyer.name}
                   </h3>
 
-                  <p className="mt-4 max-w-2xl text-sm leading-7 text-on-dark-muted sm:text-base">
+                  <p className="mt-3 max-w-2xl text-sm leading-6 text-on-dark-muted sm:mt-4 sm:text-base sm:leading-7">
                     {lawyer.bio}
                   </p>
 

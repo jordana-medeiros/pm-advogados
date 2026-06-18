@@ -46,10 +46,10 @@ export default function SobrePage() {
       <section className="section-divider section-pad-compact text-on-dark">
         <div className="section-shell">
           <p className="eyebrow text-brand">Quem somos</p>
-          <h2 className="font-display mt-4 max-w-3xl text-4xl leading-tight sm:text-5xl">
+          <h2 className="font-display mt-3 max-w-3xl text-3xl leading-tight sm:mt-4 sm:text-4xl lg:text-5xl">
             {institutionalText.essenceTitle}
           </h2>
-          <div className="mt-8 max-w-3xl space-y-5 text-base leading-8 text-on-dark-muted sm:text-lg">
+          <div className="mt-5 max-w-3xl space-y-4 text-base leading-7 text-on-dark-muted sm:mt-8 sm:space-y-5 sm:text-lg sm:leading-8">
             <p>{institutionalText.about}</p>
             <p>{institutionalText.aboutSupport}</p>
             <p>{institutionalText.essenceBody}</p>
@@ -60,10 +60,10 @@ export default function SobrePage() {
       <section className="section-divider section-surface-alt section-pad-compact text-on-dark">
         <div className="section-shell">
           <p className="eyebrow text-brand">Atuação</p>
-          <h2 className="font-display mt-4 max-w-3xl text-4xl leading-tight sm:text-5xl">
+          <h2 className="font-display mt-3 max-w-3xl text-3xl leading-tight sm:mt-4 sm:text-4xl lg:text-5xl">
             {practiceAreasIntro.title}
           </h2>
-          <div className="mt-8 max-w-3xl space-y-6 text-base leading-8 text-on-dark-muted sm:text-lg">
+          <div className="mt-5 max-w-3xl space-y-4 text-base leading-7 text-on-dark-muted sm:mt-8 sm:space-y-6 sm:text-lg sm:leading-8">
             <p>{practiceAreasIntro.description}</p>
             <p>
               O escritório acompanha demandas em{" "}
@@ -77,24 +77,24 @@ export default function SobrePage() {
         </div>
       </section>
 
-      <section className="section-divider section-pad-compact pb-20 text-on-dark sm:pb-24 lg:pb-28">
+      <section className="section-divider section-pad-compact pb-12 text-on-dark sm:pb-24 lg:pb-28">
         <div className="section-shell">
           <p className="eyebrow text-brand">Presença</p>
-          <h2 className="font-display mt-4 max-w-3xl text-4xl leading-tight sm:text-5xl">
+          <h2 className="font-display mt-3 max-w-3xl text-3xl leading-tight sm:mt-4 sm:text-4xl lg:text-5xl">
             {institutionalText.presenceTitle}
           </h2>
-          <p className="mt-8 max-w-3xl text-base leading-8 text-on-dark-muted sm:text-lg">
+          <p className="mt-5 max-w-3xl text-base leading-7 text-on-dark-muted sm:mt-8 sm:text-lg sm:leading-8">
             {institutionalText.presenceBody} Escritórios em{" "}
             {addresses.map((address) => address.city).join(" e ")}.
           </p>
 
-          <ul className="mt-12 space-y-8">
+          <ul className="mt-8 space-y-6 sm:mt-12 sm:space-y-8">
             {differentiators.map((item) => (
               <li key={item.title}>
                 <h3 className="font-display text-2xl leading-tight text-on-dark-soft">
                   {item.title}
                 </h3>
-                <p className="mt-3 max-w-3xl text-sm leading-7 text-on-dark-muted sm:text-base">
+                <p className="mt-2 max-w-3xl text-sm leading-6 text-on-dark-muted sm:mt-3 sm:text-base sm:leading-7">
                   {item.description}
                 </p>
               </li>

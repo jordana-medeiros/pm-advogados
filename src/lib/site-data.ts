@@ -6,7 +6,6 @@ const whatsappMessage = encodeURIComponent(
 
 export const whatsappPrimary = "(34) 99961-8485";
 export const whatsappSecondary = "(34) 99665-2334";
-export const phoneDisplay = `${whatsappPrimary} | ${whatsappSecondary}`;
 export const telPrimaryHref = "tel:+5534999618485";
 export const telSecondaryHref = "tel:+5534996652334";
 export const contactHref = `https://wa.me/5534999618485?text=${whatsappMessage}`;
@@ -67,21 +66,15 @@ export const brandLogos = {
 export const images = {
   hero: {
     ladyJustice: "/images/hero/lady-justice.webp",
-    bgEfeito: "/images/hero/bg-efeito.webp",
   },
   team: {
     group: "/images/team/group.webp",
     groupAlt: "/images/team/group-alt.webp",
+    principals: "/images/team/giuliano-e-jordana.webp",
   },
 } as const;
 
 export const ogImagePath = images.team.group;
-
-export const methodSteps = [
-  "Ouvir o relato e reunir os documentos.",
-  "Conferir prazos, provas e riscos.",
-  "Definir o encaminhamento.",
-];
 
 export const practiceAreasIntro = {
   title: "Cada problema exige uma estratégia diferente.",
@@ -243,23 +236,22 @@ export const criminalAuthority = [
 export const whenSeekIntro = {
   title: "O momento certo de agir pode mudar o resultado do seu caso.",
   paragraphs: [
-    "Muitas pessoas procuram orientação apenas quando o problema já se agravou.",
-    "Antes de assinar contratos, responder notificações, prestar depoimentos ou tomar qualquer decisão importante, converse com um advogado.",
+    "Antes que o problema se agrave — ou antes de assinar, responder ou decidir — converse com um advogado.",
   ],
 };
 
 export const whenSeekItems = [
   {
     title: "Situação pessoal",
-    text: "Separação, inventário, guarda dos filhos ou conflitos familiares exigem orientação antes que o problema aumente.",
+    text: "Separação, inventário, guarda ou conflitos familiares.",
   },
   {
     title: "Conflitos e disputas",
-    text: "Quando existe risco financeiro ou patrimonial, agir cedo costuma ampliar suas possibilidades de defesa.",
+    text: "Risco financeiro ou patrimonial — agir cedo amplia as opções de defesa.",
   },
   {
-    title: "Antes de assinar qualquer documento",
-    text: "Uma análise preventiva pode evitar prejuízos e disputas futuras.",
+    title: "Antes de assinar",
+    text: "Análise preventiva evita prejuízos e disputas futuras.",
   },
 ];
 

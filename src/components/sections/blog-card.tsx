@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { SiteImage } from "@/components/ui/site-image";
 import Link from "next/link";
 
 import { formatArticleDate, type Article } from "@/lib/articles";
@@ -16,7 +16,7 @@ export function BlogCard({ article }: BlogCardProps) {
       <div className="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 bg-brand transition-transform duration-300 group-hover:scale-x-100" />
 
       <div className="relative aspect-[16/9] overflow-hidden bg-surface-alt">
-        <Image
+        <SiteImage
           src={article.coverImage}
           alt={article.title}
           fill
@@ -29,8 +29,8 @@ export function BlogCard({ article }: BlogCardProps) {
         </span>
       </div>
 
-      <div className="relative flex flex-1 flex-col p-5 sm:p-6">
-        <h3 className="font-display text-[1.5rem] leading-tight text-[var(--reading-foreground)] transition-colors duration-200 group-hover:text-brand-deep sm:text-[1.65rem]">
+      <div className="relative flex flex-1 flex-col p-4 sm:p-6">
+        <h3 className="font-display text-[1.35rem] leading-tight text-[var(--reading-foreground)] transition-colors duration-200 group-hover:text-brand-deep sm:text-[1.65rem]">
           {article.title}
         </h3>
         <p className="mt-3 line-clamp-3 flex-1 text-sm leading-6 text-[var(--reading-muted)]">
