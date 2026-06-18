@@ -12,6 +12,12 @@ export const contactHref = `https://wa.me/5534999618485?text=${whatsappMessage}`
 export const contactHrefSecondary = `https://wa.me/5534996652334?text=${whatsappMessage}`;
 export const externalLinkRel = "noopener noreferrer";
 
+export const whatsappPromptMessages = [
+  "Como posso te ajudar?",
+  "Precisa falar com um advogado?",
+  "Atendimento rápido pelo WhatsApp.",
+] as const;
+
 export function buildAreaContactHref(area: string) {
   const message = encodeURIComponent(
     `Olá, preciso de orientação jurídica na área de ${area}.`,
