@@ -82,7 +82,7 @@ function SiteHeaderInner() {
             variant="white"
             onNavigate={closeMenu}
             priority
-            className={`w-auto transition-all duration-300 ${scrolled ? "h-8 sm:h-9" : "h-9 sm:h-10"}`}
+            className={`w-auto transition-all duration-300 ${scrolled ? "h-9 sm:h-10" : "h-10 sm:h-11"}`}
           />
 
           <nav aria-label="Principal" className="hidden md:flex items-center gap-1">

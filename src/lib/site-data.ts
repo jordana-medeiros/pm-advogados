@@ -74,7 +74,9 @@ export const images = {
   },
 } as const;
 
-export const ogImagePath = images.team.group;
+export const ogImagePath = "/images/og/equipe.jpg";
+export const ogImageWidth = 1200;
+export const ogImageHeight = 630;
 
 export const practiceAreasIntro = {
   title: "Cada problema exige uma estratégia diferente.",

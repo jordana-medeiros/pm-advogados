@@ -3,7 +3,7 @@ import { Cormorant_Garamond, Manrope } from "next/font/google";
 import "./globals.css";
 
 import { OrganizationJsonLd } from "@/components/seo/json-ld";
-import { ogImagePath, siteDescription, siteName } from "@/lib/site-data";
+import { ogImageHeight, ogImagePath, ogImageWidth, siteDescription, siteName } from "@/lib/site-data";
 import { getSiteUrl } from "@/lib/site-url";
 
 const manrope = Manrope({
@@ -49,7 +49,10 @@ export const metadata: Metadata = {
     images: [
       {
         url: ogImagePath,
+        width: ogImageWidth,
+        height: ogImageHeight,
         alt: `Equipe ${siteName}`,
+        type: "image/jpeg",
       },
     ],
   },
@@ -57,7 +60,14 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteName,
     description: siteDescription,
-    images: [ogImagePath],
+    images: [
+      {
+        url: ogImagePath,
+        width: ogImageWidth,
+        height: ogImageHeight,
+        alt: `Equipe ${siteName}`,
+      },
+    ],
   },
 };
 

@@ -14,7 +14,7 @@ export function SiteLogo({
   variant = "white",
   onNavigate,
   priority = false,
-  className = "h-9 w-auto sm:h-10",
+  className = "h-10 w-auto sm:h-11",
 }: SiteLogoProps) {
   return (
     <Link
