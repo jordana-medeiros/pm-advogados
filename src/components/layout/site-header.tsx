@@ -10,13 +10,19 @@ import { navItems } from "@/lib/site-data";
 function SiteHeaderInner() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
+    return () => { document.body.style.overflow = ""; };
   }, [open]);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 52);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const closeMenu = () => setOpen(false);
 
@@ -31,18 +37,36 @@ function SiteHeaderInner() {
         />
       ) : null}
 
-      <header className="relative z-40 overflow-hidden rounded-sm border border-white/10 bg-brand-deep/96 px-5 text-on-dark shadow-[0_16px_48px_rgba(14,42,36,0.28)] backdrop-blur-md sm:px-6 lg:px-8">
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#b08a45]/60 to-transparent" />
+      <header
+        className={`relative z-40 overflow-hidden rounded-sm border text-on-dark backdrop-blur-md transition-all duration-300 ${
+          scrolled
+            ? "border-white/8 bg-brand-deep/[0.98] shadow-[0_20px_56px_rgba(14,42,36,0.36)] px-5 sm:px-6 lg:px-8"
+            : "border-white/10 bg-brand-deep/96 shadow-[0_16px_48px_rgba(14,42,36,0.28)] px-5 sm:px-6 lg:px-8"
+        }`}
+      >
+        {/* Linha dourada no topo — aparece mais ao rolar */}
+        <div
+          className={`absolute inset-x-0 top-0 h-px transition-opacity duration-300 ${
+            scrolled ? "opacity-100" : "opacity-60"
+          } bg-gradient-to-r from-transparent via-[#b08a45]/70 to-transparent`}
+        />
 
-        <div className="flex h-16 items-center justify-between gap-4">
-          <SiteLogo variant="white" onNavigate={closeMenu} priority />
+        <div
+          className={`flex items-center justify-between gap-4 transition-all duration-300 ${
+            scrolled ? "h-14" : "h-16"
+          }`}
+        >
+          <SiteLogo
+            variant="white"
+            onNavigate={closeMenu}
+            priority
+            className={`w-auto transition-all duration-300 ${scrolled ? "h-8 sm:h-9" : "h-9 sm:h-10"}`}
+          />
 
           <nav aria-label="Principal" className="hidden md:flex items-center gap-1">
             {navItems.map((item) => {
               const isActive =
-                item.href === "/"
-                  ? pathname === "/"
-                  : pathname.startsWith(item.href);
+                item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
               return (
                 <Link
                   key={item.href}
@@ -55,7 +79,7 @@ function SiteHeaderInner() {
             })}
             <Link
               href="/contato"
-              className="ml-3 inline-flex items-center rounded-full bg-brand px-4 py-2 text-xs font-semibold text-ink transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-hover hover:shadow-[0_6px_20px_rgba(176,138,69,0.35)]"
+              className="ml-3 inline-flex items-center rounded-full bg-brand px-4 py-2 text-[0.72rem] font-bold uppercase tracking-[0.06em] text-ink transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-hover hover:shadow-[0_8px_22px_rgba(176,138,69,0.38)]"
             >
               Contato
             </Link>
@@ -67,18 +91,12 @@ function SiteHeaderInner() {
             aria-label={open ? "Fechar menu" : "Abrir menu"}
             aria-expanded={open}
             aria-controls="mobile-menu"
-            onClick={() => setOpen((value) => !value)}
+            onClick={() => setOpen((v) => !v)}
             className="relative z-50 md:hidden flex flex-col gap-[5px] p-2 -mr-1"
           >
-            <span
-              className={`block h-[1.5px] w-5 bg-[var(--text-on-dark-hover)] origin-center transition-all duration-250 ${open ? "translate-y-[6.5px] rotate-45" : ""}`}
-            />
-            <span
-              className={`block h-[1.5px] w-5 bg-[var(--text-on-dark-hover)] transition-all duration-250 ${open ? "opacity-0 scale-x-0" : ""}`}
-            />
-            <span
-              className={`block h-[1.5px] w-5 bg-[var(--text-on-dark-hover)] origin-center transition-all duration-250 ${open ? "-translate-y-[6.5px] -rotate-45" : ""}`}
-            />
+            <span className={`block h-[1.5px] w-5 bg-[var(--text-on-dark-hover)] origin-center transition-all duration-250 ${open ? "translate-y-[6.5px] rotate-45" : ""}`} />
+            <span className={`block h-[1.5px] w-5 bg-[var(--text-on-dark-hover)] transition-all duration-250 ${open ? "opacity-0 scale-x-0" : ""}`} />
+            <span className={`block h-[1.5px] w-5 bg-[var(--text-on-dark-hover)] origin-center transition-all duration-250 ${open ? "-translate-y-[6.5px] -rotate-45" : ""}`} />
           </button>
         </div>
 
@@ -87,9 +105,7 @@ function SiteHeaderInner() {
             <nav aria-label="Principal" className="flex flex-col py-4 gap-1">
               {navItems.map((item) => {
                 const isActive =
-                  item.href === "/"
-                    ? pathname === "/"
-                    : pathname.startsWith(item.href);
+                  item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
                 return (
                   <Link
                     key={item.href}
@@ -108,7 +124,7 @@ function SiteHeaderInner() {
               <Link
                 href="/contato"
                 onClick={closeMenu}
-                className="mt-2 btn-primary justify-center text-center text-xs"
+                className="mt-2 btn-primary justify-center text-center"
               >
                 Contato
               </Link>
@@ -122,6 +138,5 @@ function SiteHeaderInner() {
 
 export function SiteHeader() {
   const pathname = usePathname();
-
   return <SiteHeaderInner key={pathname} />;
 }

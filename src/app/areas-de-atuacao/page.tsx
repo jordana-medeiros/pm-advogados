@@ -36,8 +36,12 @@ export default function AreasPage() {
 
           <div className="content-list content-list-dark">
             {criminalAuthority.map((item, index) => (
-              <article key={item.title} className="content-list-item">
-                <span className="font-display text-4xl leading-none text-brand/70">
+              <article
+                key={item.title}
+                className="content-list-item animate-fade-up"
+                style={{ animationDelay: `${0.1 + index * 0.1}s` }}
+              >
+                <span className="font-display text-4xl leading-none text-brand/70 transition-colors group-hover:text-brand">
                   {String(index + 1).padStart(2, "0")}
                 </span>
                 <div>
@@ -70,11 +74,15 @@ export default function AreasPage() {
 
           <div className="content-list">
             {practiceAreas.map((area, index) => (
-              <article key={area.name} className="content-list-item content-list-item-wide">
-                <span className="text-sm font-medium text-brand/50">
+              <article
+                key={area.name}
+                className="content-list-item content-list-item-wide group animate-fade-up"
+                style={{ animationDelay: `${0.05 + index * 0.05}s` }}
+              >
+                <span className="text-sm font-medium text-brand/50 transition-colors duration-200 group-hover:text-brand">
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <h3 className="font-display text-2xl leading-none sm:text-[1.65rem]">
+                <h3 className="font-display text-2xl leading-none transition-colors duration-200 group-hover:text-brand-deep sm:text-[1.65rem]">
                   {area.name}
                 </h3>
                 <p className="text-sm leading-6 text-muted">

@@ -9,6 +9,16 @@ export function FloatingWhatsApp() {
       <p className="fab-whatsapp-message" aria-hidden="true">
         Posso te ajudar?
       </p>
+      {/* Setinha apontando para o botão */}
+      <svg
+        aria-hidden="true"
+        width="8"
+        height="14"
+        viewBox="0 0 8 14"
+        className="fab-whatsapp-arrow fill-white drop-shadow-[1px_0_0_rgba(14,42,36,0.12)]"
+      >
+        <path d="M0 0 L8 7 L0 14 Z" />
+      </svg>
 
       <a
         href={contactHref}

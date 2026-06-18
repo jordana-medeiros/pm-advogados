@@ -24,7 +24,7 @@ export const articles: Article[] = [
     category: "Direito Criminal",
     publishedAt: "2026-02-10",
     readingTime: "5 min",
-    coverImage: "/images/hero/lady-justice.webp",
+    coverImage: "/images/blog/preso-em-flagrante.jpg",
     body: [
       "A prisão em flagrante marca o início de uma fase crítica. O que for feito — ou deixado de fazer — nas primeiras horas influencia a audiência de custódia e o restante do processo.",
       "O advogado precisa saber onde a pessoa está, qual autoridade conduz o caso e se houve intimação de familiares. Documentos, relato do que ocorreu e eventual exame de corpo de delito fazem parte da análise inicial.",
@@ -39,7 +39,7 @@ export const articles: Article[] = [
     category: "Direito Previdenciário",
     publishedAt: "2026-01-22",
     readingTime: "4 min",
-    coverImage: "/images/team/group.webp",
+    coverImage: "/images/blog/beneficio-inss.jpg",
     body: [
       "Negativa de aposentadoria, auxílio-doença ou outro benefício costuma vir com motivação genérica. Ainda assim, o segurado tem prazos para recurso administrativo e, se necessário, para a via judicial.",
       "Laudos, carteira de trabalho, CNIS e histórico de contribuições são base comum de análise. Muitas vezes o problema está em documento faltante ou em enquadramento incorreto da perícia.",
@@ -54,7 +54,7 @@ export const articles: Article[] = [
     category: "Direito de Família",
     publishedAt: "2025-12-05",
     readingTime: "4 min",
-    coverImage: "/images/lawyers/ricardo-pereira.webp",
+    coverImage: "/images/blog/divorcio-consensual.jpg",
     body: [
       "No divórcio consensual, o casal define guarda, visitas, pensão alimentícia e partilha de bens antes de ir ao cartório ou ao juízo. Quanto mais claro o acordo, mais rápido tende a ser o trâmite.",
       "Certidão de casamento, documentos dos filhos, comprovantes de renda e relação de bens — imóveis, veículos, contas — costumam ser o ponto de partida.",

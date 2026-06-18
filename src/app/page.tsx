@@ -43,7 +43,7 @@ export default function Home() {
     <SiteShell>
       <JsonLd includeFaq />
 
-      {/* ── HERO ─────────────────────────────────── */}
+      {/* ── HERO ─────────────────────────────────────────── */}
       <section className="hero-overlap brand-field text-on-dark overflow-hidden relative">
         {/* Imagem de Fundo (Lady Justice) - lateral direita com colorização verde-marca */}
         <div className="absolute inset-y-0 right-0 w-full lg:w-[65%] z-0">
@@ -52,7 +52,7 @@ export default function Home() {
             alt="Símbolo da Justiça — Pereira e Medeiros Advocacia"
             fill
             sizes="(max-width: 1024px) 100vw, 65vw"
-            className="object-cover object-right select-none pointer-events-none opacity-[0.55] lg:opacity-[0.70] grayscale"
+            className="object-cover object-right select-none pointer-events-none opacity-[0.35] lg:opacity-[0.50] grayscale"
             priority
           />
           {/* Camada 1: Filtro de cor verde puro sobre a estátua */}
@@ -61,39 +61,33 @@ export default function Home() {
           <div className="absolute inset-0 bg-[#0e2a24]/55 mix-blend-multiply pointer-events-none" />
         </div>
 
-        {/* Degradês de transição para mesclar a imagem ao fundo verde */}
+        {/* Degrades de transição */}
         <div className="absolute inset-0 z-0 pointer-events-none">
-          {/* Overlay para mobile */}
           <div className="absolute inset-0 bg-brand-deep/75 lg:hidden" />
           
-          {/* Degradês para desktop */}
-          {/* Transição ultra suave cobrindo a borda vertical da imagem (que está em 35% da tela) */}
           <div 
             className="hidden lg:block absolute inset-y-0 left-0 w-full"
             style={{ 
               background: 'linear-gradient(to right, transparent 0%, transparent 25%, #0e2a24 35%, #0e2a24 40%, transparent 60%)' 
             }} 
           />
-          {/* Suavização adicional a partir da esquerda do Hero para misturar com o tom do fundo */}
           <div className="hidden lg:block absolute inset-y-0 left-0 w-[45%] bg-gradient-to-r from-[#061d18] to-transparent" />
-          {/* Suavização na borda inferior */}
           <div className="hidden lg:block absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-[#0e2a24] to-transparent" />
-          {/* Suavização na borda superior (área do header) */}
           <div className="hidden lg:block absolute inset-x-0 top-0 h-1/6 bg-gradient-to-b from-[#061d18] to-transparent" />
         </div>
 
         <div className="section-shell relative z-10 hero-min-h grid gap-12 pb-16 pt-36 hero-shell sm:pb-20 lg:grid-cols-[1fr_0.85fr] lg:items-end lg:pt-44">
           <div className="min-w-0">
-            <p className="eyebrow text-brand">Pereira e Medeiros</p>
-            <h1 className="font-display display-title balance mt-5 max-w-3xl text-5xl leading-[1.02] sm:text-6xl lg:text-[4.5rem]">
+            <p className="eyebrow text-brand animate-fade-up">Pereira e Medeiros</p>
+            <h1 className="font-display balance hero-title mt-5 max-w-3xl text-on-dark animate-fade-up delay-1">
               Seu problema jurídico não pode esperar.
             </h1>
-            <p className="mt-7 max-w-xl text-base leading-7 text-on-dark-muted sm:text-lg sm:leading-8">
+            <p className="mt-7 max-w-xl text-base leading-7 text-on-dark-muted sm:text-lg sm:leading-8 animate-fade-up delay-2">
               Advogados preparados para agir com rapidez quando o momento exige
               decisão. Atendimento direto pelo WhatsApp. Atuação em Minas
               Gerais, Goiás e em todo o Brasil.
             </p>
-            <div className="mt-9 flex flex-col items-start gap-3 sm:flex-row">
+            <div className="mt-9 flex flex-col items-start gap-3 sm:flex-row animate-fade-up delay-3">
               <a
                 href={contactHref}
                 target="_blank"
@@ -112,14 +106,14 @@ export default function Home() {
               </Link>
             </div>
 
-            <CriminalSpecialtyPanel compact className="mt-8 lg:hidden" />
+            <CriminalSpecialtyPanel compact className="mt-8 lg:hidden animate-fade-up delay-4" />
           </div>
 
-          <CriminalSpecialtyPanel className="hidden lg:flex self-end" />
+          <CriminalSpecialtyPanel className="hidden lg:flex self-end animate-fade-up delay-2" />
         </div>
       </section>
 
-      {/* ── HIGHLIGHTS ───────────────────────────── */}
+      {/* ── HIGHLIGHTS ─────────────────────────────────────────── */}
       <section
         aria-label="Destaques do escritório"
         className="hero-highlights relative z-10"
@@ -129,13 +123,8 @@ export default function Home() {
             {heroHighlights.map((item) => {
               const content = (
                 <div>
-                  <div className="mb-3 h-px w-8 bg-brand/35 transition-all duration-300 group-hover:w-12 group-hover:bg-brand/60" />
-                  <p className="font-display text-[1.65rem] leading-tight text-brand-deep sm:text-[1.85rem]">
-                    {item.title}
-                  </p>
-                  <p className="mt-2 text-sm leading-6 text-muted">
-                    {item.description}
-                  </p>
+                  <p className="hero-highlight-number">{item.title}</p>
+                  <p className="hero-highlight-label">{item.description}</p>
                 </div>
               );
 
@@ -144,7 +133,7 @@ export default function Home() {
                   <Link
                     key={item.title}
                     href={item.href}
-                    className="hero-highlight-item group block transition-colors duration-300"
+                    className="hero-highlight-item group block"
                   >
                     {content}
                   </Link>
@@ -152,7 +141,7 @@ export default function Home() {
               }
 
               return (
-                <article key={item.title} className="hero-highlight-item group">
+                <article key={item.title} className="hero-highlight-item">
                   {content}
                 </article>
               );
@@ -273,7 +262,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── EQUIPE ───────────────────────────────── */}
+      {/* ── EQUIPE ───────────────────────────────────────────────── */}
       <section className="surface-alt section-pad">
         <div className="section-shell">
           <div className="editorial-split mb-10 lg:mb-14">
@@ -299,7 +288,7 @@ export default function Home() {
               <Link
                 key={lawyer.name}
                 href="/equipe"
-                className="group min-w-0 transition-opacity hover:opacity-95"
+                className="group min-w-0"
               >
                 <div className="relative aspect-[4/5] overflow-hidden bg-surface-strong">
                   {lawyer.photo ? (
@@ -308,10 +297,14 @@ export default function Home() {
                       alt={`Foto de ${lawyer.name}`}
                       fill
                       sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 14vw"
-                      className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                      className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.05]"
                     />
                   ) : null}
-                  <div className="absolute inset-0 bg-brand-deep/0 transition-colors duration-300 group-hover:bg-brand-deep/10" />
+                  {/* Overlay com nome no hover */}
+                  <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-brand-deep/80 via-brand-deep/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 p-3">
+                    <p className="text-[0.6rem] font-bold tracking-[0.18em] text-brand uppercase leading-none">{lawyer.oab}</p>
+                    <p className="mt-1 font-display text-base leading-tight text-white">{lawyer.name}</p>
+                  </div>
                 </div>
                 <p className="mt-4 text-[0.62rem] font-bold tracking-[0.2em] text-brand uppercase">
                   {lawyer.oab}
@@ -328,8 +321,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── BLOG ─────────────────────────────────── */}
-      <section className="content-band-mint section-pad">
+      {/* ── BLOG ───────────────────────────────────────────────────── */}
+      <section className="bg-surface section-pad border-t border-line">
         <div className="section-shell">
           <div className="max-w-2xl">
             <p className="eyebrow text-brand-deep">Blog</p>
@@ -379,7 +372,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── FAQ ──────────────────────────────────── */}
+      {/* ── FAQ ─────────────────────────────────────────────────────── */}
       <section className="section-shell section-gap">
         <div className="grid gap-10 lg:grid-cols-[0.75fr_1.25fr]">
           <div>
@@ -389,7 +382,7 @@ export default function Home() {
               Respostas diretas.
             </h2>
           </div>
-          <div>
+          <div className="faq-container">
             {faqItems.map((item) => (
               <details key={item.question} className="faq-item">
                 <summary>
