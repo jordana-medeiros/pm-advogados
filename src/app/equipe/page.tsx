@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 
+import { CopyEmphasis } from "@/components/ui/copy-emphasis";
+import { LawyerPhoto } from "@/components/sections/lawyer-photo";
 import { PageHero } from "@/components/sections/page-hero";
 import { SiteShell } from "@/components/layout/site-shell";
 import { TeamPhotoBanner } from "@/components/sections/team-photo-banner";
 import {
-  contactHref,
+  buildAreaContactHref,
   externalLinkRel,
+  images,
   lawyers,
 } from "@/lib/site-data";
 
@@ -22,33 +24,36 @@ export default function EquipePage() {
       <PageHero
         eyebrow="Equipe"
         title="Os advogados do escritório."
-        description="Cinco profissionais. Cada um responde por uma ou mais áreas do Direito."
+        description={
+          <>
+            Cada advogado responde por uma ou mais{" "}
+            <CopyEmphasis>áreas do Direito</CopyEmphasis>.
+          </>
+        }
       />
 
-      <TeamPhotoBanner caption="Pereira e Medeiros Advogados Associados" showName />
+      <TeamPhotoBanner
+        image={images.team.groupAlt}
+        objectPosition="center 20%"
+      />
 
       {/* ── PERFIS */}
-      <section className="section-shell section-pad-compact pb-8">
-        <div className="editorial-split mb-12 lg:mb-16">
-          <div className="animate-fade-up">
-            <p className="eyebrow text-brand-deep">Advogados</p>
-            <div className="gold-accent mt-4 mb-5" />
-            <h2 className="font-display display-title max-w-md text-4xl sm:text-5xl">
-              Quem responde por cada área.
-            </h2>
-          </div>
-          <p className="max-w-lg text-lg leading-8 text-muted lg:pt-10 animate-fade-up delay-1">
-            Formação, OAB e atuação de cada profissional — sem camadas extras
-            entre você e quem conduz o caso.
+      <section className="section-shell section-pad-compact pb-20 text-on-dark sm:pb-24 lg:pb-28">
+        <div className="section-stack mb-12 lg:mb-16 animate-fade-up">
+          <p className="eyebrow text-brand">Advogados</p>
+          <div className="gold-accent mt-4 mb-5" />
+          <h2 className="font-display display-title text-4xl sm:text-5xl">
+            Quem responde por cada área.
+          </h2>
+          <p className="mt-8 text-lg leading-8 text-on-dark-muted">
+            Formação, OAB e atuação de cada{" "}
+            <CopyEmphasis>profissional</CopyEmphasis>.
           </p>
         </div>
 
         <div className="profile-list">
           {lawyers.map((lawyer, index) => {
-            const areaMsg = encodeURIComponent(
-              `Olá, preciso de orientação jurídica na área de ${lawyer.area}.`
-            );
-            const areaHref = `https://wa.me/5534999618485?text=${areaMsg}`;
+            const areaHref = buildAreaContactHref(lawyer.area);
 
             return (
               <article
@@ -57,13 +62,12 @@ export default function EquipePage() {
                 style={{ animationDelay: `${index * 0.09}s` }}
               >
                 {/* Foto */}
-                <div className="profile-photo overflow-hidden border border-line">
+                <div className="profile-photo overflow-hidden border border-white/10">
                   {lawyer.photo ? (
-                    <Image
+                    <LawyerPhoto
                       src={lawyer.photo}
                       alt={`Foto de ${lawyer.name}`}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 168px"
+                      sizes="(max-width: 768px) 100vw, 336px"
                       className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.04]"
                     />
                   ) : (
@@ -87,24 +91,23 @@ export default function EquipePage() {
                     </p>
                   </div>
 
-                  <h2 className="font-display mt-3 text-3xl leading-tight sm:text-4xl">
+                  <h3 className="font-display mt-3 text-3xl leading-tight text-on-dark-soft sm:text-4xl">
                     {lawyer.name}
-                  </h2>
+                  </h3>
 
-                  <p className="mt-4 max-w-2xl text-sm leading-7 text-muted sm:text-base">
+                  <p className="mt-4 max-w-2xl text-sm leading-7 text-on-dark-muted sm:text-base">
                     {lawyer.bio}
                   </p>
 
-                  {/* Área como badge + link WhatsApp */}
                   <div className="mt-5 flex flex-wrap items-center gap-3">
-                    <span className="inline-flex items-center rounded-full border border-brand-deep/14 bg-brand-deep/6 px-3 py-1 text-xs font-semibold text-brand-deep">
+                    <span className="inline-flex items-center rounded-full border border-brand/25 bg-brand/10 px-3 py-1 text-xs font-semibold text-brand">
                       {lawyer.area}
                     </span>
                     <a
                       href={areaHref}
                       target="_blank"
                       rel={externalLinkRel}
-                      className="text-xs font-semibold text-brand transition-colors hover:text-brand-deep border-b border-brand/30 pb-px hover:border-brand-deep"
+                      className="text-xs font-semibold text-brand transition-colors hover:text-brand-hover border-b border-brand/30 pb-px hover:border-brand"
                     >
                       Falar sobre esta área →
                     </a>
@@ -113,32 +116,6 @@ export default function EquipePage() {
               </article>
             );
           })}
-        </div>
-      </section>
-
-      {/* ── CTA FINAL */}
-      <section className="brand-field section-pad text-on-dark">
-        <div className="section-shell grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
-          <div>
-            <p className="eyebrow text-brand">Dúvida sobre qual advogado procurar?</p>
-            <div className="gold-accent mt-4 mb-5" />
-            <h2 className="font-display display-title max-w-2xl text-4xl sm:text-5xl">
-              Descreva o caso. A equipe indica quem conduz.
-            </h2>
-            <p className="mt-6 max-w-lg text-base leading-7 text-on-dark-muted">
-              Não precisa saber em qual área o seu problema se encaixa. Explique
-              a situação pelo WhatsApp — e o escritório direciona para o
-              advogado certo.
-            </p>
-          </div>
-          <a
-            href={contactHref}
-            target="_blank"
-            rel={externalLinkRel}
-            className="btn-primary shrink-0"
-          >
-            Falar pelo WhatsApp
-          </a>
         </div>
       </section>
     </SiteShell>

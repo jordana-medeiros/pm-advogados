@@ -3,50 +3,37 @@ import Link from "next/link";
 import { SiteLogo } from "@/components/layout/site-logo";
 import {
   addresses,
+  contactHref,
+  contactHrefSecondary,
   externalLinkRel,
   instagramHandle,
   instagramUrl,
   navItems,
-  telPrimaryHref,
-  telSecondaryHref,
   whatsappPrimary,
   whatsappSecondary,
 } from "@/lib/site-data";
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
+
   return (
     <footer className="brand-field text-on-dark">
-      {/* Linha dourada no topo — mais pronunciada */}
       <div className="h-[2px] bg-gradient-to-r from-transparent via-brand/70 to-transparent" />
 
-      <div className="section-shell pt-16 pb-10">
-        <div className="grid gap-12 lg:grid-cols-[1.5fr_0.75fr_1fr]">
-
-          {/* Coluna 1 — Marca */}
-          <div>
-            <SiteLogo
-              variant="gold"
-              className="h-14 w-auto sm:h-16"
-            />
-            <p className="mt-4 text-xs leading-5 text-on-dark-faint">
-              Pereira e Medeiros Advogados Associados<br />
-              OAB/MG — Santa Vitória/MG e São Simão/GO
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/contato" className="btn-primary text-[0.72rem]">
-                Fale conosco
-              </Link>
-              <Link href="/blog" className="btn-ghost text-[0.72rem]">
-                Blog
-              </Link>
-            </div>
+      <div className="section-shell pb-[max(2.5rem,env(safe-area-inset-bottom))] pt-8 sm:pb-24 sm:pt-10">
+        <div className="grid gap-y-10 text-center sm:grid-cols-2 sm:gap-x-12 sm:gap-y-12 lg:grid-cols-[1.2fr_0.78fr_1.12fr_0.95fr] lg:gap-x-14 xl:gap-x-16 lg:text-left">
+          {/* Coluna 1 — Logo */}
+          <div className="flex flex-col items-center sm:items-start">
+            <SiteLogo variant="gold" className="h-14 w-auto sm:h-16" />
           </div>
 
-          {/* Coluna 2 — Navegação */}
-          <div>
-            <p className="eyebrow text-brand/75 mb-5">Páginas</p>
-            <nav aria-label="Rodapé" className="flex flex-col gap-2.5">
+          {/* Coluna 2 — Menu */}
+          <div className="flex flex-col items-center sm:items-start">
+            <p className="eyebrow mb-4 text-brand/75">Menu</p>
+            <nav
+              aria-label="Rodapé"
+              className="flex flex-col items-center gap-2 sm:items-start"
+            >
               {navItems.map((item) => (
                 <Link
                   key={item.href}
@@ -59,38 +46,57 @@ export function SiteFooter() {
             </nav>
           </div>
 
-          {/* Coluna 3 — Contato */}
-          <div>
-            <p className="eyebrow text-brand/75 mb-5">Contato</p>
-            <div className="space-y-3 text-sm leading-6 text-on-dark-muted">
-              {addresses.map((item) => (
-                <p key={item.city}>
-                  <span className="block text-[0.7rem] font-bold uppercase tracking-wider text-brand/60 mb-0.5">
-                    {item.city}
-                  </span>
+          {/* Coluna 3 — Endereços */}
+          <div className="flex flex-col items-center sm:items-start">
+            <p className="eyebrow mb-4 text-brand/75">Endereços</p>
+            <div className="flex flex-col gap-5">
+              {addresses.map((address) => (
+                <div key={address.city}>
+                  <p className="mb-1 text-[0.7rem] font-bold uppercase tracking-wider text-brand/60">
+                    {address.city}
+                  </p>
                   <a
-                    href={item.mapsUrl}
+                    href={address.mapsUrl}
                     target="_blank"
                     rel={externalLinkRel}
-                    className="transition-colors hover:text-on-dark-soft"
+                    className="block max-w-xs text-sm leading-6 text-on-dark-muted transition-colors hover:text-on-dark-soft"
                   >
-                    {item.line}
+                    {address.line}
                   </a>
-                </p>
+                </div>
               ))}
-              <p className="pt-1">
-                <span className="block text-[0.7rem] font-bold uppercase tracking-wider text-brand/60 mb-0.5">
+            </div>
+          </div>
+
+          {/* Coluna 4 — Contato */}
+          <div className="flex flex-col items-center sm:items-start">
+            <p className="eyebrow mb-4 text-brand/75">Contato</p>
+            <div className="space-y-5 text-sm leading-6 text-on-dark-muted">
+              <div>
+                <p className="mb-1 text-[0.7rem] font-bold uppercase tracking-wider text-brand/60">
                   WhatsApp
-                </span>
-                <a href={telPrimaryHref} className="transition-colors hover:text-on-dark-soft">
+                </p>
+                <a
+                  href={contactHref}
+                  target="_blank"
+                  rel={externalLinkRel}
+                  className="block transition-colors hover:text-on-dark-soft"
+                >
                   {whatsappPrimary}
                 </a>
-                <span className="mx-1.5 text-on-dark-faint">·</span>
-                <a href={telSecondaryHref} className="transition-colors hover:text-on-dark-soft">
+                <a
+                  href={contactHrefSecondary}
+                  target="_blank"
+                  rel={externalLinkRel}
+                  className="mt-1 block transition-colors hover:text-on-dark-soft"
+                >
                   {whatsappSecondary}
                 </a>
-              </p>
-              <p>
+              </div>
+              <div>
+                <p className="mb-1 text-[0.7rem] font-bold uppercase tracking-wider text-brand/60">
+                  Instagram
+                </p>
                 <a
                   href={instagramUrl}
                   target="_blank"
@@ -99,24 +105,23 @@ export function SiteFooter() {
                 >
                   {instagramHandle}
                 </a>
-              </p>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Rodapé inferior */}
-        <div className="mt-14 border-t border-white/10 pt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-10 flex flex-col items-center gap-3 border-t border-white/10 pt-6 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
           <p className="text-xs text-on-dark-faint">
-            © {year} Pereira e Medeiros Advogados Associados. Todos os direitos reservados.
+            © {year} Pereira e Medeiros Advogados Associados. Todos os direitos
+            reservados.
           </p>
-          <div className="flex flex-wrap gap-x-5 gap-y-1 text-xs text-on-dark-muted">
+          <div className="flex flex-wrap justify-center gap-x-5 gap-y-1 text-xs text-on-dark-muted sm:justify-end">
             <Link href="/aviso-legal" className="transition-colors hover:text-on-dark-soft">
               Aviso legal
             </Link>
             <Link href="/politica-de-privacidade" className="transition-colors hover:text-on-dark-soft">
               Privacidade
             </Link>
-            <span className="text-on-dark-faint">OAB/MG</span>
           </div>
         </div>
       </div>

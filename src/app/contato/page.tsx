@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { CopyEmphasis } from "@/components/ui/copy-emphasis";
 import { PageHero } from "@/components/sections/page-hero";
 import { SiteShell } from "@/components/layout/site-shell";
 import {
@@ -27,12 +28,18 @@ export default function ContatoPage() {
       <PageHero
         eyebrow="Contato"
         title="Canais de atendimento do escritório."
-        description="Sem formulário: mensagem, ligação ou presencial. Descreva o caso; a equipe indica o advogado da área."
+        description={
+          <>
+            Sem formulário: mensagem, ligação ou presencial. Descreva o caso; a
+            equipe indica o <CopyEmphasis>advogado da área</CopyEmphasis>.
+          </>
+        }
       />
 
-      <section className="section-shell section-after-hero section-pad-compact pb-16 sm:pb-20">
+      <section className="reading-surface section-pad-compact pb-20 sm:pb-24 lg:pb-28">
+        <div className="section-shell section-after-hero">
         <div className="contact-split">
-          <div className="brand-field contact-panel-dark text-on-dark">
+          <div className="contact-panel-cta">
             <div className="gold-accent mb-6" />
             <p className="eyebrow text-brand">Atendimento imediato</p>
             <h2 className="font-display mt-4 max-w-md text-4xl leading-tight text-on-dark-soft sm:text-5xl">
@@ -40,7 +47,7 @@ export default function ContatoPage() {
             </h2>
             <p className="mt-5 max-w-md text-base leading-7 text-on-dark-muted">
               O canal principal é a mensagem. Explique a situação em poucas
-              linhas — retorno, em regra, no mesmo dia.
+              linhas — retorno, em regra, no <CopyEmphasis>mesmo dia</CopyEmphasis>.
             </p>
             <a
               href={contactHref}
@@ -59,7 +66,7 @@ export default function ContatoPage() {
             <div className="content-list">
               <article className="content-list-item content-list-item-stacked">
                 <div>
-                  <p className="eyebrow text-brand">Telefones</p>
+                  <p className="eyebrow text-brand">WhatsApp e telefone</p>
                   <div className="mt-4 space-y-2">
                     <p>
                       <a
@@ -143,6 +150,7 @@ export default function ContatoPage() {
               </article>
             </div>
           </div>
+        </div>
         </div>
       </section>
     </SiteShell>

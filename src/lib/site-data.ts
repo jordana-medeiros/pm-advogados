@@ -13,17 +13,33 @@ export const contactHref = `https://wa.me/5534999618485?text=${whatsappMessage}`
 export const contactHrefSecondary = `https://wa.me/5534996652334?text=${whatsappMessage}`;
 export const externalLinkRel = "noopener noreferrer";
 
+export function buildAreaContactHref(area: string) {
+  const message = encodeURIComponent(
+    `Olá, preciso de orientação jurídica na área de ${area}.`,
+  );
+  return `https://wa.me/5534999618485?text=${message}`;
+}
+
+export type NavItem = {
+  href: string;
+  label: string;
+  cta?: boolean;
+};
+
 export const siteDescription =
   "Advogados com foco em Direito Criminal e atuação em mais oito áreas. Escritórios em MG e GO. Atendimento direto, sem formulário.";
 
-export const navItems = [
+export const homeAreasSectionId = "areas-de-atuacao";
+export const homeAreasHref = `/#${homeAreasSectionId}`;
+
+export const navItems: NavItem[] = [
   { href: "/", label: "Início" },
   { href: "/sobre", label: "Sobre" },
   { href: "/equipe", label: "Equipe" },
-  { href: "/areas-de-atuacao", label: "Áreas de Atuação" },
+  { href: homeAreasHref, label: "Áreas de Atuação" },
   { href: "/blog", label: "Blog" },
-  { href: "/contato", label: "Contato" },
-] as const;
+  { href: "/contato", label: "Contato", cta: true },
+];
 
 export const addresses = [
   {
@@ -51,9 +67,11 @@ export const brandLogos = {
 export const images = {
   hero: {
     ladyJustice: "/images/hero/lady-justice.webp",
+    bgEfeito: "/images/hero/bg-efeito.webp",
   },
   team: {
     group: "/images/team/group.webp",
+    groupAlt: "/images/team/group-alt.webp",
   },
 } as const;
 
@@ -221,8 +239,6 @@ export const criminalAuthority = [
   },
 ];
 
-export const criminalSpecialtySummary =
-  "Investigação, prisão, audiência e júri. Defesa desde o início.";
 
 export const whenSeekIntro = {
   title: "O momento certo de agir pode mudar o resultado do seu caso.",

@@ -3,11 +3,12 @@ import {
   brandLogos,
   faqItems,
   ogImagePath,
-  phoneDisplay,
   practiceAreas,
   siteName,
   telPrimaryHref,
+  telSecondaryHref,
 } from "@/lib/site-data";
+import type { Article } from "@/lib/articles";
 import { getSiteUrl } from "@/lib/site-url";
 
 type JsonLdProps = {
@@ -57,7 +58,46 @@ export function JsonLd({ includeFaq = false }: JsonLdProps) {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schemas) }}
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": schemas,
+        }),
+      }}
+    />
+  );
+}
+
+export function ArticleJsonLd({ article }: { article: Article }) {
+  const siteUrl = getSiteUrl();
+
+  const blogPosting = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: article.title,
+    description: article.excerpt,
+    datePublished: article.publishedAt,
+    image: `${siteUrl}${article.coverImage}`,
+    url: `${siteUrl}/blog/${article.slug}`,
+    author: {
+      "@type": "Organization",
+      name: siteName,
+      url: siteUrl,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: siteName,
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteUrl}${brandLogos.gold}`,
+      },
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(blogPosting) }}
     />
   );
 }
@@ -73,7 +113,7 @@ export function OrganizationJsonLd() {
     logo: `${siteUrl}${brandLogos.gold}`,
     contactPoint: {
       "@type": "ContactPoint",
-      telephone: phoneDisplay,
+      telephone: [telPrimaryHref.replace("tel:", ""), telSecondaryHref.replace("tel:", "")],
       contactType: "customer service",
       availableLanguage: "Portuguese",
     },

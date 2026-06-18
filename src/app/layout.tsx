@@ -67,8 +67,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      data-scroll-behavior="smooth"
-      className={`${manrope.variable} ${cormorant.variable} h-full scroll-smooth antialiased`}
+      className={`${manrope.variable} ${cormorant.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <OrganizationJsonLd />

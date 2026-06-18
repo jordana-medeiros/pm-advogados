@@ -74,3 +74,57 @@ export function formatArticleDate(isoDate: string) {
     year: "numeric",
   }).format(new Date(`${isoDate}T12:00:00`));
 }
+
+export const BLOG_PAGE_SIZE = 6;
+
+export function slugifyCategory(category: string) {
+  return category
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/\s+/g, "-");
+}
+
+export function getArticleCategories(source: Article[] = articles) {
+  return [...new Set(source.map((article) => article.category))].sort((a, b) =>
+    a.localeCompare(b, "pt-BR"),
+  );
+}
+
+export function filterArticlesByCategory(
+  source: Article[],
+  categorySlug?: string,
+) {
+  if (!categorySlug || categorySlug === "todas") {
+    return source;
+  }
+
+  return source.filter(
+    (article) => slugifyCategory(article.category) === categorySlug,
+  );
+}
+
+export function paginateArticles<T>(
+  source: T[],
+  page: number,
+  pageSize: number = BLOG_PAGE_SIZE,
+) {
+  const totalItems = source.length;
+  const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
+  const safePage = Math.min(Math.max(1, page), totalPages);
+  const start = (safePage - 1) * pageSize;
+
+  return {
+    items: source.slice(start, start + pageSize),
+    page: safePage,
+    totalPages,
+    totalItems,
+    pageSize,
+  };
+}
+
+export function sortArticlesByDate(source: Article[]) {
+  return [...source].sort((a, b) =>
+    b.publishedAt.localeCompare(a.publishedAt),
+  );
+}

@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { SiteShell } from "@/components/layout/site-shell";
 import {
   articles,
@@ -31,6 +32,19 @@ export async function generateMetadata({
   return {
     title: article.title,
     description: article.excerpt,
+    openGraph: {
+      title: article.title,
+      description: article.excerpt,
+      type: "article",
+      publishedTime: article.publishedAt,
+      images: [{ url: article.coverImage, alt: article.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description: article.excerpt,
+      images: [article.coverImage],
+    },
   };
 }
 
@@ -44,6 +58,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
   return (
     <SiteShell>
+      <ArticleJsonLd article={article} />
       <article>
         <div className="hero-overlap page-hero-bg text-on-dark hero-shell pb-0">
           <div className="section-shell max-w-4xl pb-10 sm:pb-12">
@@ -76,13 +91,13 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent" />
         </div>
 
-        <section className="section-shell max-w-3xl pb-16 pt-10 sm:pb-20 sm:pt-12">
+        <section className="reading-surface section-shell max-w-3xl pb-16 pt-10 sm:pb-20 sm:pt-12">
           <p className="text-lg leading-8 text-foreground">{article.excerpt}</p>
 
           <div className="mt-10 space-y-6 border-t border-line pt-10">
-            {article.body.map((paragraph) => (
+            {article.body.map((paragraph, index) => (
               <p
-                key={paragraph.slice(0, 24)}
+                key={index}
                 className="text-base leading-8 text-muted"
               >
                 {paragraph}

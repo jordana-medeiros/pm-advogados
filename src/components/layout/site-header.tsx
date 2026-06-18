@@ -7,10 +7,24 @@ import { useEffect, useState } from "react";
 import { SiteLogo } from "@/components/layout/site-logo";
 import { navItems } from "@/lib/site-data";
 
+function isNavItemActive(href: string, pathname: string, hash: string) {
+  if (href === "/") {
+    return pathname === "/" && hash === "";
+  }
+
+  if (href.startsWith("/#")) {
+    return pathname === "/" && hash === href.slice(1);
+  }
+
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
 function SiteHeaderInner() {
   const pathname = usePathname();
-  const [open, setOpen] = useState(false);
+  const [menuPath, setMenuPath] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
+  const [hash, setHash] = useState("");
+  const open = menuPath === pathname;
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -24,7 +38,15 @@ function SiteHeaderInner() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const closeMenu = () => setOpen(false);
+  useEffect(() => {
+    const updateHash = () => setHash(window.location.hash);
+    updateHash();
+    window.addEventListener("hashchange", updateHash);
+    return () => window.removeEventListener("hashchange", updateHash);
+  }, [pathname]);
+
+  const closeMenu = () => setMenuPath(null);
+  const toggleMenu = () => setMenuPath(open ? null : pathname);
 
   return (
     <>
@@ -53,7 +75,7 @@ function SiteHeaderInner() {
 
         <div
           className={`flex items-center justify-between gap-4 transition-all duration-300 ${
-            scrolled ? "h-14" : "h-16"
+            scrolled ? "h-16" : "h-[4.5rem]"
           }`}
         >
           <SiteLogo
@@ -65,8 +87,19 @@ function SiteHeaderInner() {
 
           <nav aria-label="Principal" className="hidden md:flex items-center gap-1">
             {navItems.map((item) => {
-              const isActive =
-                item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+              if (item.cta) {
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="ml-3 inline-flex items-center rounded-full bg-brand px-4 py-2 text-[0.72rem] font-bold uppercase tracking-[0.06em] text-ink transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-hover hover:shadow-[0_8px_22px_rgba(176,138,69,0.38)]"
+                  >
+                    {item.label}
+                  </Link>
+                );
+              }
+
+              const isActive = isNavItemActive(item.href, pathname, hash);
               return (
                 <Link
                   key={item.href}
@@ -77,12 +110,6 @@ function SiteHeaderInner() {
                 </Link>
               );
             })}
-            <Link
-              href="/contato"
-              className="ml-3 inline-flex items-center rounded-full bg-brand px-4 py-2 text-[0.72rem] font-bold uppercase tracking-[0.06em] text-ink transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-hover hover:shadow-[0_8px_22px_rgba(176,138,69,0.38)]"
-            >
-              Contato
-            </Link>
           </nav>
 
           <button
@@ -91,21 +118,33 @@ function SiteHeaderInner() {
             aria-label={open ? "Fechar menu" : "Abrir menu"}
             aria-expanded={open}
             aria-controls="mobile-menu"
-            onClick={() => setOpen((v) => !v)}
+            onClick={toggleMenu}
             className="relative z-50 md:hidden flex flex-col gap-[5px] p-2 -mr-1"
           >
-            <span className={`block h-[1.5px] w-5 bg-[var(--text-on-dark-hover)] origin-center transition-all duration-250 ${open ? "translate-y-[6.5px] rotate-45" : ""}`} />
-            <span className={`block h-[1.5px] w-5 bg-[var(--text-on-dark-hover)] transition-all duration-250 ${open ? "opacity-0 scale-x-0" : ""}`} />
-            <span className={`block h-[1.5px] w-5 bg-[var(--text-on-dark-hover)] origin-center transition-all duration-250 ${open ? "-translate-y-[6.5px] -rotate-45" : ""}`} />
+            <span className={`block h-[1.5px] w-5 bg-[var(--text-on-dark-hover)] origin-center transition-all duration-[250ms] ${open ? "translate-y-[6.5px] rotate-45" : ""}`} />
+            <span className={`block h-[1.5px] w-5 bg-[var(--text-on-dark-hover)] transition-all duration-[250ms] ${open ? "opacity-0 scale-x-0" : ""}`} />
+            <span className={`block h-[1.5px] w-5 bg-[var(--text-on-dark-hover)] origin-center transition-all duration-[250ms] ${open ? "-translate-y-[6.5px] -rotate-45" : ""}`} />
           </button>
         </div>
 
         {open ? (
           <div id="mobile-menu" className="relative z-50 md:hidden border-t border-white/10">
-            <nav aria-label="Principal" className="flex flex-col py-4 gap-1">
+            <nav aria-label="Principal — mobile" className="flex flex-col py-4 gap-1">
               {navItems.map((item) => {
-                const isActive =
-                  item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+                if (item.cta) {
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={closeMenu}
+                      className="mt-2 btn-primary justify-center text-center"
+                    >
+                      {item.label}
+                    </Link>
+                  );
+                }
+
+                const isActive = isNavItemActive(item.href, pathname, hash);
                 return (
                   <Link
                     key={item.href}
@@ -121,13 +160,6 @@ function SiteHeaderInner() {
                   </Link>
                 );
               })}
-              <Link
-                href="/contato"
-                onClick={closeMenu}
-                className="mt-2 btn-primary justify-center text-center"
-              >
-                Contato
-              </Link>
             </nav>
           </div>
         ) : null}
@@ -137,6 +169,5 @@ function SiteHeaderInner() {
 }
 
 export function SiteHeader() {
-  const pathname = usePathname();
-  return <SiteHeaderInner key={pathname} />;
+  return <SiteHeaderInner />;
 }

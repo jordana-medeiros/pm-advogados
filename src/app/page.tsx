@@ -2,10 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { BlogCard } from "@/components/sections/blog-card";
-import { CriminalSpecialtyPanel } from "@/components/sections/criminal-specialty-panel";
+import { HeroAsidePanel } from "@/components/sections/hero-aside-panel";
+import { LawyerPhoto } from "@/components/sections/lawyer-photo";
+import { CopyEmphasis } from "@/components/ui/copy-emphasis";
 import { JsonLd } from "@/components/seo/json-ld";
 import { SiteShell } from "@/components/layout/site-shell";
-import { articles, blogIntro } from "@/lib/articles";
+import { articles, blogIntro, sortArticlesByDate } from "@/lib/articles";
 import {
   contactHref,
   externalLinkRel,
@@ -19,13 +21,15 @@ import {
   whenSeekIntro,
   criminalAuthority,
   criminalHighlightIntro,
+  homeAreasHref,
+  homeAreasSectionId,
 } from "@/lib/site-data";
 
 const heroHighlights = [
   {
     title: "9 ramos do Direito",
     description: "Atuação para diferentes necessidades.",
-    href: "/areas-de-atuacao",
+    href: homeAreasHref,
   },
   {
     title: "5 advogados",
@@ -55,39 +59,37 @@ export default function Home() {
             className="object-cover object-right select-none pointer-events-none opacity-[0.35] lg:opacity-[0.50] grayscale"
             priority
           />
-          {/* Camada 1: Filtro de cor verde puro sobre a estátua */}
           <div className="absolute inset-0 bg-[#0e2a24] mix-blend-color pointer-events-none" />
-          {/* Camada 2: Multiplicação para escurecer realces e fundir com o verde-escuro do fundo */}
           <div className="absolute inset-0 bg-[#0e2a24]/55 mix-blend-multiply pointer-events-none" />
         </div>
 
-        {/* Degrades de transição */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <div className="absolute inset-0 bg-brand-deep/75 lg:hidden" />
-          
-          <div 
+          <div
             className="hidden lg:block absolute inset-y-0 left-0 w-full"
-            style={{ 
-              background: 'linear-gradient(to right, transparent 0%, transparent 25%, #0e2a24 35%, #0e2a24 40%, transparent 60%)' 
-            }} 
+            style={{
+              background:
+                "linear-gradient(to right, transparent 0%, transparent 25%, #0e2a24 35%, #0e2a24 40%, transparent 60%)",
+            }}
           />
           <div className="hidden lg:block absolute inset-y-0 left-0 w-[45%] bg-gradient-to-r from-[#061d18] to-transparent" />
           <div className="hidden lg:block absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-[#0e2a24] to-transparent" />
           <div className="hidden lg:block absolute inset-x-0 top-0 h-1/6 bg-gradient-to-b from-[#061d18] to-transparent" />
         </div>
 
-        <div className="section-shell relative z-10 hero-min-h grid gap-12 pb-16 pt-36 hero-shell sm:pb-20 lg:grid-cols-[1fr_0.85fr] lg:items-end lg:pt-44">
+        <div className="section-shell relative z-10 hero-min-h-home grid gap-12 pb-24 hero-shell sm:pb-28 lg:grid-cols-[1fr_0.78fr] lg:items-end lg:pb-32">
           <div className="min-w-0">
-            <p className="eyebrow text-brand animate-fade-up">Pereira e Medeiros</p>
-            <h1 className="font-display balance hero-title mt-5 max-w-3xl text-on-dark animate-fade-up delay-1">
-              Seu problema jurídico não pode esperar.
+            <h1 className="font-display balance hero-title max-w-3xl text-on-dark animate-fade-up">
+              Seu problema jurídico{" "}
+              <span className="text-brand">não pode esperar.</span>
             </h1>
-            <p className="mt-7 max-w-xl text-base leading-7 text-on-dark-muted sm:text-lg sm:leading-8 animate-fade-up delay-2">
+            <p className="mt-7 max-w-xl text-base leading-7 text-on-dark-muted sm:text-lg sm:leading-8 animate-fade-up delay-1">
               Advogados preparados para agir com rapidez quando o momento exige
-              decisão. Atendimento direto pelo WhatsApp. Atuação em Minas
-              Gerais, Goiás e em todo o Brasil.
+              decisão. Atendimento direto pelo <CopyEmphasis>WhatsApp</CopyEmphasis>.
+              Atuação em <CopyEmphasis>Minas Gerais, Goiás</CopyEmphasis> e em todo o
+              Brasil.
             </p>
-            <div className="mt-9 flex flex-col items-start gap-3 sm:flex-row animate-fade-up delay-3">
+            <div className="mt-9 flex flex-col items-start gap-3 sm:flex-row animate-fade-up delay-2">
               <a
                 href={contactHref}
                 target="_blank"
@@ -98,7 +100,7 @@ export default function Home() {
                 Falar com um advogado
               </a>
               <Link
-                href="/areas-de-atuacao"
+                href={homeAreasHref}
                 id="hero-cta-areas"
                 className="btn-ghost"
               >
@@ -106,10 +108,10 @@ export default function Home() {
               </Link>
             </div>
 
-            <CriminalSpecialtyPanel compact className="mt-8 lg:hidden animate-fade-up delay-4" />
+            <HeroAsidePanel compact className="mt-8 lg:hidden animate-fade-up delay-3" />
           </div>
 
-          <CriminalSpecialtyPanel className="hidden lg:flex self-end animate-fade-up delay-2" />
+          <HeroAsidePanel className="hidden lg:flex self-end animate-fade-up delay-2" />
         </div>
       </section>
 
@@ -151,24 +153,24 @@ export default function Home() {
       </section>
 
       {/* ── QUANDO PROCURAR ──────────────────────── */}
-      <section className="section-shell section-gap grid gap-12 lg:grid-cols-[0.82fr_1.18fr]">
+      <section className="section-shell section-gap grid gap-12 text-on-dark lg:grid-cols-[0.82fr_1.18fr]">
         <div>
-          <p className="eyebrow text-brand-deep">Quando procurar</p>
+          <p className="eyebrow text-brand">Quando procurar</p>
           <div className="gold-accent mt-4 mb-5" />
           <h2 className="font-display display-title max-w-md text-4xl sm:text-5xl">
             {whenSeekIntro.title}
           </h2>
-          <div className="mt-6 max-w-md space-y-4 text-base leading-7 text-muted">
+          <div className="mt-6 max-w-md space-y-4 text-base leading-7 text-on-dark-muted">
             {whenSeekIntro.paragraphs.map((paragraph) => (
-              <p key={paragraph.slice(0, 32)}>{paragraph}</p>
+              <p key={paragraph}>{paragraph}</p>
             ))}
           </div>
         </div>
-        <div className="border-y border-line">
+        <div className="flex flex-col gap-8">
           {whenSeekItems.map((item, index) => (
             <article
               key={item.title}
-              className="group grid gap-5 border-b border-line py-7 last:border-b-0 transition-colors hover:bg-surface-strong sm:grid-cols-[3.5rem_1fr] sm:px-4"
+              className="group grid gap-5 transition-colors hover:bg-white/[0.03] sm:grid-cols-[3.5rem_1fr] sm:px-4 sm:py-1"
             >
               <span className="font-display text-4xl leading-none text-brand/60 transition-colors group-hover:text-brand">
                 {String(index + 1).padStart(2, "0")}
@@ -177,7 +179,7 @@ export default function Home() {
                 <h3 className="font-display text-2xl leading-tight sm:text-3xl">
                   {item.title}
                 </h3>
-                <p className="mt-3 text-sm leading-7 text-muted">
+                <p className="mt-3 text-sm leading-7 text-on-dark-muted">
                   {item.text}
                 </p>
               </div>
@@ -187,34 +189,34 @@ export default function Home() {
       </section>
 
       {/* ── TODAS AS ÁREAS ───────────────────────── */}
-      <section className="surface-mint section-pad">
+      <section
+        id={homeAreasSectionId}
+        className="brand-field section-pad text-on-dark scroll-anchor"
+      >
         <div className="section-shell grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
-            <p className="eyebrow text-brand-deep">Áreas de atuação</p>
+            <p className="eyebrow text-brand">Áreas de atuação</p>
             <div className="gold-accent mt-4 mb-5" />
             <h2 className="font-display display-title max-w-md text-4xl sm:text-5xl">
               {practiceAreasIntro.title}
             </h2>
-            <p className="mt-6 max-w-md text-base leading-7 text-muted">
+            <p className="mt-6 max-w-md text-base leading-7 text-on-dark-muted">
               {practiceAreasIntro.description}
             </p>
-            <Link href="/areas-de-atuacao" className="mt-8 link-arrow">
-              Ver todas as áreas →
-            </Link>
           </div>
-          <div className="border-y border-line">
+          <div className="border-y border-white/10">
             {practiceAreas.map((area, index) => (
               <div
                 key={area.name}
-                className="group grid gap-3 border-b border-line py-5 transition-colors hover:bg-white last:border-b-0 sm:grid-cols-[2.5rem_1fr_1.2fr] sm:items-center sm:px-4"
+                className="group grid gap-3 border-b border-white/10 py-5 transition-colors hover:bg-white/[0.04] last:border-b-0 sm:grid-cols-[2.5rem_1fr_1.2fr] sm:items-center sm:px-4"
               >
                 <span className="text-sm font-mono text-brand/50 transition-colors group-hover:text-brand">
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <span className="font-display text-2xl leading-none sm:text-[1.65rem]">
+                <span className="font-display text-2xl leading-none text-on-dark-soft sm:text-[1.65rem]">
                   {area.name}
                 </span>
-                <span className="text-sm leading-6 text-muted">
+                <span className="text-sm leading-6 text-on-dark-muted">
                   {area.summary}
                 </span>
               </div>
@@ -224,7 +226,7 @@ export default function Home() {
       </section>
 
       {/* ── CRIMINAL DESTAQUE ────────────────────── */}
-      <section className="brand-field section-pad text-on-dark">
+      <section className="section-pad text-on-dark">
         <div className="section-shell grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
           <div>
             <p className="eyebrow text-brand">Direito Criminal</p>
@@ -234,7 +236,7 @@ export default function Home() {
             </h2>
             <div className="mt-6 max-w-md space-y-4 text-base leading-7 text-on-dark-muted">
               {criminalHighlightIntro.paragraphs.map((paragraph) => (
-                <p key={paragraph.slice(0, 32)}>{paragraph}</p>
+                <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
             <a
@@ -263,27 +265,23 @@ export default function Home() {
       </section>
 
       {/* ── EQUIPE ───────────────────────────────────────────────── */}
-      <section className="surface-alt section-pad">
+      <section className="brand-field section-pad text-on-dark">
         <div className="section-shell">
-          <div className="editorial-split mb-10 lg:mb-14">
-            <div>
-              <p className="eyebrow text-brand-deep">Equipe</p>
-              <div className="gold-accent mt-4 mb-5" />
-              <h2 className="font-display display-title max-w-md text-4xl sm:text-5xl">
-                {teamIntro.title}
-              </h2>
-            </div>
-            <div className="lg:pt-8">
-              <p className="max-w-lg text-base leading-7 text-muted">
-                {teamIntro.description}
-              </p>
-              <Link href="/equipe" className="mt-8 link-arrow">
-                Conhecer a equipe →
-              </Link>
-            </div>
+          <div className="mb-10 lg:mb-14">
+            <p className="eyebrow text-brand">Equipe</p>
+            <div className="gold-accent mt-4 mb-5" />
+            <h2 className="font-display display-title max-w-xl text-4xl sm:text-5xl">
+              {teamIntro.title}
+            </h2>
+            <p className="mt-8 max-w-xl text-base leading-7 text-on-dark-muted">
+              {teamIntro.description}
+            </p>
+            <Link href="/equipe" className="link-arrow mt-8 inline-flex">
+              Conhecer a equipe →
+            </Link>
           </div>
 
-          <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-3 sm:gap-x-5 lg:grid-cols-5 lg:gap-6">
+          <div className="grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 sm:gap-x-5 lg:grid-cols-5 lg:gap-6">
             {lawyers.map((lawyer) => (
               <Link
                 key={lawyer.name}
@@ -292,16 +290,15 @@ export default function Home() {
               >
                 <div className="relative aspect-[4/5] overflow-hidden bg-surface-strong">
                   {lawyer.photo ? (
-                    <Image
+                    <LawyerPhoto
                       src={lawyer.photo}
                       alt={`Foto de ${lawyer.name}`}
-                      fill
-                      sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 14vw"
+                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 240px"
                       className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.05]"
                     />
                   ) : null}
                   {/* Overlay com nome no hover */}
-                  <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-brand-deep/80 via-brand-deep/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 p-3">
+                  <div className="absolute inset-0 hidden flex-col justify-end bg-gradient-to-t from-brand-deep/80 via-brand-deep/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 lg:flex p-3">
                     <p className="text-[0.6rem] font-bold tracking-[0.18em] text-brand uppercase leading-none">{lawyer.oab}</p>
                     <p className="mt-1 font-display text-base leading-tight text-white">{lawyer.name}</p>
                   </div>
@@ -312,7 +309,7 @@ export default function Home() {
                 <h3 className="font-display mt-2 text-xl leading-tight sm:text-2xl">
                   {lawyer.name}
                 </h3>
-                <p className="mt-2 text-sm leading-snug text-muted">
+                <p className="mt-2 text-sm leading-snug text-on-dark-muted">
                   {lawyer.area}
                 </p>
               </Link>
@@ -322,21 +319,23 @@ export default function Home() {
       </section>
 
       {/* ── BLOG ───────────────────────────────────────────────────── */}
-      <section className="bg-surface section-pad border-t border-line">
-        <div className="section-shell">
+      <section className="section-pad border-t border-white/10">
+        <div className="section-shell text-on-dark">
           <div className="max-w-2xl">
-            <p className="eyebrow text-brand-deep">Blog</p>
+            <p className="eyebrow text-brand">Blog</p>
             <div className="gold-accent mt-4 mb-5" />
             <h2 className="font-display display-title text-4xl sm:text-5xl">
               {blogIntro.title}
             </h2>
-            <p className="mt-6 max-w-xl text-base leading-7 text-muted">
+            <p className="mt-6 max-w-xl text-base leading-7 text-on-dark-muted">
               {blogIntro.description}
             </p>
           </div>
 
           <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {articles.map((article) => (
+            {sortArticlesByDate(articles)
+              .slice(0, 3)
+              .map((article) => (
               <BlogCard key={article.slug} article={article} />
             ))}
           </div>
@@ -354,11 +353,12 @@ export default function Home() {
             <p className="eyebrow text-brand">Contato</p>
             <div className="gold-accent mt-4 mb-5" />
             <h2 className="font-display display-title max-w-3xl text-4xl sm:text-5xl">
-              Seu caso não precisa esperar.
+              Seu caso <span className="text-brand">não precisa esperar.</span>
             </h2>
             <p className="mt-6 max-w-lg text-base leading-7 text-on-dark-muted">
-              Fale agora com nossa equipe e receba orientação jurídica adequada
-              para sua situação.
+              Fale agora com nossa equipe e receba{" "}
+              <CopyEmphasis>orientação jurídica adequada</CopyEmphasis> para sua
+              situação.
             </p>
           </div>
           <a
@@ -373,10 +373,10 @@ export default function Home() {
       </section>
 
       {/* ── FAQ ─────────────────────────────────────────────────────── */}
-      <section className="section-shell section-gap">
+      <section className="section-shell section-gap section-pad-end text-on-dark">
         <div className="grid gap-10 lg:grid-cols-[0.75fr_1.25fr]">
           <div>
-            <p className="eyebrow text-brand-deep">Perguntas frequentes</p>
+            <p className="eyebrow text-brand">Perguntas frequentes</p>
             <div className="gold-accent mt-4 mb-5" />
             <h2 className="font-display display-title max-w-md text-4xl sm:text-5xl">
               Respostas diretas.
