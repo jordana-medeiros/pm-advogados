@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Manrope } from "next/font/google";
 import "./globals.css";
 
-import { OrganizationJsonLd } from "@/components/json-ld";
-import { ogImagePath, siteName } from "@/lib/site-data";
+import { OrganizationJsonLd } from "@/components/seo/json-ld";
+import { ogImagePath, siteDescription, siteName } from "@/lib/site-data";
 import { getSiteUrl } from "@/lib/site-url";
 
 const manrope = Manrope({
@@ -18,8 +18,6 @@ const cormorant = Cormorant_Garamond({
 });
 
 const siteUrl = getSiteUrl();
-const defaultDescription =
-  "Escritório de advocacia com forte atuação em Direito Criminal, atendimento direto e orientação jurídica estratégica em áreas complementares.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -27,7 +25,7 @@ export const metadata: Metadata = {
     default: siteName,
     template: `%s | ${siteName}`,
   },
-  description: defaultDescription,
+  description: siteDescription,
   applicationName: siteName,
   keywords: [
     "advocacia",
@@ -41,7 +39,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: siteName,
-    description: "Defesa criminal estratégica com atuação jurídica ampla e integrada.",
+    description: siteDescription,
     type: "website",
     locale: "pt_BR",
     url: siteUrl,
@@ -56,7 +54,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: siteName,
-    description: "Defesa criminal estratégica com atuação jurídica ampla e integrada.",
+    description: siteDescription,
     images: [ogImagePath],
   },
 };

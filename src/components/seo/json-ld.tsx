@@ -1,5 +1,6 @@
 import {
   addresses,
+  brandLogos,
   faqItems,
   ogImagePath,
   phoneDisplay,
@@ -69,7 +70,7 @@ export function OrganizationJsonLd() {
     "@type": "Organization",
     name: siteName,
     url: siteUrl,
-    logo: `${siteUrl}${ogImagePath}`,
+    logo: `${siteUrl}${brandLogos.gold}`,
     contactPoint: {
       "@type": "ContactPoint",
       telephone: phoneDisplay,

@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { SiteShell } from "@/components/site-shell";
+import { SiteShell } from "@/components/layout/site-shell";
 
 export default function NotFound() {
   return (
@@ -11,17 +11,13 @@ export default function NotFound() {
           Página não encontrada
         </h1>
         <p className="mx-auto mt-6 max-w-lg text-base leading-7 text-muted">
-          O endereço acessado não existe ou foi movido. Volte ao início ou fale
-          diretamente com a equipe.
+          Este endereço não existe. Volte ao início ou acesse a página de contato.
         </p>
         <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Link href="/" className="btn-primary">
             Ir para o início
           </Link>
-          <Link
-            href="/contato"
-            className="inline-flex items-center rounded-full border border-brand-deep/20 px-6 py-3 text-sm font-semibold text-brand-deep transition-colors hover:bg-brand-deep/5"
-          >
+          <Link href="/contato" className="btn-secondary">
             Ver canais de contato
           </Link>
         </div>

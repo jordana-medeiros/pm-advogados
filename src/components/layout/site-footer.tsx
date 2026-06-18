@@ -1,8 +1,8 @@
 import Link from "next/link";
 
+import { SiteLogo } from "@/components/layout/site-logo";
 import {
   addresses,
-  contactHref,
   externalLinkRel,
   instagramHandle,
   instagramUrl,
@@ -16,7 +16,7 @@ import {
 export function SiteFooter() {
   const year = new Date().getFullYear();
   return (
-    <footer className="brand-field text-[#fafafa]">
+    <footer className="brand-field text-on-dark">
       {/* Linha dourada no topo */}
       <div className="gold-rule" />
 
@@ -25,37 +25,29 @@ export function SiteFooter() {
 
           {/* Coluna 1 — Marca */}
           <div>
-            <p className="eyebrow text-brand">Pereira e Medeiros</p>
-            <p className="font-display mt-5 max-w-sm text-3xl leading-tight sm:text-4xl">
-              Atendimento direto, técnica jurídica e condução segura.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <a
-                href={contactHref}
-                target="_blank"
-                rel={externalLinkRel}
-                className="btn-primary text-xs"
-              >
-                WhatsApp
-              </a>
-              <Link
-                href="/contato"
-                className="btn-ghost text-xs"
-              >
-                Ver canais
+            <SiteLogo
+              variant="gold"
+              className="h-16 w-auto sm:h-[4.5rem] lg:h-20"
+            />
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link href="/contato" className="btn-primary text-xs">
+                Fale conosco
+              </Link>
+              <Link href="/blog" className="btn-ghost text-xs">
+                Blog
               </Link>
             </div>
           </div>
 
           {/* Coluna 2 — Navegação */}
           <div>
-            <p className="eyebrow text-[#7a9b92]">Páginas</p>
+            <p className="eyebrow text-brand/85">Páginas</p>
             <nav aria-label="Rodapé" className="mt-5 flex flex-col gap-2">
               {navItems.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="text-sm text-[#b8c8c2] transition-colors hover:text-[#e8ede9]"
+                  className="text-sm text-on-dark-muted transition-colors hover:text-on-dark-soft"
                 >
                   {item.label}
                 </Link>
@@ -65,26 +57,26 @@ export function SiteFooter() {
 
           {/* Coluna 3 — Contato */}
           <div>
-            <p className="eyebrow text-[#7a9b92]">Contato</p>
-            <div className="mt-5 space-y-3 text-sm leading-6 text-[#b8c8c2]">
+            <p className="eyebrow text-brand/85">Contato</p>
+            <div className="mt-5 space-y-3 text-sm leading-6 text-on-dark-muted">
               {addresses.map((item) => (
                 <p key={item.city}>
                   <a
                     href={item.mapsUrl}
                     target="_blank"
                     rel={externalLinkRel}
-                    className="transition-colors hover:text-[#e8ede9]"
+                    className="transition-colors hover:text-on-dark-soft"
                   >
                     {item.line}
                   </a>
                 </p>
               ))}
               <p className="pt-1">
-                <a href={telPrimaryHref} className="transition-colors hover:text-[#e8ede9]">
+                <a href={telPrimaryHref} className="transition-colors hover:text-on-dark-soft">
                   {whatsappPrimary}
                 </a>
                 {" · "}
-                <a href={telSecondaryHref} className="transition-colors hover:text-[#e8ede9]">
+                <a href={telSecondaryHref} className="transition-colors hover:text-on-dark-soft">
                   {whatsappSecondary}
                 </a>
               </p>
@@ -93,7 +85,7 @@ export function SiteFooter() {
                   href={instagramUrl}
                   target="_blank"
                   rel={externalLinkRel}
-                  className="transition-colors hover:text-[#e8ede9]"
+                  className="transition-colors hover:text-on-dark-soft"
                 >
                   {instagramHandle}
                 </a>
@@ -103,13 +95,13 @@ export function SiteFooter() {
         </div>
 
         {/* Rodapé inferior */}
-        <div className="mt-12 border-t border-white/10 pt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between text-xs text-[#5a7a72]">
+        <div className="mt-12 border-t border-white/10 pt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between text-xs text-on-dark-muted">
           <p>© {year} Pereira e Medeiros Advogados Associados. Todos os direitos reservados.</p>
           <div className="flex flex-wrap gap-x-4 gap-y-1">
-            <Link href="/aviso-legal" className="transition-colors hover:text-[#9ab0a8]">
+            <Link href="/aviso-legal" className="transition-colors hover:text-on-dark-muted">
               Aviso legal
             </Link>
-            <Link href="/politica-de-privacidade" className="transition-colors hover:text-[#9ab0a8]">
+            <Link href="/politica-de-privacidade" className="transition-colors hover:text-on-dark-muted">
               Privacidade
             </Link>
             <span>OAB/MG</span>

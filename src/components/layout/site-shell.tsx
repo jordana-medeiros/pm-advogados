@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
 
-import { FloatingWhatsApp } from "@/components/floating-whatsapp";
-import { SiteFooter } from "@/components/site-footer";
-import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/layout/site-footer";
+import { SiteHeader } from "@/components/layout/site-header";
+import { FloatingWhatsApp } from "@/components/ui/floating-whatsapp";
 
 type SiteShellProps = {
   children: ReactNode;

@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 
-import { PageHero } from "@/components/page-hero";
-import { SiteShell } from "@/components/site-shell";
+import { PageHero } from "@/components/sections/page-hero";
+import { SiteShell } from "@/components/layout/site-shell";
 import { contactHref, externalLinkRel, siteName } from "@/lib/site-data";
 
 export const metadata: Metadata = {
   title: "Política de Privacidade",
   description:
-    "Política de privacidade e tratamento de dados da Pereira e Medeiros Advogados Associados.",
+    "Como o escritório Pereira e Medeiros trata dados pessoais, conforme a LGPD.",
 };
 
 export default function PoliticaPrivacidadePage() {
@@ -15,55 +15,48 @@ export default function PoliticaPrivacidadePage() {
     <SiteShell>
       <PageHero
         eyebrow="Privacidade"
-        title="Como tratamos seus dados neste site."
-        description="Transparência sobre coleta, uso e proteção de informações conforme a LGPD."
+        title="Tratamento de dados neste site."
+        description="O que coletamos, para quê e quais são seus direitos."
       />
 
       <section className="section-shell section-gap max-w-3xl space-y-8 text-sm leading-7 text-muted sm:text-base">
         <article className="space-y-3">
-          <h2 className="font-display text-3xl text-foreground">Controlador</h2>
+          <h2 className="font-display text-3xl text-foreground">Quem responde</h2>
           <p>
-            O controlador dos dados pessoais tratados por meio deste site é{" "}
-            {siteName}, responsável pelas informações institucionais aqui
-            disponibilizadas.
+            O controlador dos dados tratados por meio deste site é {siteName}.
           </p>
         </article>
 
         <article className="space-y-3">
-          <h2 className="font-display text-3xl text-foreground">Dados coletados</h2>
+          <h2 className="font-display text-3xl text-foreground">O que o site coleta</h2>
           <p>
-            Este site institucional não utiliza formulários de contato. Quando
-            você acessa links externos — como WhatsApp, telefone, mapas ou
-            Instagram — passa a interagir com plataformas de terceiros, sujeitas
-            às políticas próprias desses serviços.
+            Não há formulário aqui. Ao clicar em WhatsApp, telefone, mapa ou
+            Instagram, você passa a usar serviços de terceiros, regidos pelas
+            políticas deles.
           </p>
         </article>
 
         <article className="space-y-3">
-          <h2 className="font-display text-3xl text-foreground">Finalidade</h2>
+          <h2 className="font-display text-3xl text-foreground">Para que usamos</h2>
           <p>
-            Eventuais dados compartilhados voluntariamente ao entrar em contato
-            com o escritório serão utilizados exclusivamente para responder à
-            solicitação, avaliar a demanda jurídica e, quando aplicável,
-            prestar serviços advocatícios.
+            Dados que você enviar ao entrar em contato servem para responder,
+            avaliar a demanda e, se for o caso, prestar serviço advocatício.
           </p>
         </article>
 
         <article className="space-y-3">
-          <h2 className="font-display text-3xl text-foreground">Seus direitos</h2>
+          <h2 className="font-display text-3xl text-foreground">Seus direitos (LGPD)</h2>
           <p>
-            Nos termos da Lei Geral de Proteção de Dados (LGPD), você pode
-            solicitar confirmação de tratamento, acesso, correção, anonimização,
-            eliminação ou informações sobre compartilhamento de dados pessoais
-            tratados pelo escritório.
+            Você pode pedir confirmação de tratamento, acesso, correção,
+            anonimização, exclusão ou informações sobre compartilhamento.
           </p>
         </article>
 
         <article className="space-y-3">
-          <h2 className="font-display text-3xl text-foreground">Contato sobre privacidade</h2>
+          <h2 className="font-display text-3xl text-foreground">Dúvidas</h2>
           <p>
-            Para exercer seus direitos ou esclarecer dúvidas sobre privacidade,
-            entre em contato pelos canais oficiais do escritório.
+            Para exercer direitos ou tirar dúvidas sobre privacidade, fale com o
+            escritório pelos canais oficiais.
           </p>
           <a
             href={contactHref}
@@ -71,7 +64,7 @@ export default function PoliticaPrivacidadePage() {
             rel={externalLinkRel}
             className="btn-primary mt-2 inline-flex"
           >
-            Falar com o escritório
+            Contato
           </a>
         </article>
       </section>

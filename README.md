@@ -30,12 +30,27 @@ Essa variável alimenta `metadataBase`, sitemap, robots e dados estruturados (JS
 | `npm run start` | Servidor de produção |
 | `npm run lint` | ESLint |
 
-## Estrutura
+## Estrutura do projeto
 
-- `src/app/` — páginas (App Router)
-- `src/components/` — componentes reutilizáveis
-- `src/lib/site-data.ts` — conteúdo e dados de contato centralizados
-- `public/images/` — imagens estáticas
+```
+public/
+  brand/              # Logos (branca, dourada, verde)
+  images/
+    hero/             # Imagens de destaque
+    team/             # Fotos institucionais
+    lawyers/          # Fotos dos advogados
+
+src/
+  app/                # Rotas (App Router)
+  components/
+    layout/           # Header, footer, shell, logo
+    sections/         # Blocos de página reutilizáveis
+    ui/               # Elementos de interface
+    seo/              # JSON-LD e metadados estruturados
+  lib/
+    site-data.ts      # Conteúdo e contatos
+    site-url.ts       # URL base do site
+```
 
 ## Deploy
 

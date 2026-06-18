@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
-import { PageHero } from "@/components/page-hero";
-import { SiteShell } from "@/components/site-shell";
+import { PageHero } from "@/components/sections/page-hero";
+import { SiteShell } from "@/components/layout/site-shell";
 import {
   addresses,
   contactHref,
@@ -18,131 +18,130 @@ import {
 export const metadata: Metadata = {
   title: "Contato",
   description:
-    "Entre em contato com a equipe da Pereira e Medeiros Advogados Associados por WhatsApp, telefone e endereço.",
+    "Telefone, mensagem e endereços em Santa Vitória/MG e São Simão/GO. Pereira e Medeiros Advogados Associados.",
 };
-
-const contactItems = [
-  {
-    id: "telefones",
-    eyebrow: "Telefones",
-    content: (
-      <div className="mt-4 space-y-2">
-        <p>
-          <a
-            href={contactHref}
-            target="_blank"
-            rel={externalLinkRel}
-            className="text-lg font-medium text-foreground transition-colors hover:text-brand-deep"
-          >
-            WhatsApp {whatsappPrimary}
-          </a>
-        </p>
-        <p>
-          <a
-            href={contactHrefSecondary}
-            target="_blank"
-            rel={externalLinkRel}
-            className="text-lg font-medium text-foreground transition-colors hover:text-brand-deep"
-          >
-            WhatsApp {whatsappSecondary}
-          </a>
-        </p>
-        <p className="text-sm text-muted">
-          Telefone:{" "}
-          <a href={telPrimaryHref} className="font-medium text-foreground hover:text-brand-deep">
-            {whatsappPrimary}
-          </a>
-          {" · "}
-          <a href={telSecondaryHref} className="font-medium text-foreground hover:text-brand-deep">
-            {whatsappSecondary}
-          </a>
-        </p>
-      </div>
-    ),
-  },
-  {
-    id: "enderecos",
-    eyebrow: "Endereços",
-    content: (
-      <div className="mt-4 space-y-4">
-        {addresses.map((item) => (
-          <div key={item.city}>
-            <p className="text-sm font-semibold text-foreground">{item.city}</p>
-            <a
-              href={item.mapsUrl}
-              target="_blank"
-              rel={externalLinkRel}
-              className="text-sm leading-6 text-muted transition-colors hover:text-brand-deep"
-            >
-              {item.line}
-            </a>
-          </div>
-        ))}
-      </div>
-    ),
-  },
-  {
-    id: "instagram",
-    eyebrow: "Instagram",
-    content: (
-      <p className="mt-4">
-        <a
-          href={instagramUrl}
-          target="_blank"
-          rel={externalLinkRel}
-          className="text-lg font-medium text-foreground transition-colors hover:text-brand-deep"
-        >
-          {instagramHandle}
-        </a>
-      </p>
-    ),
-  },
-];
 
 export default function ContatoPage() {
   return (
     <SiteShell>
       <PageHero
         eyebrow="Contato"
-        title="Canais diretos para falar com o escritório."
-        description="Sem formulário. O contato com a equipe acontece por WhatsApp, telefone e atendimento direto."
+        title="Canais de atendimento do escritório."
+        description="Sem formulário: mensagem, ligação ou presencial. Descreva o caso; a equipe indica o advogado da área."
       />
 
-      <section className="section-shell py-14 sm:py-16">
-        <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-
-          {/* WhatsApp CTA — card escuro */}
-          <article className="card-dark p-8 sm:p-10 flex flex-col">
+      <section className="section-shell section-after-hero section-pad-compact pb-16 sm:pb-20">
+        <div className="contact-split">
+          <div className="brand-field contact-panel-dark text-on-dark">
             <div className="gold-accent mb-6" />
-            <p className="eyebrow text-brand">WhatsApp</p>
-            <h2 className="font-display mt-4 text-4xl leading-tight text-[#f0f5f2] sm:text-5xl">
-              Atendimento rápido e objetivo.
+            <p className="eyebrow text-brand">Atendimento imediato</p>
+            <h2 className="font-display mt-4 max-w-md text-4xl leading-tight text-on-dark-soft sm:text-5xl">
+              Inicie a conversa.
             </h2>
-            <p className="mt-5 text-sm leading-7 text-[#9ab0a8] sm:text-base flex-1">
-              Use o WhatsApp como canal principal para iniciar a conversa com o
-              escritório e receber orientação inicial sem burocracia.
+            <p className="mt-5 max-w-md text-base leading-7 text-on-dark-muted">
+              O canal principal é a mensagem. Explique a situação em poucas
+              linhas — retorno, em regra, no mesmo dia.
             </p>
-            <div className="mt-8">
-              <a
-                href={contactHref}
-                target="_blank"
-                rel={externalLinkRel}
-                id="contato-whatsapp-btn"
-                className="btn-primary"
-              >
-                Abrir WhatsApp
-              </a>
-            </div>
-          </article>
+            <a
+              href={contactHref}
+              target="_blank"
+              rel={externalLinkRel}
+              id="contato-whatsapp-btn"
+              className="btn-primary mt-8 inline-flex"
+            >
+              Iniciar conversa
+            </a>
+          </div>
 
-          {/* Outros canais */}
-          <div className="grid gap-4">
-            {contactItems.map((item) => (
-              <article key={item.id} className="card p-6 sm:p-7">
-                <p className="eyebrow text-brand">{item.eyebrow}</p>
-                {item.content}
+          <div className="contact-panel-light">
+            <p className="eyebrow text-brand-deep mb-6">Canais e endereços</p>
+
+            <div className="content-list">
+              <article className="content-list-item content-list-item-stacked">
+                <div>
+                  <p className="eyebrow text-brand">Telefones</p>
+                  <div className="mt-4 space-y-2">
+                    <p>
+                      <a
+                        href={contactHref}
+                        target="_blank"
+                        rel={externalLinkRel}
+                        className="text-lg font-medium text-foreground transition-colors hover:text-brand-deep"
+                      >
+                        {whatsappPrimary}
+                      </a>
+                      <span className="ml-2 text-sm text-muted">(mensagem)</span>
+                    </p>
+                    <p>
+                      <a
+                        href={contactHrefSecondary}
+                        target="_blank"
+                        rel={externalLinkRel}
+                        className="text-lg font-medium text-foreground transition-colors hover:text-brand-deep"
+                      >
+                        {whatsappSecondary}
+                      </a>
+                      <span className="ml-2 text-sm text-muted">(mensagem)</span>
+                    </p>
+                    <p className="text-sm text-muted">
+                      Ligação:{" "}
+                      <a
+                        href={telPrimaryHref}
+                        className="font-medium text-foreground hover:text-brand-deep"
+                      >
+                        {whatsappPrimary}
+                      </a>
+                      {" · "}
+                      <a
+                        href={telSecondaryHref}
+                        className="font-medium text-foreground hover:text-brand-deep"
+                      >
+                        {whatsappSecondary}
+                      </a>
+                    </p>
+                  </div>
+                </div>
               </article>
-            ))}
+
+              <article className="content-list-item content-list-item-stacked">
+                <div>
+                  <p className="eyebrow text-brand">Endereços</p>
+                  <div className="mt-4 space-y-4">
+                    {addresses.map((item) => (
+                      <div key={item.city}>
+                        <p className="text-sm font-semibold text-foreground">
+                          {item.city}
+                        </p>
+                        <a
+                          href={item.mapsUrl}
+                          target="_blank"
+                          rel={externalLinkRel}
+                          className="text-sm leading-6 text-muted transition-colors hover:text-brand-deep"
+                        >
+                          {item.line}
+                        </a>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </article>
+
+              <article className="content-list-item content-list-item-stacked">
+                <div>
+                  <p className="eyebrow text-brand">Instagram</p>
+                  <p className="mt-4">
+                    <a
+                      href={instagramUrl}
+                      target="_blank"
+                      rel={externalLinkRel}
+                      className="text-lg font-medium text-foreground transition-colors hover:text-brand-deep"
+                    >
+                      {instagramHandle}
+                    </a>
+                  </p>
+                </div>
+              </article>
+            </div>
           </div>
         </div>
       </section>
