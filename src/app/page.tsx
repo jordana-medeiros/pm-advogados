@@ -28,9 +28,15 @@ import {
   homeAreasSectionId,
 } from "@/lib/site-data";
 
-const heroHighlights = [
+type HighlightItem = {
+  readonly title: string;
+  readonly description: string;
+  readonly href?: string;
+};
+
+const heroHighlights: readonly HighlightItem[] = [
   {
-    title: "9 ramos do Direito",
+    title: "9 especialidades do Direito",
     description: "Atuação para diferentes necessidades.",
     href: homeAreasHref,
   },
@@ -40,8 +46,9 @@ const heroHighlights = [
     href: "/equipe",
   },
   {
-    title: "Há mais de 15 anos",
-    description: "Experiência construída na prática, caso a caso.",
+    title: "Contato Direto",
+    description: "Fale com o advogado especialista da sua área.",
+    href: "/contato",
   },
 ] as const;
 
@@ -82,18 +89,35 @@ export default function Home() {
           <div className="hidden lg:block absolute inset-x-0 top-0 h-1/6 bg-gradient-to-b from-[#061d18] to-transparent" />
         </div>
 
-        <div className="section-shell relative z-10 hero-min-h-home grid gap-8 pb-16 hero-shell sm:gap-12 sm:pb-28 lg:grid-cols-[1fr_0.78fr] lg:items-end lg:pb-32">
+        <div className="section-shell relative z-10 hero-min-h-home grid gap-8 pb-12 hero-shell sm:gap-12 sm:pb-16 lg:grid-cols-[1.3fr_0.7fr] lg:items-end lg:pb-20">
           <div className="min-w-0">
-            <h1 className="font-display balance hero-title max-w-3xl text-on-dark animate-fade-up">
-              Seu problema jurídico{" "}
-              <span className="text-brand">não pode esperar.</span>
+            <h1 className="font-display balance hero-title max-w-4xl text-on-dark animate-fade-up">
+              Defesa jurídica estratégica, atendimento humanizado e{" "}
+              <span className="text-brand">resultados concretos.</span>
             </h1>
-            <p className="mt-5 max-w-xl text-base leading-7 text-on-dark-muted sm:mt-7 sm:text-lg sm:leading-8 animate-fade-up delay-1">
-              Advogados preparados para agir com rapidez quando o momento exige
-              decisão. Atendimento direto pelo <CopyEmphasis>WhatsApp</CopyEmphasis>.
-              Atuação em <CopyEmphasis>Minas Gerais, Goiás</CopyEmphasis> e em todo o
-              Brasil.
-            </p>
+            <div className="mt-6 max-w-xl animate-fade-up delay-1">
+              <p className="text-[0.65rem] font-bold tracking-[0.2em] text-brand uppercase">
+                Atuação especializada com:
+              </p>
+              <ul className="mt-4 space-y-3 text-base text-on-dark-muted">
+                <li className="flex items-start gap-3">
+                  <span className="text-brand font-bold select-none" aria-hidden="true">—</span>
+                  <span>Atendimento presencial e on-line</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-brand font-bold select-none" aria-hidden="true">—</span>
+                  <span>Defesa criminal 24 horas</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-brand font-bold select-none" aria-hidden="true">—</span>
+                  <span>Equipe especializada</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-brand font-bold select-none" aria-hidden="true">—</span>
+                  <span>Atuação em Minas Gerais, Goiás e em todo território nacional</span>
+                </li>
+              </ul>
+            </div>
             <div className="mt-6 flex flex-col items-start gap-2.5 sm:mt-9 sm:flex-row sm:gap-3 animate-fade-up delay-2">
               <a
                 href={contactHref}
@@ -153,6 +177,44 @@ export default function Home() {
                 </article>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── QUEM SOMOS ───────────────────────────── */}
+      <section className="surface-alt section-pad border-t border-white/5 text-on-dark">
+        <div className="section-shell grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-14">
+          <div>
+            <p className="eyebrow text-brand">Quem Somos</p>
+            <div className="gold-accent mt-3 mb-4 sm:mt-4 sm:mb-5" />
+            <h2 className="font-display display-title max-w-md text-3xl sm:text-4xl">
+              Experiência, Estratégia e Compromisso
+            </h2>
+            <p className="mt-5 text-base leading-7 text-on-dark-muted max-w-lg">
+              O escritório Pereira e Medeiros Advogados nasceu com a missão de oferecer atendimento jurídico de excelência, atuando de forma estratégica e personalizada para cada cliente.
+            </p>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="p-6 bg-surface-strong/40 border border-white/5 rounded-sm transition-all hover:bg-surface-strong/60 hover:border-brand/20">
+              <p className="font-display text-3xl text-brand font-semibold leading-none">+ 15 anos</p>
+              <p className="mt-3 text-sm font-semibold text-on-dark-soft">de atuação sólida</p>
+              <p className="mt-2 text-xs text-on-dark-muted leading-relaxed">Experiência construída na prática, defendendo os direitos de nossos clientes.</p>
+            </div>
+            <div className="p-6 bg-surface-strong/40 border border-white/5 rounded-sm transition-all hover:bg-surface-strong/60 hover:border-brand/20">
+              <p className="font-display text-3xl text-brand font-semibold leading-none">+ 1.000</p>
+              <p className="mt-3 text-sm font-semibold text-on-dark-soft">processos acompanhados</p>
+              <p className="mt-2 text-xs text-on-dark-muted leading-relaxed">Ações conduzidas com o máximo rigor técnico e compromisso ético.</p>
+            </div>
+            <div className="p-6 bg-surface-strong/40 border border-white/5 rounded-sm transition-all hover:bg-surface-strong/60 hover:border-brand/20">
+              <p className="font-display text-3xl text-brand font-semibold leading-none">Nacional</p>
+              <p className="mt-3 text-sm font-semibold text-on-dark-soft">diversas comarcas</p>
+              <p className="mt-2 text-xs text-on-dark-muted leading-relaxed">Atendimento presencial e online em Minas Gerais, Goiás e em todo o Brasil.</p>
+            </div>
+            <div className="p-6 bg-surface-strong/40 border border-white/5 rounded-sm transition-all hover:bg-surface-strong/60 hover:border-brand/20">
+              <p className="font-display text-3xl text-brand font-semibold leading-none">Completa</p>
+              <p className="mt-3 text-sm font-semibold text-on-dark-soft">equipe multidisciplinar</p>
+              <p className="mt-2 text-xs text-on-dark-muted leading-relaxed">Soluções coordenadas sob a perspectiva de múltiplos especialistas.</p>
+            </div>
           </div>
         </div>
       </section>

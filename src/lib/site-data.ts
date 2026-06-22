@@ -94,15 +94,15 @@ export const practiceAreas = [
   {
     name: "Direito Criminal",
     summary:
-      "Investigação, prisão, audiência e júri. Defesa desde o primeiro ato.",
+      "Investigação, Prisão, Audiência de custódia, Habeas Corpus e Tribunal do Júri.",
   },
   {
     name: "Direito Previdenciário",
     summary:
-      "Aposentadoria, auxílio-doença, revisão de benefício e ação contra o INSS.",
+      "Aposentadoria, Auxílio Doença, Auxílio Reclusão, BPC Loas e revisão de benefícios",
   },
   {
-    name: "Direito de Família",
+    name: "Direito de Família e Sucessões",
     summary:
       "Divórcio, guarda, pensão alimentícia, inventário e partilha de bens.",
   },
@@ -186,7 +186,7 @@ export const differentiators = [
   {
     title: "Advogado por área",
     description:
-      "Cada ramo do Direito tem responsável no escritório. Caso que envolve mais de uma área é analisado em conjunto.",
+      "Cada especialidade do Direito tem responsável no escritório. Caso que envolve mais de uma área é analisado em conjunto.",
   },
   {
     title: "MG, GO e qualquer comarca",
@@ -214,12 +214,11 @@ export const institutionalText = {
 };
 
 export const criminalHighlightIntro = {
-  title: "Foi surpreendido por uma investigação, prisão ou intimação?",
+  title: "Quando a liberdade está em risco, cada minuto importa.",
   paragraphs: [
-    "O tempo pode ser determinante para a sua defesa.",
-    "Nossa equipe atua na análise imediata do caso, orientação da família e definição dos próximos passos jurídicos.",
+    "Nossa equipe atua imediatamente em Prisões em Flagrante, audiências de custódia, habeas corpus urgentes e acompanhamento em delegacia. Além de orientação para a família e definição dos próximos passos.",
   ],
-  cta: "Falar com um advogado criminalista",
+  cta: "SOLICITAR ATENDIMENTO IMEDIATO A ADVOGADO CRIMINALISTA",
 };
 
 export const criminalAuthority = [
@@ -264,6 +263,11 @@ export const whenSeekItems = [
 ];
 
 export const faqItems = [
+  {
+    question: "Porque escolher o escritório Pereira e Medeiros?",
+    answer:
+      "Atendimento direto com advogado, transparência processual, estratégia especializada, atualização constante ao cliente e atuação presencial e digital.",
+  },
   {
     question: "Meu atendimento é sigiloso?",
     answer:

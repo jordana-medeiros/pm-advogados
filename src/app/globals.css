@@ -264,9 +264,9 @@ a {
 /* ── Typography scale ────────────────────────── */
 
 .hero-title {
-  font-size: clamp(2.75rem, 5.5vw, 5.5rem);
-  line-height: 1.0;
-  letter-spacing: -0.01em;
+  font-size: clamp(2.25rem, 3.8vw, 3.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
 }
 
 @media (max-width: 640px) {
@@ -276,8 +276,8 @@ a {
   }
 
   .hero-title {
-    font-size: clamp(2.25rem, 9vw, 3.25rem);
-    line-height: 1.04;
+    font-size: clamp(1.85rem, 7.8vw, 2.5rem);
+    line-height: 1.1;
   }
 
   .page-hero-title {
@@ -321,7 +321,7 @@ a {
 }
 
 .hero-min-h-home {
-  min-height: 28rem;
+  min-height: 26rem;
 }
 
 .hero-lady-justice-image {
@@ -478,7 +478,7 @@ a {
   }
 
   .hero-min-h-home {
-    min-height: 44rem;
+    min-height: 38rem;
   }
 }
 
@@ -488,7 +488,7 @@ a {
   }
 
   .hero-min-h-home {
-    min-height: 56rem;
+    min-height: 48rem;
   }
 }
 
