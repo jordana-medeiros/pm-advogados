@@ -1,73 +1,102 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { contactHref } from "@/lib/site-data";
+import { useEffect, useRef, useState } from "react";
+
+import { criminalContactHref, externalLinkRel } from "@/lib/site-data";
+
+const criminalPromptMessages = [
+  "Plantão criminal 24h — precisa de ajuda?",
+  "Fale com o advogado de plantão agora.",
+  "Urgência? Clique e fale pelo WhatsApp.",
+] as const;
 
 export function FloatingWhatsapp() {
-  const [showTooltip, setShowTooltip] = useState(false);
+  const [promptIndex, setPromptIndex] = useState(0);
+  const [showPrompt, setShowPrompt] = useState(true);
+  const [textVisible, setTextVisible] = useState(true);
+  const fadeTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
-    // Show tooltip after 3 seconds
-    const timer = setTimeout(() => {
-      setShowTooltip(true);
-    }, 3000);
+    if (!showPrompt || criminalPromptMessages.length <= 1) return;
 
-    return () => clearTimeout(timer);
-  }, []);
+    const interval = window.setInterval(() => {
+      setTextVisible(false);
+      fadeTimeoutRef.current = window.setTimeout(() => {
+        setPromptIndex((current) => (current + 1) % criminalPromptMessages.length);
+        setTextVisible(true);
+        fadeTimeoutRef.current = null;
+      }, 260);
+    }, 6000);
+
+    return () => {
+      window.clearInterval(interval);
+      if (fadeTimeoutRef.current !== null) {
+        window.clearTimeout(fadeTimeoutRef.current);
+      }
+    };
+  }, [showPrompt]);
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3 pointer-events-none">
-      {showTooltip && (
-        <div className="pointer-events-auto bg-[#0a241f] border border-[#b08a45]/40 text-[#eef4f1] p-4 rounded-sm shadow-lg max-w-xs animate-fade-in relative transition-all duration-300">
-          <button
-            onClick={() => setShowTooltip(false)}
-            className="absolute top-2 right-2 text-white/50 hover:text-white text-xs cursor-pointer focus:outline-none"
-            aria-label="Fechar aviso"
-          >
-            ✕
-          </button>
-          <div className="pr-4">
-            <p className="text-xs font-semibold text-[#b08a45] uppercase tracking-wider mb-1">
-              🚨 Plantão Urgente
-            </p>
-            <p className="text-xs leading-relaxed text-[#eef4f1]/90">
-              <strong className="text-white">Não perca tempo!</strong> Fale com o advogado de plantão agora mesmo pelo WhatsApp.
-            </p>
+    <div className="floating-actions">
+      <div className="fab-whatsapp-column">
+        {showPrompt ? (
+          <div className="fab-whatsapp-prompt-wrap">
             <a
-              href={contactHref}
+              href={criminalContactHref}
               target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex mt-2.5 text-[0.68rem] font-bold text-[#b08a45] hover:text-[#c9a05a] uppercase tracking-wider transition-colors"
+              rel={externalLinkRel}
+              className="fab-whatsapp-prompt fab-whatsapp-prompt--criminal"
+              aria-label={`${criminalPromptMessages[promptIndex]} Falar pelo WhatsApp`}
             >
-              Iniciar Conversa →
+              <span
+                className={`fab-whatsapp-prompt-text fab-whatsapp-prompt-text--swap ${
+                  textVisible ? "is-visible" : ""
+                }`}
+              >
+                {criminalPromptMessages[promptIndex]}
+              </span>
+              <span
+                className="fab-whatsapp-prompt-tail fab-whatsapp-prompt-tail--criminal"
+                aria-hidden="true"
+              />
             </a>
+            <button
+              type="button"
+              onClick={() => setShowPrompt(false)}
+              className="fab-whatsapp-prompt-close"
+              aria-label="Fechar aviso"
+            >
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 12 12"
+                className="h-2.5 w-2.5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.75"
+                strokeLinecap="round"
+              >
+                <path d="M2 2l8 8M10 2 2 10" />
+              </svg>
+            </button>
           </div>
-          {/* Popover Arrow */}
-          <div className="absolute -bottom-2 right-5 w-4 h-4 bg-[#0a241f] border-r border-b border-[#b08a45]/40 transform rotate-45"></div>
-        </div>
-      )}
+        ) : null}
 
-      <a
-        href={contactHref}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="pointer-events-auto flex items-center justify-center w-14 h-14 rounded-full bg-[#25d366] hover:bg-[#20ba5a] shadow-[0_4px_16px_rgba(37,211,102,0.3)] hover:scale-105 active:scale-95 transition-all duration-300 relative group"
-        aria-label="Falar com advogado no WhatsApp"
-      >
-        {/* Pulsing ring */}
-        <span className="absolute inset-0 rounded-full bg-[#25d366]/30 animate-ping opacity-75"></span>
-        <span className="absolute inset-0 rounded-full border-2 border-[#b08a45] scale-100 group-hover:scale-110 transition-all duration-300"></span>
-
-        {/* WhatsApp SVG Icon */}
-        <svg
-          className="w-8 h-8 fill-white relative z-10"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
+        <a
+          href={criminalContactHref}
+          target="_blank"
+          rel={externalLinkRel}
+          aria-label="Falar com advogado criminalista no WhatsApp"
+          className="fab-whatsapp flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white transition-transform duration-200"
         >
-          <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.262 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.625 1.451 5.437.002 9.861-4.416 9.864-9.852.002-2.632-1.02-5.105-2.877-6.967C16.383 1.968 13.916.945 11.294.945c-5.436 0-9.86 4.418-9.863 9.854-.002 1.958.502 3.868 1.462 5.51L1.87 22.083l6.02-1.579.034-.015.723.465z" />
-          <path d="M17.303 14.18c-.287-.144-1.702-.84-1.965-.935-.263-.097-.456-.145-.648.144-.192.29-.744.936-.912 1.127-.168.19-.336.215-.624.072-.288-.145-1.218-.45-2.32-1.433-.858-.766-1.438-1.712-1.606-2-.168-.288-.018-.444.126-.587.13-.13.288-.337.432-.505.144-.168.192-.288.288-.48.096-.193.048-.36-.024-.505-.072-.144-.648-1.56-.888-2.136-.233-.56-.47-.482-.648-.49-.168-.008-.36-.01-.552-.01-.192 0-.504.072-.768.36-.264.288-1.008.985-1.008 2.4 0 1.417 1.032 2.785 1.176 2.977.144.192 2.03 3.1 4.92 4.35.688.297 1.224.474 1.644.608.69.22 1.32.19 1.82.115.556-.083 1.702-.695 1.942-1.367.24-.672.24-1.248.168-1.368-.072-.12-.264-.192-.552-.336" />
-        </svg>
-      </a>
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            className="h-7 w-7 fill-current"
+          >
+            <path d="M19.05 4.91A9.82 9.82 0 0 0 12.06 2C6.65 2 2.25 6.4 2.25 11.81c0 1.73.45 3.43 1.31 4.93L2 22l5.42-1.5a9.8 9.8 0 0 0 4.64 1.18h.01c5.41 0 9.81-4.4 9.81-9.81a9.74 9.74 0 0 0-2.83-6.96Zm-6.99 15.1h-.01a8.12 8.12 0 0 1-4.14-1.13l-.3-.18-3.22.89.86-3.14-.2-.32a8.11 8.11 0 0 1-1.24-4.32c0-4.48 3.65-8.13 8.14-8.13 2.17 0 4.21.84 5.74 2.38a8.07 8.07 0 0 1 2.38 5.75c0 4.48-3.65 8.2-8.01 8.2Zm4.46-6.08c-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1-.37-1.91-1.17-.71-.64-1.18-1.42-1.32-1.66-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.19-.46-.39-.4-.54-.4h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.69 2.58 4.09 3.62.57.25 1.01.4 1.36.51.57.18 1.08.15 1.49.09.45-.07 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28Z" />
+          </svg>
+        </a>
+      </div>
     </div>
   );
 }

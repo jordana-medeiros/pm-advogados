@@ -25,6 +25,12 @@ export function buildAreaContactHref(area: string) {
   return `https://wa.me/5534999618485?text=${message}`;
 }
 
+const criminalWhatsappMessage = encodeURIComponent(
+  "Olá, preciso de atendimento criminal de urgência. Preciso falar com um advogado criminalista agora.",
+);
+
+export const criminalContactHref = `https://wa.me/5534999618485?text=${criminalWhatsappMessage}`;
+
 export type NavItem = {
   href: string;
   label: string;
@@ -72,12 +78,20 @@ export const brandLogos = {
 export const images = {
   hero: {
     ladyJustice: "/images/hero/lady-justice.webp",
-    criminalHeroBg: "/images/hero/criminal-hero-bg.png",
+    criminalHero: "/images/hero/criminal-hero.webp",
   },
   team: {
     group: "/images/team/group.webp",
     groupAlt: "/images/team/group-alt.webp",
     principals: "/images/team/giuliano-e-jordana.webp",
+  },
+  criminal: {
+    emergencia: "/images/criminal/emergencia.webp",
+    cliqueERelate: "/images/criminal/clique-e-relate.webp",
+    instrucao: "/images/criminal/instrucao.webp",
+    intervencao: "/images/criminal/intervencao.webp",
+    jordana: "/images/criminal/jordana-criminal.webp",
+    jordanaEGiuliano: "/images/criminal/jordana-e-giuliano-criminal.webp",
   },
 } as const;
 

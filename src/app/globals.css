@@ -36,6 +36,7 @@
   --hero-padding-top: 11rem;
   --scroll-anchor-offset: 8.5rem;
   --hero-min-h-home: 28rem;
+  --hero-min-h-criminal: 22rem;
   --section-space: 3rem;
   --touch-target: 44px;
 }
@@ -46,6 +47,7 @@
     --hero-padding-top: 8rem;
     --scroll-anchor-offset: 7rem;
     --hero-min-h-home: 28rem;
+    --hero-min-h-criminal: 22rem;
     --section-space: 2.5rem;
   }
 }
@@ -53,6 +55,7 @@
 @media (min-width: 640px) {
   :root {
     --hero-min-h-home: 40rem;
+    --hero-min-h-criminal: 34rem;
     --section-space: 3.5rem;
   }
 }
@@ -60,6 +63,7 @@
 @media (min-width: 1024px) {
   :root {
     --hero-min-h-home: 50rem;
+    --hero-min-h-criminal: 42rem;
   }
 }
 
@@ -343,6 +347,10 @@ a {
   min-height: var(--hero-min-h-home);
 }
 
+.hero-min-h-criminal {
+  min-height: var(--hero-min-h-criminal);
+}
+
 .hero-lady-justice-frame {
   position: absolute;
   inset-inline: 0;
@@ -468,13 +476,6 @@ a {
   border-color: var(--brand);
 }
 
-.criminal-panel {
-  border: 1px solid rgba(176, 138, 69, 0.15);
-  background: rgba(14, 42, 36, 0.5);
-  backdrop-filter: blur(12px);
-  border-radius: var(--radius);
-}
-
 .hero-info-panel {
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: rgba(255, 255, 255, 0.04);
@@ -528,6 +529,16 @@ a {
   margin-bottom: 1rem;
 }
 
+.section-kicker--centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.section-kicker--centered .gold-accent {
+  margin-inline: auto;
+}
+
 @media (min-width: 640px) {
   .section-kicker .gold-accent {
     margin-top: 1rem;
@@ -562,6 +573,39 @@ a {
 .metric-card:hover {
   background: rgba(14, 42, 36, 0.6);
   border-color: rgba(176, 138, 69, 0.2);
+}
+
+.criminal-metric-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.criminal-metric-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.375rem;
+  height: 2.375rem;
+  margin-bottom: 0.875rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(176, 138, 69, 0.28);
+  background: rgba(176, 138, 69, 0.08);
+  color: var(--brand);
+  transition:
+    background var(--transition),
+    border-color var(--transition),
+    color var(--transition);
+}
+
+.criminal-metric-icon svg {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.criminal-metric-card:hover .criminal-metric-icon {
+  background: rgba(176, 138, 69, 0.14);
+  border-color: rgba(176, 138, 69, 0.42);
+  color: var(--brand-hover);
 }
 
 @media (min-width: 640px) {
@@ -994,6 +1038,85 @@ details.faq-item[open] .faq-body {
   outline-offset: 3px;
 }
 
+.fab-whatsapp-prompt-wrap {
+  position: relative;
+  max-width: min(17rem, calc(100vw - 5.5rem));
+  animation: fab-prompt-in 500ms cubic-bezier(0.4, 0, 0.2, 1) both;
+  animation-delay: 1.2s;
+}
+
+.fab-whatsapp-prompt--criminal {
+  padding: 0.75rem 2rem 0.75rem 0.875rem;
+  border-radius: 1rem 1rem 0.35rem 1rem;
+  background: linear-gradient(155deg, #0f3a32 0%, #0a2822 100%);
+  color: #eef3f1;
+  border: 1px solid rgba(176, 138, 69, 0.32);
+  box-shadow:
+    0 14px 36px rgba(0, 0, 0, 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  animation: none;
+}
+
+.fab-whatsapp-prompt--criminal:hover {
+  transform: translateY(-2px);
+  border-color: rgba(176, 138, 69, 0.5);
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.fab-whatsapp-prompt-text--swap {
+  min-height: 2.625rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 260ms ease,
+    transform 260ms ease;
+}
+
+.fab-whatsapp-prompt-text--swap:not(.is-visible) {
+  opacity: 0;
+  transform: translateY(3px);
+}
+
+.fab-whatsapp-prompt-tail--criminal {
+  background: #0a2822;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.fab-whatsapp-prompt-close {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.4rem;
+  z-index: 2;
+  display: flex;
+  height: 1.25rem;
+  width: 1.25rem;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.65);
+  cursor: pointer;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease;
+}
+
+.fab-whatsapp-prompt-close:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+}
+
+.fab-whatsapp-prompt-close:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
 .scroll-top-fab:focus-visible {
   outline: 2px solid var(--brand);
   outline-offset: 3px;
@@ -1014,8 +1137,20 @@ details.faq-item[open] .faq-body {
     transition: none;
   }
 
+  .fab-whatsapp-prompt-wrap {
+    animation: none;
+  }
+
   .fab-whatsapp-prompt:hover {
     transform: none;
+  }
+
+  .fab-whatsapp-prompt--criminal:hover {
+    transform: none;
+  }
+
+  .fab-whatsapp-prompt-text--swap {
+    transition: none;
   }
 
   .scroll-top-fab {
@@ -1547,6 +1682,130 @@ details.faq-item[open] .faq-body {
 
 /* ── Landing Page Criminal Specifics ───────────────── */
 
+.criminal-landing,
+.criminal-landing .font-display {
+  font-family: var(--font-manrope), sans-serif;
+}
+
+.criminal-landing .display-title {
+  line-height: 1.2;
+  font-size: clamp(calc(1.75rem - 2px), calc(3.2vw - 2px), calc(3.25rem - 2px));
+}
+
+.criminal-landing .hero-title {
+  line-height: 1.18;
+  font-size: clamp(calc(2.25rem - 2px), calc(3.8vw - 2px), calc(3.75rem - 2px));
+}
+
+.criminal-title-accent {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 700;
+  font-size: calc(1em + 2px);
+  line-height: inherit;
+  color: var(--brand);
+}
+
+.criminal-counsel-photo {
+  position: relative;
+  width: min(100%, 15.5rem);
+  margin-inline: auto;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #0a241f;
+}
+
+.criminal-counsel-photo-image {
+  object-fit: cover;
+  object-position: center 18%;
+}
+
+.criminal-counsel-banner {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius);
+  background: #0a241f;
+}
+
+.criminal-counsel-banner-media {
+  position: relative;
+  aspect-ratio: 5 / 4;
+}
+
+.criminal-counsel-banner-image {
+  object-fit: cover;
+  object-position: center 24%;
+}
+
+.criminal-counsel-banner-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .criminal-counsel-photo {
+    width: 9rem;
+    height: 12rem;
+    margin-inline: 0;
+    aspect-ratio: auto;
+  }
+
+  .criminal-counsel-photo-image {
+    object-position: center 16%;
+  }
+
+  .criminal-counsel-banner-media {
+    aspect-ratio: 3 / 2;
+  }
+
+  .criminal-counsel-banner-image {
+    object-position: center 20%;
+  }
+
+  .criminal-counsel-banner-panel {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-top: none;
+    padding: 1.5rem;
+    background: linear-gradient(
+      to top,
+      #061d18 0%,
+      rgba(6, 29, 24, 0.92) 42%,
+      transparent 100%
+    );
+  }
+}
+
+@media (min-width: 1024px) {
+  .criminal-counsel-banner-media {
+    aspect-ratio: 2 / 1;
+  }
+
+  .criminal-counsel-banner-image {
+    object-position: center 18%;
+  }
+}
+
+@media (max-width: 640px) {
+  .criminal-landing .display-title {
+    line-height: 1.18;
+    font-size: clamp(calc(1.75rem - 2px), calc(7.5vw - 2px), calc(2.35rem - 2px));
+  }
+
+  .criminal-landing .hero-title {
+    font-size: clamp(calc(1.85rem - 2px), calc(7.8vw - 2px), calc(2.5rem - 2px));
+  }
+}
+
 @keyframes button-pulse-gold {
   0%, 100% {
     transform: scale(1);
@@ -1566,6 +1825,12 @@ details.faq-item[open] .faq-body {
 .btn-pulse-urgency:hover {
   animation: none;
   transform: scale(1.05);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-pulse-urgency {
+    animation: none;
+  }
 }
 
 .text-danger-gold {
