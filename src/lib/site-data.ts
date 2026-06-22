@@ -72,6 +72,7 @@ export const brandLogos = {
 export const images = {
   hero: {
     ladyJustice: "/images/hero/lady-justice.webp",
+    criminalHeroBg: "/images/hero/criminal-hero-bg.png",
   },
   team: {
     group: "/images/team/group.webp",

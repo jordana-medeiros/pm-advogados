@@ -1544,3 +1544,31 @@ details.faq-item[open] .faq-body {
     );
   }
 }
+
+/* ── Landing Page Criminal Specifics ───────────────── */
+
+@keyframes button-pulse-gold {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 12px rgba(176, 138, 69, 0.25);
+  }
+  50% {
+    transform: scale(1.03);
+    box-shadow: 0 8px 24px 8px rgba(176, 138, 69, 0.55);
+  }
+}
+
+.btn-pulse-urgency {
+  animation: button-pulse-gold 2s infinite ease-in-out;
+  transition: all 0.3s ease;
+}
+
+.btn-pulse-urgency:hover {
+  animation: none;
+  transform: scale(1.05);
+}
+
+.text-danger-gold {
+  color: #ff7675;
+}
+
