@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import {
   contactHref,
@@ -11,19 +11,26 @@ import {
 export function FloatingWhatsAppPrompt() {
   const [index, setIndex] = useState(0);
   const [visible, setVisible] = useState(true);
+  const fadeTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (whatsappPromptMessages.length <= 1) return;
 
     const interval = window.setInterval(() => {
       setVisible(false);
-      window.setTimeout(() => {
+      fadeTimeoutRef.current = window.setTimeout(() => {
         setIndex((current) => (current + 1) % whatsappPromptMessages.length);
         setVisible(true);
+        fadeTimeoutRef.current = null;
       }, 220);
     }, 5000);
 
-    return () => window.clearInterval(interval);
+    return () => {
+      window.clearInterval(interval);
+      if (fadeTimeoutRef.current !== null) {
+        window.clearTimeout(fadeTimeoutRef.current);
+      }
+    };
   }, []);
 
   return (

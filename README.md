@@ -14,13 +14,13 @@ Abra [http://localhost:3000](http://localhost:3000).
 
 ## Variáveis de ambiente
 
-Copie `.env.example` para `.env.local` e defina a URL pública do site:
+Copie `.env.example` para `.env.local` e ajuste se necessário:
 
 ```bash
-NEXT_PUBLIC_SITE_URL=https://www.seudominio.com.br
+NEXT_PUBLIC_SITE_URL=https://pereiraemedeirosadvogados.com.br
 ```
 
-Essa variável alimenta `metadataBase`, sitemap, robots e dados estruturados (JSON-LD). Sem ela, o build usa `localhost` e exibe um aviso.
+Essa variável alimenta `metadataBase`, sitemap, robots, Open Graph (WhatsApp) e JSON-LD. **Sem ela, o build usa `localhost` e o preview de links fica incorreto.**
 
 ## Scripts
 
@@ -56,6 +56,7 @@ public/
     blog/                # Capas dos artigos
     hero/                # Lady Justice (hero da home)
     lawyers/             # Fotos individuais
+    og/                  # Imagem Open Graph (WhatsApp/redes)
     team/                # Fotos institucionais da equipe
 
 src/
@@ -71,14 +72,18 @@ src/
     site-url.ts          # URL base do site
 ```
 
-## Deploy
+## Deploy na Hostinger
 
-1. Defina `NEXT_PUBLIC_SITE_URL` no ambiente de produção.
-2. Execute `npm run build`.
-3. Publique na plataforma de hospedagem (Vercel, etc.).
+1. Conecte o repositório GitHub (`whigneiv/pm-advocacia`) ao painel da Hostinger.
+2. Defina a variável de ambiente:
+   ```
+   NEXT_PUBLIC_SITE_URL=https://pereiraemedeirosadvogados.com.br
+   ```
+3. O build roda `npm run build`; a Hostinger serve o output do Next.js.
+4. Após publicar, valide o preview de links no [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/) (WhatsApp usa o mesmo cache).
 
 ## Checklist antes do push
 
 - [ ] `.env.local` **não** vai para o repositório (já ignorado)
-- [ ] `NEXT_PUBLIC_SITE_URL` configurada no painel de deploy
+- [ ] `NEXT_PUBLIC_SITE_URL` configurada no painel da Hostinger
 - [ ] `npm run lint` e `npm run build` sem erros
