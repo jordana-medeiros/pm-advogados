@@ -35,6 +35,9 @@
   --header-overlap: 6rem;
   --hero-padding-top: 11rem;
   --scroll-anchor-offset: 8.5rem;
+  --hero-min-h-home: 28rem;
+  --section-space: 3rem;
+  --touch-target: 44px;
 }
 
 @media (max-width: 639px) {
@@ -42,6 +45,21 @@
     --header-overlap: 4.75rem;
     --hero-padding-top: 8rem;
     --scroll-anchor-offset: 7rem;
+    --hero-min-h-home: 28rem;
+    --section-space: 2.5rem;
+  }
+}
+
+@media (min-width: 640px) {
+  :root {
+    --hero-min-h-home: 40rem;
+    --section-space: 3.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --hero-min-h-home: 50rem;
   }
 }
 
@@ -74,6 +92,7 @@ html {
   background: var(--brand-deep-darker);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-padding-top: var(--scroll-anchor-offset);
 
   /* ── Scrollbar — Firefox */
   scrollbar-width: thin;
@@ -321,7 +340,25 @@ a {
 }
 
 .hero-min-h-home {
-  min-height: 26rem;
+  min-height: var(--hero-min-h-home);
+}
+
+.hero-lady-justice-frame {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  z-index: 0;
+  height: min(60%, 30rem);
+}
+
+@media (min-width: 1024px) {
+  .hero-lady-justice-frame {
+    inset-block: 0;
+    inset-inline: auto 0;
+    left: auto;
+    height: auto;
+    width: 65%;
+  }
 }
 
 .hero-lady-justice-image {
@@ -476,19 +513,60 @@ a {
   .section-shell {
     padding-inline: 2rem;
   }
-
-  .hero-min-h-home {
-    min-height: 38rem;
-  }
 }
 
 @media (min-width: 1024px) {
   .section-shell {
     padding-inline: 3rem;
   }
+}
 
-  .hero-min-h-home {
-    min-height: 48rem;
+/* ── Section patterns ────────────────────────── */
+
+.section-kicker .gold-accent {
+  margin-top: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 640px) {
+  .section-kicker .gold-accent {
+    margin-top: 1rem;
+    margin-bottom: 1.25rem;
+  }
+}
+
+.section-lead {
+  margin-top: 1rem;
+  max-width: 36rem;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--text-on-dark-muted);
+}
+
+@media (min-width: 640px) {
+  .section-lead {
+    margin-top: 1.5rem;
+  }
+}
+
+.metric-card {
+  padding: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius);
+  background: rgba(14, 42, 36, 0.4);
+  transition:
+    background var(--transition),
+    border-color var(--transition);
+}
+
+.metric-card:hover {
+  background: rgba(14, 42, 36, 0.6);
+  border-color: rgba(176, 138, 69, 0.2);
+}
+
+@media (min-width: 640px) {
+  .metric-card {
+    padding: 1.5rem;
   }
 }
 
@@ -615,6 +693,16 @@ a {
   background: rgba(255, 255, 255, 0.12);
   border-color: rgba(255, 255, 255, 0.42);
   transform: translateY(-2px);
+}
+
+@media (max-width: 639px) {
+  .btn-primary,
+  .btn-ghost,
+  .btn-secondary {
+    min-height: var(--touch-target);
+    justify-content: center;
+    -webkit-tap-highlight-color: transparent;
+  }
 }
 
 .btn-secondary {
@@ -1011,13 +1099,13 @@ details.faq-item[open] .faq-body {
 @media (max-width: 639px) {
   .section-pad,
   .section-gap {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+    padding-top: var(--section-space);
+    padding-bottom: var(--section-space);
   }
 
   .section-pad-compact {
-    padding-top: 2.5rem;
-    padding-bottom: 2.5rem;
+    padding-top: calc(var(--section-space) - 0.5rem);
+    padding-bottom: calc(var(--section-space) - 0.5rem);
   }
 
   .section-after-hero {
@@ -1379,11 +1467,14 @@ details.faq-item[open] .faq-body {
   }
 
   .hero-highlight-number {
-    font-size: 2.25rem;
+    font-size: 1.65rem;
+    line-height: 1.15;
   }
 
   .hero-highlight-label {
     margin-top: 0.25rem;
+    font-size: 0.8125rem;
+    line-height: 1.45;
   }
 }
 

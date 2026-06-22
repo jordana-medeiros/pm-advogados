@@ -7,6 +7,7 @@ import { BlogCard } from "@/components/sections/blog-card";
 import { HeroAsidePanel } from "@/components/sections/hero-aside-panel";
 import { InstitutionalPortrait } from "@/components/sections/institutional-portrait";
 import { LawyerPhoto } from "@/components/sections/lawyer-photo";
+import { SectionKicker } from "@/components/ui/section-kicker";
 import { CopyEmphasis } from "@/components/ui/copy-emphasis";
 import { JsonLd } from "@/components/seo/json-ld";
 import { SiteShell } from "@/components/layout/site-shell";
@@ -62,7 +63,7 @@ export default function Home() {
       {/* ── HERO ─────────────────────────────────────────── */}
       <section className="hero-overlap brand-field text-on-dark overflow-hidden relative">
         {/* Imagem de Fundo (Lady Justice) - lateral direita com colorização verde-marca */}
-        <div className="absolute inset-x-0 top-0 z-0 h-[min(52%,24rem)] lg:inset-y-0 lg:right-0 lg:left-auto lg:h-auto lg:w-[65%]">
+        <div className="hero-lady-justice-frame">
           <SiteImage
             src={images.hero.ladyJustice}
             alt="Símbolo da Justiça — Pereira e Medeiros Advocacia"
@@ -89,7 +90,7 @@ export default function Home() {
           <div className="hidden lg:block absolute inset-x-0 top-0 h-1/6 bg-gradient-to-b from-[#061d18] to-transparent" />
         </div>
 
-        <div className="section-shell relative z-10 hero-min-h-home grid gap-8 pb-12 hero-shell sm:gap-12 sm:pb-16 lg:grid-cols-[1.3fr_0.7fr] lg:items-end lg:pb-20">
+        <div className="section-shell relative z-10 hero-min-h-home grid items-start gap-8 pb-12 hero-shell sm:gap-12 sm:pb-16 lg:grid-cols-[1.3fr_0.7fr] lg:items-end lg:pb-20">
           <div className="min-w-0">
             <h1 className="font-display balance hero-title max-w-4xl text-on-dark animate-fade-up">
               Defesa jurídica estratégica, atendimento humanizado e{" "}
@@ -185,32 +186,31 @@ export default function Home() {
       <section className="surface-alt section-pad border-t border-white/5 text-on-dark">
         <div className="section-shell grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-14">
           <div>
-            <p className="eyebrow text-brand">Quem Somos</p>
-            <div className="gold-accent mt-3 mb-4 sm:mt-4 sm:mb-5" />
-            <h2 className="font-display display-title max-w-md text-3xl sm:text-4xl">
+            <SectionKicker label="Quem Somos" />
+            <h2 className="font-display display-title max-w-md">
               Experiência, Estratégia e Compromisso
             </h2>
-            <p className="mt-5 text-base leading-7 text-on-dark-muted max-w-lg">
+            <p className="section-lead max-w-lg text-on-dark-muted">
               O escritório Pereira e Medeiros Advogados nasceu com a missão de oferecer atendimento jurídico de excelência, atuando de forma estratégica e personalizada para cada cliente.
             </p>
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
-            <div className="p-6 bg-surface-strong/40 border border-white/5 rounded-sm transition-all hover:bg-surface-strong/60 hover:border-brand/20">
+            <div className="metric-card">
               <p className="font-display text-3xl text-brand font-semibold leading-none">+ 15 anos</p>
               <p className="mt-3 text-sm font-semibold text-on-dark-soft">de atuação sólida</p>
               <p className="mt-2 text-xs text-on-dark-muted leading-relaxed">Experiência construída na prática, defendendo os direitos de nossos clientes.</p>
             </div>
-            <div className="p-6 bg-surface-strong/40 border border-white/5 rounded-sm transition-all hover:bg-surface-strong/60 hover:border-brand/20">
+            <div className="metric-card">
               <p className="font-display text-3xl text-brand font-semibold leading-none">+ 1.000</p>
               <p className="mt-3 text-sm font-semibold text-on-dark-soft">processos acompanhados</p>
               <p className="mt-2 text-xs text-on-dark-muted leading-relaxed">Ações conduzidas com o máximo rigor técnico e compromisso ético.</p>
             </div>
-            <div className="p-6 bg-surface-strong/40 border border-white/5 rounded-sm transition-all hover:bg-surface-strong/60 hover:border-brand/20">
+            <div className="metric-card">
               <p className="font-display text-3xl text-brand font-semibold leading-none">Nacional</p>
               <p className="mt-3 text-sm font-semibold text-on-dark-soft">diversas comarcas</p>
               <p className="mt-2 text-xs text-on-dark-muted leading-relaxed">Atendimento presencial e online em Minas Gerais, Goiás e em todo o Brasil.</p>
             </div>
-            <div className="p-6 bg-surface-strong/40 border border-white/5 rounded-sm transition-all hover:bg-surface-strong/60 hover:border-brand/20">
+            <div className="metric-card">
               <p className="font-display text-3xl text-brand font-semibold leading-none">Completa</p>
               <p className="mt-3 text-sm font-semibold text-on-dark-soft">equipe multidisciplinar</p>
               <p className="mt-2 text-xs text-on-dark-muted leading-relaxed">Soluções coordenadas sob a perspectiva de múltiplos especialistas.</p>
@@ -223,8 +223,7 @@ export default function Home() {
       <section className="section-shell section-gap text-on-dark">
         <div className="grid gap-6 lg:grid-cols-[1.05fr_0.72fr] lg:items-start lg:gap-14">
           <div className="min-w-0">
-            <p className="eyebrow text-brand">Quando procurar</p>
-            <div className="gold-accent mt-3 mb-4 sm:mt-4 sm:mb-5" />
+            <SectionKicker label="Quando procurar" />
             <h2 className="font-display display-title max-w-xl">
               {whenSeekIntro.title}
             </h2>
@@ -267,8 +266,7 @@ export default function Home() {
       >
         <div className="section-shell grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-12">
           <div>
-            <p className="eyebrow text-brand">Áreas de atuação</p>
-            <div className="gold-accent mt-3 mb-4 sm:mt-4 sm:mb-5" />
+            <SectionKicker label="Áreas de atuação" />
             <h2 className="font-display display-title max-w-md">
               {practiceAreasIntro.title}
             </h2>
@@ -301,8 +299,7 @@ export default function Home() {
       <section className="section-pad text-on-dark">
         <div className="section-shell grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-12">
           <div>
-            <p className="eyebrow text-brand">Direito Criminal</p>
-            <div className="gold-accent mt-3 mb-4 sm:mt-4 sm:mb-5" />
+            <SectionKicker label="Direito Criminal" />
             <h2 className="font-display display-title max-w-lg">
               {criminalHighlightIntro.title}
             </h2>
@@ -340,8 +337,7 @@ export default function Home() {
       <section className="brand-field section-pad text-on-dark">
         <div className="section-shell">
           <div className="mb-6 lg:mb-14">
-            <p className="eyebrow text-brand">Equipe</p>
-            <div className="gold-accent mt-3 mb-4 sm:mt-4 sm:mb-5" />
+            <SectionKicker label="Equipe" />
             <h2 className="font-display display-title max-w-xl">
               {teamIntro.title}
             </h2>
@@ -394,8 +390,7 @@ export default function Home() {
       <section className="section-pad border-t border-white/10">
         <div className="section-shell text-on-dark">
           <div className="max-w-2xl">
-            <p className="eyebrow text-brand">Blog</p>
-            <div className="gold-accent mt-3 mb-4 sm:mt-4 sm:mb-5" />
+            <SectionKicker label="Blog" />
             <h2 className="font-display display-title">
               {blogIntro.title}
             </h2>
@@ -422,8 +417,7 @@ export default function Home() {
       <section className="brand-field section-pad text-on-dark">
         <div className="section-shell grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-8">
           <div>
-            <p className="eyebrow text-brand">Contato</p>
-            <div className="gold-accent mt-3 mb-4 sm:mt-4 sm:mb-5" />
+            <SectionKicker label="Contato" />
             <h2 className="font-display display-title max-w-3xl">
               Seu caso <span className="text-brand">não precisa esperar.</span>
             </h2>
@@ -448,8 +442,7 @@ export default function Home() {
       <section className="section-shell section-gap section-pad-end text-on-dark">
         <div className="grid gap-6 lg:grid-cols-[0.75fr_1.25fr] lg:gap-10">
           <div>
-            <p className="eyebrow text-brand">Perguntas frequentes</p>
-            <div className="gold-accent mt-3 mb-4 sm:mt-4 sm:mb-5" />
+            <SectionKicker label="Perguntas frequentes" />
             <h2 className="font-display display-title max-w-md">
               Respostas diretas.
             </h2>

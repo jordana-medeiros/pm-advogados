@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { CopyEmphasis } from "@/components/ui/copy-emphasis";
+import { SectionKicker } from "@/components/ui/section-kicker";
 import { LawyerPhoto } from "@/components/sections/lawyer-photo";
 import { PageHero } from "@/components/sections/page-hero";
 import { SiteShell } from "@/components/layout/site-shell";
@@ -40,8 +41,7 @@ export default function EquipePage() {
       {/* ── PERFIS */}
       <section className="section-shell section-pad-compact pb-12 text-on-dark sm:pb-24 lg:pb-28">
         <div className="section-stack mb-8 lg:mb-16 animate-fade-up">
-          <p className="eyebrow text-brand">Advogados</p>
-          <div className="gold-accent mt-3 mb-4 sm:mt-4 sm:mb-5" />
+          <SectionKicker label="Advogados" />
           <h2 className="font-display display-title">
             Quem responde por cada área.
           </h2>
