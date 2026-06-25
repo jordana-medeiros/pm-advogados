@@ -30,6 +30,7 @@ const criminalWhatsappMessage = encodeURIComponent(
 );
 
 export const criminalContactHref = `https://wa.me/5534999618485?text=${criminalWhatsappMessage}`;
+export const criminalLandingHref = "/criminal";
 
 export type NavItem = {
   href: string;
@@ -196,6 +197,19 @@ export const lawyers = [
     bio: "Graduado em Direito pela Universidade do Estado de Minas Gerais (UEMG) — Dezembro/2010. Pós-graduado em Direito Público pelo Instituto Elpídio Donizetti — Setembro/2021.",
   },
 ];
+
+function requireLawyer(oab: string) {
+  const lawyer = lawyers.find((entry) => entry.oab === oab);
+  if (!lawyer) {
+    throw new Error(`[site-data] Advogado não encontrado para ${oab}.`);
+  }
+  return lawyer;
+}
+
+export const criminalCounsel = {
+  giuliano: requireLawyer("OAB/MG 136.792"),
+  jordana: requireLawyer("OAB/MG 218.949"),
+} as const;
 
 export const differentiators = [
   {

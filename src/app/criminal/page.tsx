@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { preload } from "react-dom";
+import { SiteFooter } from "@/components/layout/site-footer";
 import Link from "next/link";
 import { SiteImage } from "@/components/ui/site-image";
 import { FaqJsonLd } from "@/components/seo/json-ld";
+import { WhoWeAreSection } from "@/components/sections/who-we-are-section";
 import { SectionKicker } from "@/components/ui/section-kicker";
 import { FloatingWhatsapp } from "@/components/criminal/floating-whatsapp";
 import { DifferentiatorIcon } from "@/components/criminal/differentiator-icon";
@@ -21,15 +23,14 @@ import {
 import {
   brandLogos,
   criminalContactHref,
+  criminalCounsel,
   externalLinkRel,
   images,
-  lawyers,
   siteName,
   whatsappPrimary,
 } from "@/lib/site-data";
 
-const giuliano = lawyers[0];
-const jordana = lawyers[1];
+const { giuliano, jordana } = criminalCounsel;
 
 export const metadata: Metadata = {
   title: { absolute: criminalLandingTitle },
@@ -183,6 +184,8 @@ export default function CriminalLandingPage() {
             </a>
           </div>
         </section>
+
+        <WhoWeAreSection />
 
         {/* ── ONDE ATUAMOS ── */}
         <section className="section-shell section-gap text-on-dark">
@@ -442,31 +445,7 @@ export default function CriminalLandingPage() {
         </section>
       </main>
 
-      <footer className="w-full py-8 border-t border-white/5 bg-[#041512] text-on-dark">
-        <div className="section-shell flex flex-col items-center justify-between gap-6 sm:flex-row">
-          <div className="text-center sm:text-left min-w-0">
-            <p className="text-xs text-on-dark-muted">
-              © {new Date().getFullYear()} {siteName}. Todos os direitos reservados.
-            </p>
-            <p className="mt-1 text-[0.62rem] text-on-dark-faint uppercase tracking-wider text-balance">
-              {giuliano.name} — {giuliano.oab} | {jordana.name} — {jordana.oab}
-            </p>
-          </div>
-          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-on-dark-muted shrink-0">
-            <Link href="/" className="hover:text-brand transition-colors">
-              Site Principal
-            </Link>
-            <span className="text-white/10" aria-hidden="true">|</span>
-            <Link href="/politica-de-privacidade" className="hover:text-brand transition-colors">
-              Privacidade
-            </Link>
-            <span className="text-white/10" aria-hidden="true">|</span>
-            <Link href="/aviso-legal" className="hover:text-brand transition-colors">
-              Aviso Legal
-            </Link>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
       <FloatingWhatsapp />
     </div>
   );

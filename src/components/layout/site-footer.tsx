@@ -20,7 +20,7 @@ export function SiteFooter() {
     <footer className="brand-field text-on-dark">
       <div className="h-[2px] bg-gradient-to-r from-transparent via-brand/70 to-transparent" />
 
-      <div className="section-shell pb-[max(2rem,env(safe-area-inset-bottom))] pt-6 sm:pb-24 sm:pt-10">
+      <div className="section-shell pb-[max(5.75rem,calc(2rem+env(safe-area-inset-bottom)))] pt-6 sm:pt-10">
         <div className="grid gap-y-6 text-center sm:grid-cols-2 sm:gap-x-12 sm:gap-y-12 lg:grid-cols-[1.2fr_0.78fr_1.12fr_0.95fr] lg:gap-x-14 xl:gap-x-16 lg:text-left">
           {/* Coluna 1 — Logo */}
           <div className="flex flex-col items-center sm:items-start">

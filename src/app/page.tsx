@@ -7,6 +7,7 @@ import { BlogCard } from "@/components/sections/blog-card";
 import { HeroAsidePanel } from "@/components/sections/hero-aside-panel";
 import { InstitutionalPortrait } from "@/components/sections/institutional-portrait";
 import { LawyerPhoto } from "@/components/sections/lawyer-photo";
+import { WhoWeAreSection } from "@/components/sections/who-we-are-section";
 import { SectionKicker } from "@/components/ui/section-kicker";
 import { CopyEmphasis } from "@/components/ui/copy-emphasis";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -25,6 +26,7 @@ import {
   whenSeekIntro,
   criminalAuthority,
   criminalHighlightIntro,
+  criminalLandingHref,
   homeAreasHref,
   homeAreasSectionId,
 } from "@/lib/site-data";
@@ -37,12 +39,12 @@ type HighlightItem = {
 
 const heroHighlights: readonly HighlightItem[] = [
   {
-    title: "9 especialidades do Direito",
+    title: "9 Especialidades do Direito",
     description: "Atuação para diferentes necessidades.",
     href: homeAreasHref,
   },
   {
-    title: "5 advogados",
+    title: "5 Advogados",
     description: "Cada caso conduzido por quem entende da área.",
     href: "/equipe",
   },
@@ -107,7 +109,12 @@ export default function Home() {
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-brand font-bold select-none" aria-hidden="true">—</span>
-                  <span>Defesa criminal 24 horas</span>
+                  <Link
+                    href={criminalLandingHref}
+                    className="transition-colors hover:text-brand hover:underline underline-offset-[0.2em]"
+                  >
+                    Defesa criminal 24 horas
+                  </Link>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-brand font-bold select-none" aria-hidden="true">—</span>
@@ -183,41 +190,7 @@ export default function Home() {
       </section>
 
       {/* ── QUEM SOMOS ───────────────────────────── */}
-      <section className="surface-alt section-pad border-t border-white/5 text-on-dark">
-        <div className="section-shell grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-14">
-          <div>
-            <SectionKicker label="Quem Somos" />
-            <h2 className="font-display display-title max-w-md">
-              Experiência, Estratégia e Compromisso
-            </h2>
-            <p className="section-lead max-w-lg text-on-dark-muted">
-              O escritório Pereira e Medeiros Advogados nasceu com a missão de oferecer atendimento jurídico de excelência, atuando de forma estratégica e personalizada para cada cliente.
-            </p>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="metric-card">
-              <p className="font-display text-3xl text-brand font-semibold leading-none">+ 15 anos</p>
-              <p className="mt-3 text-sm font-semibold text-on-dark-soft">de atuação sólida</p>
-              <p className="mt-2 text-xs text-on-dark-muted leading-relaxed">Experiência construída na prática, defendendo os direitos de nossos clientes.</p>
-            </div>
-            <div className="metric-card">
-              <p className="font-display text-3xl text-brand font-semibold leading-none">+ 1.000</p>
-              <p className="mt-3 text-sm font-semibold text-on-dark-soft">processos acompanhados</p>
-              <p className="mt-2 text-xs text-on-dark-muted leading-relaxed">Ações conduzidas com o máximo rigor técnico e compromisso ético.</p>
-            </div>
-            <div className="metric-card">
-              <p className="font-display text-3xl text-brand font-semibold leading-none">Nacional</p>
-              <p className="mt-3 text-sm font-semibold text-on-dark-soft">diversas comarcas</p>
-              <p className="mt-2 text-xs text-on-dark-muted leading-relaxed">Atendimento presencial e online em Minas Gerais, Goiás e em todo o Brasil.</p>
-            </div>
-            <div className="metric-card">
-              <p className="font-display text-3xl text-brand font-semibold leading-none">Completa</p>
-              <p className="mt-3 text-sm font-semibold text-on-dark-soft">equipe multidisciplinar</p>
-              <p className="mt-2 text-xs text-on-dark-muted leading-relaxed">Soluções coordenadas sob a perspectiva de múltiplos especialistas.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <WhoWeAreSection />
 
       {/* ── QUANDO PROCURAR ──────────────────────── */}
       <section className="section-shell section-gap text-on-dark">
@@ -275,22 +248,51 @@ export default function Home() {
             </p>
           </div>
           <div className="border-y border-white/10">
-            {practiceAreas.map((area, index) => (
-              <div
-                key={area.name}
-                className="group grid gap-2 border-b border-white/10 py-4 transition-colors hover:bg-white/[0.04] last:border-b-0 sm:grid-cols-[2.5rem_1fr_1.2fr] sm:items-center sm:gap-3 sm:px-4 sm:py-5"
-              >
-                <span className="text-sm font-mono text-brand/50 transition-colors group-hover:text-brand">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <span className="font-display text-2xl leading-none text-on-dark-soft sm:text-[1.65rem]">
-                  {area.name}
-                </span>
-                <span className="text-sm leading-6 text-on-dark-muted">
-                  {area.summary}
-                </span>
-              </div>
-            ))}
+            {practiceAreas.map((area, index) => {
+              const isCriminal = area.name === "Direito Criminal";
+              const rowClassName =
+                "group grid gap-2 border-b border-white/10 py-4 transition-colors last:border-b-0 sm:grid-cols-[2.5rem_1fr_1.2fr] sm:items-center sm:gap-3 sm:px-4 sm:py-5";
+
+              const rowContent = (
+                <>
+                  <span className="text-sm font-mono text-brand/50 transition-colors group-hover:text-brand">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className="font-display text-2xl leading-none text-on-dark-soft transition-colors group-hover:text-brand sm:text-[1.65rem]">
+                    {area.name}
+                  </span>
+                  <span className="text-sm leading-6 text-on-dark-muted transition-colors group-hover:text-on-dark-soft">
+                    {area.summary}
+                    {isCriminal ? (
+                      <span className="mt-1 block text-xs font-semibold text-brand/80 transition-colors group-hover:text-brand">
+                        Plantão criminal 24h →
+                      </span>
+                    ) : null}
+                  </span>
+                </>
+              );
+
+              if (isCriminal) {
+                return (
+                  <Link
+                    key={area.name}
+                    href={criminalLandingHref}
+                    className={`${rowClassName} block hover:bg-white/[0.04] hover:border-brand/15`}
+                  >
+                    {rowContent}
+                  </Link>
+                );
+              }
+
+              return (
+                <div
+                  key={area.name}
+                  className={`${rowClassName} hover:bg-white/[0.04]`}
+                >
+                  {rowContent}
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -308,14 +310,19 @@ export default function Home() {
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
-            <a
-              href={contactHref}
-              target="_blank"
-              rel={externalLinkRel}
-              className="btn-primary mt-6 inline-flex sm:mt-8"
-            >
-              {criminalHighlightIntro.cta}
-            </a>
+            <div className="mt-6 flex flex-col items-start gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+              <a
+                href={contactHref}
+                target="_blank"
+                rel={externalLinkRel}
+                className="btn-primary inline-flex"
+              >
+                {criminalHighlightIntro.cta}
+              </a>
+              <Link href={criminalLandingHref} className="btn-ghost inline-flex">
+                Página de urgência criminal
+              </Link>
+            </div>
           </div>
           <div className="grid gap-3">
             {criminalAuthority.map((item, index) => (
@@ -329,6 +336,9 @@ export default function Home() {
                 </div>
               </div>
             ))}
+            <Link href={criminalLandingHref} className="link-arrow mt-2 inline-flex">
+              Ver página de urgência criminal →
+            </Link>
           </div>
         </div>
       </section>
