@@ -153,13 +153,38 @@ type AdminDashboardProps = {
 };
 
 const STORAGE_KEY = "pm-admin-draft";
+const ARTICLE_STATUS_OPTIONS: AdminArticle["status"][] = [
+  "published",
+  "draft",
+  "review",
+  "archived",
+];
 
 function cloneSeed(seed: AdminSeed) {
   return JSON.parse(JSON.stringify(seed)) as AdminSeed;
 }
 
+function safeString(value: unknown, fallback = "") {
+  return typeof value === "string" ? value : fallback;
+}
+
+function safeStringArray(value: unknown, fallback: string[]) {
+  if (!Array.isArray(value)) {
+    return fallback;
+  }
+
+  return value.filter((item): item is string => typeof item === "string");
+}
+
+function safeArticleStatus(value: unknown) {
+  return ARTICLE_STATUS_OPTIONS.includes(value as AdminArticle["status"])
+    ? (value as AdminArticle["status"])
+    : "published";
+}
+
 function hydrateDraft(rawDraft: Partial<AdminSeed>, fallback: AdminSeed): AdminSeed {
-  const rawArticles = rawDraft.blog?.articles ?? fallback.blog.articles;
+  const rawArticles = (rawDraft.blog?.articles ??
+    fallback.blog.articles) as Array<Partial<AdminArticle>>;
 
   return {
     ...fallback,
@@ -167,10 +192,26 @@ function hydrateDraft(rawDraft: Partial<AdminSeed>, fallback: AdminSeed): AdminS
     site: {
       ...fallback.site,
       ...rawDraft.site,
-      addresses: rawDraft.site?.addresses ?? fallback.site.addresses,
+      addresses: Array.isArray(rawDraft.site?.addresses)
+        ? rawDraft.site.addresses.map((address, index) => {
+            const fallbackAddress = fallback.site.addresses[index] ?? {
+              city: "",
+              line: "",
+              mapsUrl: "",
+            };
+
+            return {
+              city: safeString(address.city, fallbackAddress.city),
+              line: safeString(address.line, fallbackAddress.line),
+              mapsUrl: safeString(address.mapsUrl, fallbackAddress.mapsUrl),
+            };
+          })
+        : fallback.site.addresses,
       whatsappPromptMessages:
-        rawDraft.site?.whatsappPromptMessages ??
-        fallback.site.whatsappPromptMessages,
+        safeStringArray(
+          rawDraft.site?.whatsappPromptMessages,
+          fallback.site.whatsappPromptMessages,
+        ),
       logos: {
         ...fallback.site.logos,
         ...rawDraft.site?.logos,
@@ -199,7 +240,10 @@ function hydrateDraft(rawDraft: Partial<AdminSeed>, fallback: AdminSeed): AdminS
         ...fallback.home.criminalHighlightIntro,
         ...rawDraft.home?.criminalHighlightIntro,
       },
-      heroBullets: rawDraft.home?.heroBullets ?? fallback.home.heroBullets,
+      heroBullets: safeStringArray(
+        rawDraft.home?.heroBullets,
+        fallback.home.heroBullets,
+      ),
       whenSeekItems: rawDraft.home?.whenSeekItems ?? fallback.home.whenSeekItems,
       differentiators:
         rawDraft.home?.differentiators ?? fallback.home.differentiators,
@@ -219,19 +263,91 @@ function hydrateDraft(rawDraft: Partial<AdminSeed>, fallback: AdminSeed): AdminS
         rawDraft.criminal?.differentiators ?? fallback.criminal.differentiators,
       faqs: rawDraft.criminal?.faqs ?? fallback.criminal.faqs,
     },
-    navigation: rawDraft.navigation ?? fallback.navigation,
-    practiceAreas: rawDraft.practiceAreas ?? fallback.practiceAreas,
-    lawyers: rawDraft.lawyers ?? fallback.lawyers,
+    navigation: Array.isArray(rawDraft.navigation)
+      ? rawDraft.navigation.map((item, index) => {
+          const fallbackItem = fallback.navigation[index] ?? {
+            href: "/",
+            label: "Link",
+            cta: false,
+          };
+
+          return {
+            href: safeString(item.href, fallbackItem.href),
+            label: safeString(item.label, fallbackItem.label),
+            cta: Boolean(item.cta),
+          };
+        })
+      : fallback.navigation,
+    practiceAreas: Array.isArray(rawDraft.practiceAreas)
+      ? rawDraft.practiceAreas.map((area, index) => {
+          const fallbackArea = fallback.practiceAreas[index] ?? {
+            name: "",
+            summary: "",
+          };
+
+          return {
+            name: safeString(area.name, fallbackArea.name),
+            summary: safeString(area.summary, fallbackArea.summary),
+          };
+        })
+      : fallback.practiceAreas,
+    lawyers: Array.isArray(rawDraft.lawyers)
+      ? rawDraft.lawyers.map((lawyer, index) => {
+          const fallbackLawyer = fallback.lawyers[index] ?? {
+            name: "",
+            oab: "",
+            area: "",
+            photo: "",
+            bio: "",
+          };
+
+          return {
+            name: safeString(lawyer.name, fallbackLawyer.name),
+            oab: safeString(lawyer.oab, fallbackLawyer.oab),
+            area: safeString(lawyer.area, fallbackLawyer.area),
+            photo: safeString(lawyer.photo, fallbackLawyer.photo),
+            bio: safeString(lawyer.bio, fallbackLawyer.bio),
+          };
+        })
+      : fallback.lawyers,
     blog: {
       ...fallback.blog,
       ...rawDraft.blog,
-      categories: rawDraft.blog?.categories ?? fallback.blog.categories,
-      articles: rawArticles.map((article) => ({
-        ...article,
-        status: article.status ?? "published",
-        seoTitle: article.seoTitle ?? article.title,
-        seoDescription: article.seoDescription ?? article.excerpt,
-      })),
+      categories: safeStringArray(rawDraft.blog?.categories, fallback.blog.categories),
+      articles: rawArticles.map((article, index) => {
+        const fallbackArticle = fallback.blog.articles[index] ??
+          fallback.blog.articles[0] ?? {
+            slug: `novo-artigo-${index + 1}`,
+            title: "Novo artigo",
+            excerpt: "Resumo do artigo.",
+            category: fallback.blog.categories[0] ?? "Geral",
+            publishedAt: new Date().toISOString().slice(0, 10),
+            readingTime: "4 min",
+            coverImage: "/images/blog/nova-capa.jpg",
+            body: ["Primeiro parágrafo do artigo."],
+            status: "draft" as const,
+            seoTitle: "Novo artigo",
+            seoDescription: "Resumo do artigo.",
+          };
+        const excerpt = safeString(article.excerpt, fallbackArticle.excerpt);
+        const title = safeString(article.title, fallbackArticle.title);
+
+        return {
+          ...fallbackArticle,
+          ...article,
+          slug: safeString(article.slug, fallbackArticle.slug),
+          title,
+          excerpt,
+          category: safeString(article.category, fallbackArticle.category),
+          publishedAt: safeString(article.publishedAt, fallbackArticle.publishedAt),
+          readingTime: safeString(article.readingTime, fallbackArticle.readingTime),
+          coverImage: safeString(article.coverImage, fallbackArticle.coverImage),
+          body: safeStringArray(article.body, fallbackArticle.body),
+          status: safeArticleStatus(article.status),
+          seoTitle: safeString(article.seoTitle, title),
+          seoDescription: safeString(article.seoDescription, excerpt),
+        };
+      }),
     },
     media: {
       ...fallback.media,
@@ -494,9 +610,7 @@ export function AdminDashboard({ seed, activeSection }: AdminDashboardProps) {
   const [lastSavedAt, setLastSavedAt] = useState<string | null>(null);
   const [notice, setNotice] = useState(getInitialNotice);
   const [query, setQuery] = useState("");
-  const [selectedArticleSlug, setSelectedArticleSlug] = useState(
-    () => draft.blog.articles[0]?.slug ?? "",
-  );
+  const [selectedArticleIndex, setSelectedArticleIndex] = useState(0);
 
   const issues = useMemo(() => validateAdminDraft(draft), [draft]);
   const hasBlockingIssue = issues.some((issue) => issue.severity === "danger");
@@ -504,8 +618,7 @@ export function AdminDashboard({ seed, activeSection }: AdminDashboardProps) {
   const normalizedQuery = query.trim().toLowerCase();
 
   const selectedArticle =
-    draft.blog.articles.find((article) => article.slug === selectedArticleSlug) ??
-    draft.blog.articles[0];
+    draft.blog.articles[selectedArticleIndex] ?? draft.blog.articles[0];
 
   const filteredAreas = draft.practiceAreas
     .map((area, index) => ({ area, index }))
@@ -521,11 +634,13 @@ export function AdminDashboard({ seed, activeSection }: AdminDashboardProps) {
         .includes(normalizedQuery),
     );
 
-  const filteredArticles = draft.blog.articles.filter((article) =>
-    `${article.title} ${article.excerpt} ${article.category} ${article.slug}`
-      .toLowerCase()
-      .includes(normalizedQuery),
-  );
+  const filteredArticles = draft.blog.articles
+    .map((article, index) => ({ article, index }))
+    .filter(({ article }) =>
+      `${article.title} ${article.excerpt} ${article.category} ${article.slug}`
+        .toLowerCase()
+        .includes(normalizedQuery),
+    );
 
   const stats = [
     {
@@ -574,7 +689,7 @@ export function AdminDashboard({ seed, activeSection }: AdminDashboardProps) {
         seed,
       );
       setDraft(hydratedDraft);
-      setSelectedArticleSlug(hydratedDraft.blog.articles[0]?.slug ?? "");
+      setSelectedArticleIndex(0);
       setLastSavedAt(new Date().toLocaleTimeString("pt-BR"));
       setNotice("Rascunho local carregado.");
     } catch {
@@ -614,7 +729,7 @@ export function AdminDashboard({ seed, activeSection }: AdminDashboardProps) {
     }
 
     setDraft(cloneSeed(seed));
-    setSelectedArticleSlug(seed.blog.articles[0]?.slug ?? "");
+    setSelectedArticleIndex(0);
     setNotice("Rascunho voltou ao conteúdo atual do site.");
   }
 
@@ -634,7 +749,7 @@ export function AdminDashboard({ seed, activeSection }: AdminDashboardProps) {
 
         const hydratedDraft = hydrateDraft(importedDraft, seed);
         setDraft(hydratedDraft);
-        setSelectedArticleSlug(hydratedDraft.blog.articles[0]?.slug ?? "");
+        setSelectedArticleIndex(0);
         setNotice("JSON importado para revisão.");
       } catch {
         setNotice("Não foi possível ler o JSON importado.");
@@ -869,7 +984,7 @@ export function AdminDashboard({ seed, activeSection }: AdminDashboardProps) {
   }
 
   function updateArticle<Key extends keyof AdminArticle>(
-    slug: string,
+    index: number,
     key: Key,
     value: AdminArticle[Key],
   ) {
@@ -877,21 +992,21 @@ export function AdminDashboard({ seed, activeSection }: AdminDashboardProps) {
       ...current,
       blog: {
         ...current.blog,
-        articles: current.blog.articles.map((article) =>
-          article.slug === slug ? { ...article, [key]: value } : article,
-        ),
+        articles: updateArrayItem(current.blog.articles, index, (article) => ({
+          ...article,
+          [key]: value,
+        })),
       },
     }));
   }
 
-  function commitArticleSlug(slug: string, value: string) {
+  function commitArticleSlug(index: number, value: string) {
     const existingSlugs = draft.blog.articles
-      .filter((article) => article.slug !== slug)
+      .filter((_, articleIndex) => articleIndex !== index)
       .map((article) => article.slug);
     const nextSlug = uniqueSlug(normalizeSlugInput(value), existingSlugs);
 
-    updateArticle(slug, "slug", nextSlug);
-    setSelectedArticleSlug(nextSlug);
+    updateArticle(index, "slug", nextSlug);
   }
 
   function addCategory() {
@@ -1033,10 +1148,10 @@ export function AdminDashboard({ seed, activeSection }: AdminDashboardProps) {
         articles: [nextArticle, ...current.blog.articles],
       },
     }));
-    setSelectedArticleSlug(nextArticle.slug);
+    setSelectedArticleIndex(0);
   }
 
-  function duplicateArticle(article: AdminArticle) {
+  function duplicateArticle(article: AdminArticle, index: number) {
     const slug = uniqueSlug(`${article.slug}-copia`, draft.blog.articles.map((item) => item.slug));
     const copy = {
       ...article,
@@ -1049,28 +1164,36 @@ export function AdminDashboard({ seed, activeSection }: AdminDashboardProps) {
       ...current,
       blog: {
         ...current.blog,
-        articles: [copy, ...current.blog.articles],
+        articles: [
+          ...current.blog.articles.slice(0, index + 1),
+          copy,
+          ...current.blog.articles.slice(index + 1),
+        ],
       },
     }));
-    setSelectedArticleSlug(slug);
+    setSelectedArticleIndex(index + 1);
   }
 
-  function removeArticle(slug: string) {
+  function removeArticle(index: number) {
     if (!window.confirm("Remover este artigo do rascunho?")) {
       return;
     }
 
-    const nextSelectedSlug =
-      draft.blog.articles.find((article) => article.slug !== slug)?.slug ?? "";
+    const nextSelectedIndex = Math.max(
+      0,
+      Math.min(index, draft.blog.articles.length - 2),
+    );
 
     setDraft((current) => ({
-        ...current,
-        blog: {
-          ...current.blog,
-          articles: current.blog.articles.filter((article) => article.slug !== slug),
-        },
+      ...current,
+      blog: {
+        ...current.blog,
+        articles: current.blog.articles.filter(
+          (_, articleIndex) => articleIndex !== index,
+        ),
+      },
     }));
-    setSelectedArticleSlug(nextSelectedSlug);
+    setSelectedArticleIndex(nextSelectedIndex);
   }
 
   function renderOverview() {
@@ -1449,12 +1572,12 @@ export function AdminDashboard({ seed, activeSection }: AdminDashboardProps) {
           <div className="admin-blog-layout">
             <aside className="admin-article-list" aria-label="Artigos">
               {filteredArticles.length > 0 ? (
-                filteredArticles.map((article) => (
+                filteredArticles.map(({ article, index }) => (
                   <button
-                    key={article.slug}
+                    key={`${article.slug}-${index}`}
                     type="button"
-                    className={article.slug === selectedArticle?.slug ? "admin-article-item is-active" : "admin-article-item"}
-                    onClick={() => setSelectedArticleSlug(article.slug)}
+                    className={index === selectedArticleIndex ? "admin-article-item is-active" : "admin-article-item"}
+                    onClick={() => setSelectedArticleIndex(index)}
                   >
                     <strong>{article.title}</strong>
                     <span>{article.category} · {article.publishedAt}</span>
@@ -1470,21 +1593,19 @@ export function AdminDashboard({ seed, activeSection }: AdminDashboardProps) {
 
             {selectedArticle ? (
               <div className="admin-form-grid">
-                <Field label="Título" value={selectedArticle.title} onChange={(value) => updateArticle(selectedArticle.slug, "title", value)} />
+                <Field label="Título" value={selectedArticle.title} onChange={(value) => updateArticle(selectedArticleIndex, "title", value)} />
                 <Field
                   label="Slug"
                   value={selectedArticle.slug}
                   onChange={(value) => {
-                    const previousSlug = selectedArticle.slug;
-                    updateArticle(previousSlug, "slug", value);
-                    setSelectedArticleSlug(value);
+                    updateArticle(selectedArticleIndex, "slug", value);
                   }}
-                  onBlur={() => commitArticleSlug(selectedArticle.slug, selectedArticle.slug)}
+                  onBlur={() => commitArticleSlug(selectedArticleIndex, selectedArticle.slug)}
                 />
                 <SelectField
                   label="Status"
                   value={selectedArticle.status}
-                  onChange={(value) => updateArticle(selectedArticle.slug, "status", value as AdminArticle["status"])}
+                  onChange={(value) => updateArticle(selectedArticleIndex, "status", value as AdminArticle["status"])}
                   options={[
                     { label: "Publicado", value: "published" },
                     { label: "Rascunho", value: "draft" },
@@ -1495,19 +1616,19 @@ export function AdminDashboard({ seed, activeSection }: AdminDashboardProps) {
                 <SelectField
                   label="Categoria"
                   value={selectedArticle.category}
-                  onChange={(value) => updateArticle(selectedArticle.slug, "category", value)}
+                  onChange={(value) => updateArticle(selectedArticleIndex, "category", value)}
                   options={categoryOptions}
                 />
-                <Field label="Data" value={selectedArticle.publishedAt} type="date" onChange={(value) => updateArticle(selectedArticle.slug, "publishedAt", value)} />
-                <Field label="Tempo de leitura" value={selectedArticle.readingTime} onChange={(value) => updateArticle(selectedArticle.slug, "readingTime", value)} />
-                <Field label="Capa" value={selectedArticle.coverImage} onChange={(value) => updateArticle(selectedArticle.slug, "coverImage", value)} full />
-                <Field label="Resumo" value={selectedArticle.excerpt} onChange={(value) => updateArticle(selectedArticle.slug, "excerpt", value)} multiline full />
-                <Field label="Título SEO" value={selectedArticle.seoTitle} onChange={(value) => updateArticle(selectedArticle.slug, "seoTitle", value)} />
-                <Field label="Descrição SEO" value={selectedArticle.seoDescription} onChange={(value) => updateArticle(selectedArticle.slug, "seoDescription", value)} multiline />
+                <Field label="Data" value={selectedArticle.publishedAt} type="date" onChange={(value) => updateArticle(selectedArticleIndex, "publishedAt", value)} />
+                <Field label="Tempo de leitura" value={selectedArticle.readingTime} onChange={(value) => updateArticle(selectedArticleIndex, "readingTime", value)} />
+                <Field label="Capa" value={selectedArticle.coverImage} onChange={(value) => updateArticle(selectedArticleIndex, "coverImage", value)} full />
+                <Field label="Resumo" value={selectedArticle.excerpt} onChange={(value) => updateArticle(selectedArticleIndex, "excerpt", value)} multiline full />
+                <Field label="Título SEO" value={selectedArticle.seoTitle} onChange={(value) => updateArticle(selectedArticleIndex, "seoTitle", value)} />
+                <Field label="Descrição SEO" value={selectedArticle.seoDescription} onChange={(value) => updateArticle(selectedArticleIndex, "seoDescription", value)} multiline />
                 <Field
                   label="Corpo do artigo"
                   value={selectedArticle.body.join("\n\n")}
-                  onChange={(value) => updateArticle(selectedArticle.slug, "body", value.split(/\n{2,}/).filter(Boolean))}
+                  onChange={(value) => updateArticle(selectedArticleIndex, "body", value.split(/\n{2,}/).filter(Boolean))}
                   multiline
                   full
                 />
@@ -1525,8 +1646,8 @@ export function AdminDashboard({ seed, activeSection }: AdminDashboardProps) {
                 </div>
                 <div className="admin-field-full">
                   <RowActions
-                    onDuplicate={() => duplicateArticle(selectedArticle)}
-                    onRemove={() => removeArticle(selectedArticle.slug)}
+                    onDuplicate={() => duplicateArticle(selectedArticle, selectedArticleIndex)}
+                    onRemove={() => removeArticle(selectedArticleIndex)}
                   />
                 </div>
               </div>
