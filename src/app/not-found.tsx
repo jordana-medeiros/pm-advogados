@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 export default function NotFound() {
   return (
     <SiteShell>
-      <section className="section-shell section-gap text-center">
-        <p className="eyebrow text-brand-deep">Erro 404</p>
+      <section className="section-shell section-gap text-center text-on-dark">
+        <p className="eyebrow text-brand">Erro 404</p>
         <h1 className="font-display display-title mt-5 text-5xl sm:text-6xl">
           Página não encontrada
         </h1>

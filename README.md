@@ -18,9 +18,13 @@ Copie `.env.example` para `.env.local` e ajuste se necessário:
 
 ```bash
 NEXT_PUBLIC_SITE_URL=https://pereiraemedeirosadvogados.com.br
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=troque-esta-senha
 ```
 
 Essa variável alimenta `metadataBase`, sitemap, robots, Open Graph (WhatsApp) e JSON-LD. **Sem ela, o build usa `localhost` e o preview de links fica incorreto.**
+
+As variáveis `ADMIN_USERNAME` e `ADMIN_PASSWORD` protegem `/admin`, suas seções internas e APIs administrativas com autenticação HTTP básica. Troque a senha antes de publicar o painel em produção.
 
 ## Scripts
 
@@ -42,6 +46,10 @@ Essa variável alimenta `metadataBase`, sitemap, robots, Open Graph (WhatsApp) e
 | `/blog` | Listagem com filtros e paginação |
 | `/blog/[slug]` | Artigo |
 | `/contato` | Canais de atendimento |
+| `/admin` | Painel administrativo protegido |
+| `/admin/[section]` | Seções internas: identidade, home, criminal, áreas, equipe, blog, menus, mídia, SEO e publicação |
+| `/admin/api/content` | JSON atual do conteúdo do painel |
+| `/admin/api/validate` | Validação protegida de rascunhos |
 | `/aviso-legal` | Aviso legal |
 | `/politica-de-privacidade` | Privacidade |
 
@@ -70,6 +78,10 @@ src/
     articles.ts          # Posts do blog
     site-data.ts         # Conteúdo, contatos e imagens
     site-url.ts          # URL base do site
+    admin-seed.ts        # Dados iniciais do painel
+    admin-sections.ts    # Rotas/seções administrativas
+    admin-validation.ts  # Regras de validação do rascunho admin
+  proxy.ts               # Proteção da rota administrativa
 ```
 
 ## Deploy na Hostinger
@@ -86,4 +98,6 @@ src/
 
 - [ ] `.env.local` **não** vai para o repositório (já ignorado)
 - [ ] `NEXT_PUBLIC_SITE_URL` configurada no painel da Hostinger
+- [ ] `ADMIN_USERNAME` e `ADMIN_PASSWORD` configurados no painel da Hostinger
+- [ ] Rascunhos do painel revisados/exportados antes de aplicar no conteúdo público
 - [ ] `npm run lint` e `npm run build` sem erros

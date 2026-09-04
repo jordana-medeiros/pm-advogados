@@ -122,7 +122,7 @@ export default function Home() {
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-brand font-bold select-none" aria-hidden="true">—</span>
-                  <span>Atuação em Minas Gerais, Goiás e em todo território nacional</span>
+                  <span>Atuação em Minas Gerais, Goiás e em todo o território nacional</span>
                 </li>
               </ul>
             </div>
@@ -277,7 +277,7 @@ export default function Home() {
                   <Link
                     key={area.name}
                     href={criminalLandingHref}
-                    className={`${rowClassName} block hover:bg-white/[0.04] hover:border-brand/15`}
+                    className={`${rowClassName} hover:bg-white/[0.04] hover:border-brand/15`}
                   >
                     {rowContent}
                   </Link>
@@ -317,7 +317,8 @@ export default function Home() {
                 rel={externalLinkRel}
                 className="btn-primary inline-flex"
               >
-                {criminalHighlightIntro.cta}
+                <span className="sm:hidden">Atendimento criminal imediato</span>
+                <span className="hidden sm:inline">{criminalHighlightIntro.cta}</span>
               </a>
               <Link href={criminalLandingHref} className="btn-ghost inline-flex">
                 Página de urgência criminal

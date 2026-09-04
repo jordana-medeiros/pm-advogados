@@ -115,7 +115,7 @@ export const practiceAreas = [
   {
     name: "Direito Previdenciário",
     summary:
-      "Aposentadoria, Auxílio Doença, Auxílio Reclusão, BPC Loas e revisão de benefícios",
+      "Aposentadoria, auxílio-doença, auxílio-reclusão, BPC/LOAS e revisão de benefícios.",
   },
   {
     name: "Direito de Família e Sucessões",
@@ -293,7 +293,7 @@ export const whenSeekItems = [
 
 export const faqItems = [
   {
-    question: "Porque escolher o escritório Pereira e Medeiros?",
+    question: "Por que escolher o escritório Pereira e Medeiros?",
     answer:
       "Atendimento direto com advogado, transparência processual, estratégia especializada, atualização constante ao cliente e atuação presencial e digital.",
   },
