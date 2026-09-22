@@ -1,15 +1,13 @@
 export const siteName = "Pereira e Medeiros Advogados Associados";
 
-const whatsappMessage = encodeURIComponent(
-  "Olá, preciso falar com o escritório Pereira e Medeiros.",
-);
+const campaignContactHref = "https://cpi.dmadigitall.com.br//t/46AEA546";
 
 export const whatsappPrimary = "(34) 99961-8485";
 export const whatsappSecondary = "(34) 99665-2334";
 export const telPrimaryHref = "tel:+5534999618485";
 export const telSecondaryHref = "tel:+5534996652334";
-export const contactHref = `https://wa.me/5534999618485?text=${whatsappMessage}`;
-export const contactHrefSecondary = `https://wa.me/5534996652334?text=${whatsappMessage}`;
+export const contactHref = campaignContactHref;
+export const contactHrefSecondary = campaignContactHref;
 export const externalLinkRel = "noopener noreferrer";
 
 export const whatsappPromptMessages = [
@@ -18,18 +16,11 @@ export const whatsappPromptMessages = [
   "Atendimento rápido pelo WhatsApp.",
 ] as const;
 
-export function buildAreaContactHref(area: string) {
-  const message = encodeURIComponent(
-    `Olá, preciso de orientação jurídica na área de ${area}.`,
-  );
-  return `https://wa.me/5534999618485?text=${message}`;
+export function buildAreaContactHref(_area: string) {
+  return campaignContactHref;
 }
 
-const criminalWhatsappMessage = encodeURIComponent(
-  "Olá, preciso de atendimento criminal de urgência. Preciso falar com um advogado criminalista agora.",
-);
-
-export const criminalContactHref = `https://wa.me/5534999618485?text=${criminalWhatsappMessage}`;
+export const criminalContactHref = campaignContactHref;
 export const criminalLandingHref = "/criminal";
 
 export type NavItem = {

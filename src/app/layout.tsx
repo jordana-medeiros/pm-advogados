@@ -21,7 +21,7 @@ const cormorant = Cormorant_Garamond({
 
 const siteUrl = getSiteUrl();
 
-const googleTagManagerId = "GTM-MMVH2656";
+const googleTagManagerId = "GTM-WD7KLQRM";
 
 const googleTagManagerScript = `
   (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
