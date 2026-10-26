@@ -84,20 +84,24 @@ src/
   proxy.ts               # Proteção da rota administrativa
 ```
 
-## Deploy na Hostinger
+## Deploy na Vercel
 
-1. Conecte o repositório GitHub (`whigneiv/pm-advocacia`) ao painel da Hostinger.
-2. Defina a variável de ambiente:
+1. Repositório GitHub: [`jordana-medeiros/pm-advogados`](https://github.com/jordana-medeiros/pm-advogados).
+2. No [painel Vercel](https://vercel.com/dashboard), conecte esse repositório (Import Git Repository ou troque o Git em **Project → Settings → Git**).
+3. Defina as variáveis de ambiente (Production):
    ```
    NEXT_PUBLIC_SITE_URL=https://pereiraemedeirosadvogados.com.br
+   ADMIN_USERNAME=...
+   ADMIN_PASSWORD=...
    ```
-3. O build roda `npm run build`; a Hostinger serve o output do Next.js.
-4. Após publicar, valide o preview de links no [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/) (WhatsApp usa o mesmo cache).
+4. Build: `npm run build` (padrão Next.js na Vercel).
+5. Domínios: adicione `pereiraemedeirosadvogados.com.br` e `www` no projeto; configure DNS no Registro.br conforme a Vercel indicar.
+6. Após publicar, valide o preview de links no [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/) (WhatsApp usa o mesmo cache).
 
 ## Checklist antes do push
 
 - [ ] `.env.local` **não** vai para o repositório (já ignorado)
-- [ ] `NEXT_PUBLIC_SITE_URL` configurada no painel da Hostinger
-- [ ] `ADMIN_USERNAME` e `ADMIN_PASSWORD` configurados no painel da Hostinger
+- [ ] `NEXT_PUBLIC_SITE_URL` configurada na Vercel
+- [ ] `ADMIN_USERNAME` e `ADMIN_PASSWORD` configurados na Vercel
 - [ ] Rascunhos do painel revisados/exportados antes de aplicar no conteúdo público
 - [ ] `npm run lint` e `npm run build` sem erros
